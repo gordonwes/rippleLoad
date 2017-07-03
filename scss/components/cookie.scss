@@ -1,0 +1,38 @@
+/*////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////// COOKIE //////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////*/
+
+#informativa_cookie{
+    display: none;
+    width: 100%;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #fff;
+    padding: $normal_pad 0;
+    padding-bottom: 0;
+    transform: none;
+    z-index: 9;
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    #contenitore_testo_cookie{
+        display: inline-block;   
+        text-transform: uppercase;
+        padding-right: $normal_pad;
+        padding-bottom: $normal_pad;
+    }
+    #contenitore_bottone_cookie{
+        display: inline-block;
+        padding-bottom: $normal_pad;
+        a{
+            font-weight: $bold;
+            &#ok_cookie{
+                margin-right: $normal_pad / 2;
+            }
+        }
+    }
+    p, a{
+        font-size: 1.4rem;
+        line-height: 1.5;
+    }
+}

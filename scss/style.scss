@@ -1,0 +1,14 @@
+/* Scss Document */
+
+@import 'var';
+@import 'components/reset';
+@import 'components/general';
+@import 'components/pace';
+@import 'components/nav';
+
+@import 'pages/home';
+@import 'pages/prova';
+
+// @import '../node_modules/flickity/dist/flickity.min.css';
+@import 'components/cookie';
+@import 'components/mediaquerys';

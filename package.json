@@ -1,0 +1,27 @@
+{
+    "name": "Vue_template_01",
+    "version": "0.0.1",
+    "description": "A base template with Vue.js",
+    "author": "Alberto Gorgonio <agorgonio@atklab.com>",
+    "devDependencies": {
+        "grunt": "latest",
+        "grunt-autoprefixer": "latest",
+        "grunt-contrib-concat": "latest",
+        "grunt-contrib-copy": "latest",
+        "grunt-contrib-sass": "latest",
+        "grunt-contrib-cssmin": "latest",
+        "grunt-contrib-imagemin": "latest",
+        "grunt-contrib-uglify": "latest",
+        "grunt-contrib-watch": "latest",
+        "load-grunt-tasks": "latest"
+    },
+    "dependencies": {
+        "animejs": "latest",
+        "js-cookie": "latest",
+        "flickity": "latest",
+        "imagesloaded": "latest",
+        "barba.js": "latest",
+        "pace-js": "latest"
+    },
+    "private": "true"
+}
