@@ -1,7 +1,7 @@
 <!-- General Var -->
 <?php
 
-$baseUrl = 'http://localhost:8888/vue';
+$baseUrl = 'http://localhost:8888/rippleLoad';
 $siteName = 'Prova';
 $nameCookie = 'prova_cookie';
 $mainColor = '#ccc';

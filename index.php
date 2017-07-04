@@ -2,14 +2,13 @@
 
 // Require composer autoloader
 require __DIR__ . '/vendor/autoload.php';
-$baseUrl = 'http://localhost:8888/vue';
+$baseUrl = 'http://localhost:8888/rippleLoad';
 
 // New Slim app instance
 $app = new Slim\App([
     // settings
     'settings' => [
-        'displayErrorDetails' => true,
-        'view_path' => __DIR__ . '/app/'
+        'displayErrorDetails' => true
     ]
 ]);
 

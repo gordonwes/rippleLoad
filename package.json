@@ -1,7 +1,7 @@
 {
-    "name": "Vue_template_01",
+    "name": "Prova",
     "version": "0.0.1",
-    "description": "A base template with Vue.js",
+    "description": "Lorem ipsum",
     "author": "Alberto Gorgonio <agorgonio@atklab.com>",
     "devDependencies": {
         "grunt": "latest",
@@ -22,6 +22,9 @@
         "imagesloaded": "latest",
         "barba.js": "latest",
         "pace-js": "latest"
+    },
+    "scripts": {
+        "start": "npm install && php composer.phar install"
     },
     "private": "true"
 }
