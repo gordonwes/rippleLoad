@@ -5,6 +5,7 @@ var cW;
 var bgColor = "#FFBE53";
 var animations = [];
 var circles = [];
+var isDeviceFast = true;
 
 var colorPicker = (function() {
     var colors = ["#FFBE53", "#FF6138", "#2980B9", "#35bf5a"];
@@ -111,9 +112,14 @@ var animate = anime({
 var resizeCanvas = function() {
     cW = docWidth;
     cH = docHeight;
-    colorChange.width = cW * devicePixelRatio;
-    colorChange.height = cH * devicePixelRatio;
-    ctx.scale(devicePixelRatio, devicePixelRatio);
+    if (isDeviceFast) {
+        colorChange.width = cW * devicePixelRatio;
+        colorChange.height = cH * devicePixelRatio;
+        ctx.scale(devicePixelRatio, devicePixelRatio);
+    } else {
+        colorChange.width = cW;
+        colorChange.height = cH;
+    }
 };
 
 (function init() {
