@@ -22,9 +22,10 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
         <main id="barba-wrapper">
             <div class="wrapper barba-container" data-namespace="<?= strtolower($pageTitle) ?>">
 
-                <div class="container_text">
-                    <h1>PROVA</h1>
+                <div id="container_text_typed">
+                    <h1>Questa è la pagina Prova</h1>
                 </div>
+                <h1 class="text_typed"></h1>
 
             </div>
         </main>

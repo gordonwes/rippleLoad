@@ -21,6 +21,7 @@
         "flickity": "latest",
         "imagesloaded": "latest",
         "barba.js": "latest",
+        "typed.js": "latest",
         "pace-js": "latest"
     },
     "scripts": {
