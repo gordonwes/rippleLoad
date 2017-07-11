@@ -13,7 +13,7 @@ module.exports = function (grunt) {
                     'node_modules/animejs/anime.min.js',
                     'node_modules/js-cookie/src/js.cookie.js',
                     'node_modules/pace-js/pace.min.js',
-                    'node_modules/typed.js/lib/typed.min.js',
+                    'node_modules/parallax-js/deploy/parallax.min.js',
                     // 'node_modules/imagesloaded/imagesloaded.pkgd.min.js',
                     // 'node_modules/flickity/dist/flickity.pkgd.min.js',
                     'js/pages/*.js',
@@ -73,7 +73,30 @@ module.exports = function (grunt) {
                 }]
             }
         },
+        htmlmin: {
+            dist: {
+                options: {
+                    removeComments: true,
+                    collapseWhitespace: true,
+                    ignoreCustomFragments: [ /<%[\s\S]*?%>/, /<\?[\s\S]*?(\?>|$)/ ],
+                    html5: true
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'src/',
+                    src: ['**/*.php', '*.php'],
+                    dest: 'app'
+                }]
+            }
+        },
         watch: {
+            html: {
+                files: ['src/*.php', 'src/fragments/*.php'],
+                tasks: ['sass'],
+                options: {
+                    spawn: false
+                }
+            },
             scripts: {
                 files: ['js/*.js', 'js/components/*.js', 'js/pages/*.js'],
                 tasks: ['concat', 'uglify'],
@@ -97,8 +120,8 @@ module.exports = function (grunt) {
     });
 
     // 4. Where we tell Grunt what to do when we type "grunt" into the terminal.
-    grunt.registerTask('build', ['concat', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'imagemin']);
-    grunt.registerTask('dev', ['concat', 'sass', 'autoprefixer']);
+    grunt.registerTask('build', ['concat', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'imagemin', 'htmlmin']);
+    grunt.registerTask('dev', ['concat', 'sass', 'autoprefixer', 'htmlmin']);
     grunt.registerTask('default', ['dev', 'watch']);
 
 };

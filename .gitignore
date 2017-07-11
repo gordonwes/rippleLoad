@@ -5,3 +5,4 @@ composer.lock
 css/style.min.css
 css/style.css.map
 js/build/
+app/*

@@ -8,23 +8,31 @@ $baseUrl = 'http://localhost:8888/rippleLoad';
 $app = new Slim\App([
     // settings
     'settings' => [
-        'displayErrorDetails' => true
+        'displayErrorDetails' => true,
+        'renderer' => [
+            'template_path' => __DIR__ . '/app/',
+        ]
     ]
 ]);
 
-// Fetch DI Container
+
 $container = $app->getContainer();
+// view renderer
+$container['renderer'] = function ($c) {
+    $settings = $c->get('settings')['renderer'];
+    return new Slim\Views\PhpRenderer($settings['template_path']);
+};
 
 // Define named route
 
 $app->get('/', function ($request, $response, $args) {
-    $response = $response->withRedirect("app/index.php");
+    $response = $this->renderer->render($response, 'index.php', $args);
     return $response;
 })->setName('homepage');
 
-$app->get('/prova', function ($request, $response, $args) {
-    $response = $response->withRedirect("app/prova.php");
+$app->get('/chi-sono', function ($request, $response, $args) {
+    $response = $this->renderer->render($response, 'chi-sono.php', $args);
     return $response;
-})->setName('prova');
+})->setName('chi-sono');
 
 $app->run();

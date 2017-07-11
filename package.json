@@ -11,6 +11,7 @@
         "grunt-contrib-sass": "latest",
         "grunt-contrib-cssmin": "latest",
         "grunt-contrib-imagemin": "latest",
+        "grunt-contrib-htmlmin": "latest",
         "grunt-contrib-uglify": "latest",
         "grunt-contrib-watch": "latest",
         "load-grunt-tasks": "latest"
@@ -21,8 +22,8 @@
         "flickity": "latest",
         "imagesloaded": "latest",
         "barba.js": "latest",
-        "typed.js": "latest",
-        "pace-js": "latest"
+        "pace-js": "latest",
+        "parallax-js": "latest"
     },
     "scripts": {
         "start": "npm install && php composer.phar install"

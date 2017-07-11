@@ -1,4 +1,5 @@
- <?php
+<!-- General Var -->
+<?php
 
 $baseUrl = 'http://localhost:8888/rippleLoad';
 $siteName = 'Prova';
