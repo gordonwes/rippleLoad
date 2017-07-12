@@ -2,8 +2,8 @@
 
     <nav>
         <ul>
-            <li><a href="<?= $baseUrl ?>/">HOME</a></li>
-            <li><a href="<?= $baseUrl ?>/chi-sono">CHI SONO</a></li>
+            <li><a href="<?= $baseUrl ?>/">CONTACT</a></li>
+            <li><a href="<?= $baseUrl ?>/projects">PROJECTS</a></li>
         </ul>
     </nav>
     

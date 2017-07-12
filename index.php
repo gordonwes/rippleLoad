@@ -26,13 +26,13 @@ $container['renderer'] = function ($c) {
 // Define named route
 
 $app->get('/', function ($request, $response, $args) {
-    $response = $this->renderer->render($response, 'index.php', $args);
+    $response = $this->renderer->render($response, 'contact.php', $args);
     return $response;
-})->setName('homepage');
+})->setName('contact');
 
-$app->get('/chi-sono', function ($request, $response, $args) {
-    $response = $this->renderer->render($response, 'chi-sono.php', $args);
+$app->get('/projects', function ($request, $response, $args) {
+    $response = $this->renderer->render($response, 'projects.php', $args);
     return $response;
-})->setName('chi-sono');
+})->setName('projects');
 
 $app->run();

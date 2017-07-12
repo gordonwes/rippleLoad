@@ -1,6 +1,6 @@
 <?php
 require '_var.php'; 
-$pageTitle = 'Chi Sono';
+$pageTitle = 'Contact';
 $pageDesc = 'Lorem ipsum dolor sit amed';
 ?>
 
@@ -20,15 +20,15 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
         <?php include_once 'fragments/header.php'; ?>
 
         <main id="barba-wrapper">
-            <div class="wrapper barba-container" data-namespace="<?= str_replace(' ', '', strtolower($pageTitle)); ?>">
+            <div class="wrapper barba-container" data-namespace="<?= strtolower($pageTitle); ?>">
 
-                <div class="vertical_align">
-                    <div class="layer" data-depth="0.05">
+                <section class="vertical_align">
+                    <div class="container_intro">
                         <h1>Alberto Gorgonio</h1>
                         <h2>web developer</h2>
                         <a href='mail&#116;o&#58;gorgo&#37;6Eioal&#98;&#37;65rt&#111;&#64;&#37;67&#37;6D&#97;&#105;&#37;6C&#46;&#37;&#54;3om'>gorgonioalberto[at]gmail.com</a>
                     </div>
-                </div>
+                </section>
 
             </div>
         </main>
