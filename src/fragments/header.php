@@ -1,6 +1,6 @@
 <header>
 
-    <nav>
+    <nav class="wrapper">
         <ul>
             <li><a href="<?= $baseUrl ?>/">CONTACT</a></li>
             <li><a href="<?= $baseUrl ?>/projects">PROJECTS</a></li>

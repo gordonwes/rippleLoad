@@ -9,12 +9,12 @@ html {
 body{
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
 
 body, html, main{
     height: 100%;
+    overflow: hidden;
 }
 
 .clear{
