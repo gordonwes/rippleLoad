@@ -14,6 +14,21 @@
     }
 }
 
+@media screen and (max-width:900px) {
+    .barba-container[data-namespace="projects"]{
+        .vertical_align{
+            .container_fn_project{
+                .container_projects{
+                    .project{
+                        width: calc(50% - 3rem);
+                        height: 16rem;
+                    }
+                }   
+            }
+        }  
+    } 
+}
+
 @media screen and (max-width:560px) {
     html{
         font-size: 8px; 
@@ -24,4 +39,17 @@
     html{
         font-size: 7px; 
     }
+    .barba-container[data-namespace="projects"]{
+        .vertical_align{
+            .container_fn_project{
+                .container_projects{
+                    .project{
+                        width: calc(100% - 3rem);
+                        height: 16rem;
+                    }
+                }   
+            }
+        }  
+    } 
+
 }

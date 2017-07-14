@@ -1,4 +1,4 @@
-<article class="project" data-tag="[graphic, website]">
+<article class="project graphic">
     <div class="container_img"></div>
     <div class="container_txt">
         <h2>Lorem Ipsum</h2>
@@ -6,7 +6,7 @@
     </div>
 </article>
 
-<article class="project" data-tag="[graphic, native]">
+<article class="project native">
     <div class="container_img"></div>
     <div class="container_txt">
         <h2>Lorem Ipsum</h2>
@@ -14,7 +14,7 @@
     </div>
 </article>
 
-<article class="project" data-tag="[native]">
+<article class="project native">
     <div class="container_img"></div>
     <div class="container_txt">
         <h2>Lorem Ipsum</h2>
@@ -22,7 +22,7 @@
     </div>
 </article>
 
-<article class="project" data-tag="[graphic]">
+<article class="project graphic">
     <div class="container_img"></div>
     <div class="container_txt">
         <h2>Lorem Ipsum</h2>
@@ -30,7 +30,7 @@
     </div>
 </article>
 
-<article class="project" data-tag="[website]">
+<article class="project website">
     <div class="container_img"></div>
     <div class="container_txt">
         <h2>Lorem Ipsum</h2>
@@ -38,7 +38,7 @@
     </div>
 </article>
 
-<article class="project" data-tag="[website]">
+<article class="project website">
     <div class="container_img"></div>
     <div class="container_txt">
         <h2>Lorem Ipsum</h2>
@@ -46,7 +46,7 @@
     </div>
 </article>
 
-<article class="project" data-tag="[native]">
+<article class="project native">
     <div class="container_img"></div>
     <div class="container_txt">
         <h2>Lorem Ipsum</h2>
@@ -54,7 +54,7 @@
     </div>
 </article>
 
-<article class="project" data-tag="[graphic]">
+<article class="project graphic">
     <div class="container_img"></div>
     <div class="container_txt">
         <h2>Lorem Ipsum</h2>

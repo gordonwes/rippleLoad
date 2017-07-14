@@ -17,8 +17,21 @@
             .filters{
                 margin-top: 3rem;
                 button{
+                    appearance: none;
+                    -webkit-appearance: none;
+                    background-color: rgba(255,255,255,0.4);
+                    color: #5d5d5d;
+                    border: none;
+                    padding: 1rem 2rem;
+                    font-size: 1.4rem;
+                    text-transform: uppercase;
+                    margin: 0 0.5rem;
+                    font-weight: 500;
+                    border: 2px solid #fff;
+                    transition: all 0.2s;
+                    cursor: pointer;
                     &.is_checked{
-                        background-color: #000;
+                        background-color: #fff;
                     }
                 }
             }
@@ -47,13 +60,11 @@
                     .container_txt{
 
                     }
-                    &.hidden{
-                        display: none;
-                    }
-                    &.filtered{
+                    &.is_filtered{
                         display: block !important;
                     }
-                    &.visible_block{
+                    &.is_hidden{
+                        display: none;
                         opacity: 1 !important;
                         transform: none !important;
                     }
