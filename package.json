@@ -21,9 +21,11 @@
         "js-cookie": "latest",
         "flickity": "latest",
         "imagesloaded": "latest",
+        "infinite-scroll": "latest",
+        "masonry-layout": "latest",
+        "isotope-layout": "latest",
         "barba.js": "latest",
-        "pace-js": "latest",
-        "parallax-js": "latest"
+        "pace-js": "latest"
     },
     "scripts": {
         "start": "npm install && php composer.phar install"

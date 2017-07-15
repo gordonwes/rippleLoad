@@ -38,7 +38,7 @@ body, html, main{
 .wrapper{
     max-width: $max_width;
     margin: 0 auto;
-    padding: 0 $normal_pad;
+    padding: 0 3rem;
 }
 
 a{
@@ -75,7 +75,7 @@ img, svg{
 }
 
 canvas{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: -1;

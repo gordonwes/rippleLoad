@@ -13,10 +13,11 @@ module.exports = function (grunt) {
                     'node_modules/animejs/anime.min.js',
                     'node_modules/js-cookie/src/js.cookie.js',
                     'node_modules/pace-js/pace.min.js',
-                    'node_modules/parallax-js/deploy/parallax.min.js',
-                    // 'node_modules/imagesloaded/imagesloaded.pkgd.min.js',
+                    //'node_modules/masonry-layout/dist/masonry.pkgd.min.js',
+                    //'node_modules/imagesloaded/imagesloaded.pkgd.min.js',
+                    'node_modules/infinite-scroll/dist/infinite-scroll.pkgd.min.js',
+                    //'node_modules/isotope-layout/dist/isotope.pkgd.min.js',
                     // 'node_modules/flickity/dist/flickity.pkgd.min.js',
-                    'js/pages/*.js',
                     'js/components/*.js',
                     'js/app.js'
                 ],
@@ -91,14 +92,14 @@ module.exports = function (grunt) {
         },
         watch: {
             html: {
-                files: ['src/*.php', 'src/fragments/*.php'],
+                files: ['src/*.php', 'src/fragments/*.php', 'src/projects/*.php'],
                 tasks: ['sass'],
                 options: {
                     spawn: false
                 }
             },
             scripts: {
-                files: ['js/*.js', 'js/components/*.js', 'js/pages/*.js'],
+                files: ['js/*.js', 'js/components/*.js'],
                 tasks: ['concat', 'uglify'],
                 options: {
                     spawn: false

@@ -18,7 +18,7 @@ function initBarba() {
             var fadeOutPage = anime({
                 targets: _this.oldContainer,
                 opacity: ['1', '0'],
-                duration: 200,
+                duration: 150,
                 easing: 'easeInOutQuad',
                 complete: function() {
                     deferred.resolve();

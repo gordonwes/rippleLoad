@@ -10,7 +10,7 @@
     bottom: 0;
     left: 0;
     background-color: #fff;
-    padding: $normal_pad 0;
+    padding: 3rem 0;
     padding-bottom: 0;
     transform: none;
     z-index: 9;
@@ -18,16 +18,16 @@
     #contenitore_testo_cookie{
         display: inline-block;   
         text-transform: uppercase;
-        padding-right: $normal_pad;
-        padding-bottom: $normal_pad;
+        padding-right: 3rem;
+        padding-bottom: 3rem;
     }
     #contenitore_bottone_cookie{
         display: inline-block;
-        padding-bottom: $normal_pad;
+        padding-bottom: 3rem;
         a{
             font-weight: $bold;
             &#ok_cookie{
-                margin-right: $normal_pad / 2;
+                margin-right: 1.5rem;
             }
         }
     }

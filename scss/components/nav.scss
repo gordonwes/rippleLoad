@@ -5,11 +5,12 @@
 header{
     position: fixed;
     width: 100%;
-    top: 3rem;
+    top: 0;
     left: 0;
+    padding: 1.5rem 0 2rem 0;
     z-index: 3;
+    background-color: #fff;
     nav{
-        text-align: center;
         li{
             display: inline-block;
             margin: 0 1.5rem;
@@ -17,10 +18,13 @@ header{
                 padding: 1.5rem 0;
                 padding-bottom: 0.5rem;
                 font-size: 2rem;
-                color: #fff;
+                color: #5d5d5d;
                 &.is_active{
-                    border-bottom: 2px solid #fff;
+                    border-bottom: 2px solid #999;
                 }
+            }
+            &:first-of-type{
+                margin-left: 0;
             }
         }
     }
