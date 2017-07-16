@@ -17,7 +17,12 @@ function initPages(page) {
         setTimeout(function() {
 
             infProject = new InfiniteScroll(projectsContainer, {
-                path: './app/projects/projects_list_0{{#}}.php',
+                path: function() {
+                    if (this.loadCount < projectPage) {
+                        var nextIndex = this.loadCount + 2;
+                        return './app/projects/projects_list_0' + nextIndex + '.php';
+                    }
+                },
                 append: '.project',
                 elementScroll: scrollArea,
                 prefill: true,
@@ -102,7 +107,7 @@ function initPages(page) {
             clearInterval(loadAll);
 
             var updateProject = page.querySelectorAll('.project');
-            
+
             if (filterValue !== '*') {
 
                 forEach(updateProject, function (index, elem) {
@@ -138,11 +143,10 @@ function initPages(page) {
         function preloadAllPages(filterValue) {
 
             loadAll = setInterval(function(){
-                if (infProject.loadCount !== 2) {
+                if (infProject.loadCount !== projectPage) {
                     infProject.loadNextPage();
                 } else {
                     filterProject(filterValue);
-                    console.log('andato');
                 }
             }, 50);
 

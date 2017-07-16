@@ -3,13 +3,9 @@
 ////////////////////////////////////////////////////////////////////////////////*/
 
 .pace {
-    -webkit-pointer-events: none;
     pointer-events: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
     user-select: none;
     transition: transform 0.2s, visibility 0.2s 0s;
-    height: 3px;
     width: 100%;
     .pace-progress {
         background: #fff;
