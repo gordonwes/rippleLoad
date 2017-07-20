@@ -47,7 +47,7 @@
 
 <style type="text/css">
     header nav a{
-        border-bottom-color: <?php echo $colorsBkg[0] ?>;
+        border-bottom-color: <?= $mainColor ?>;
     }
 </style>
 

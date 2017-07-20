@@ -13,8 +13,9 @@
 </div>
 
 <script>
-    var nameCookie = '<?= $nameCookie ?>';
+    var nameCookie = '<?= str_replace(' ', '_', strtolower($siteName)) ?>_cookie';
     var colors = <?= json_encode($colorsBkg) ?>;
+    var firstColor = '<?= $mainColor ?>';
     var projectPage = <?php $fi = new FilesystemIterator(__DIR__ . '/../projects/', FilesystemIterator::SKIP_DOTS);
     printf("%d", iterator_count($fi) - 1); ?>;
 </script>

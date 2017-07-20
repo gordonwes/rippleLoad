@@ -2,19 +2,24 @@ var colorChange = document.getElementById("color_change");
 var ctx = colorChange.getContext("2d");
 var cH;
 var cW;
-var bgColor = "#FFBE53";
 var animations = [];
 var circles = [];
-var currentColor, nextColor;
+var currentColor, nextColor, indexColor;
 
 var colorPicker = (function() {
-    var index = 0;
+
+    forEach(colors, function (index, elem) {
+        if (elem === firstColor) {
+             indexColor = index;
+        }
+    });
+
     function next() {
-        index = index++ < colors.length-1 ? index : 0;
-        return colors[index];
+        indexColor = indexColor++ < colors.length-1 ? indexColor : 0;
+        return colors[indexColor];
     }
     function current() {
-        return colors[index]
+        return colors[indexColor]
     }
     return {
         next: next,
@@ -56,7 +61,7 @@ function handleEvent(e) {
         duration:  Math.max(targetR / 2 , minCoverDuration ),
         easing: "easeOutQuart",
         complete: function(){
-            bgColor = pageFill.fill;
+            firstColor = pageFill.fill;
             removeAnimation(fillAnimation);
         }
     });
@@ -98,7 +103,7 @@ Circle.prototype.draw = function() {
 var animate = anime({
     duration: Infinity,
     update: function() {
-        ctx.fillStyle = bgColor;
+        ctx.fillStyle = firstColor;
         ctx.fillRect(0, 0, cW, cH);
         animations.forEach(function(anim) {
             anim.animatables.forEach(function(animatable) {
