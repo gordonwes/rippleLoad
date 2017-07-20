@@ -143,30 +143,19 @@ function initPages(page) {
 
         function preloadAllPages(filterValue) {
 
-<<<<<<< HEAD
             if (!projectsLoaded) {
                 loadAll = setInterval(function(){
-                    if (infProject.loadCount !== 2) {
+                    if (infProject.loadCount !== projectPage) {
                         projectsLoaded = false;
                         infProject.loadNextPage();
                     } else {
                         filterProject(filterValue);
                         projectsLoaded = true;
-                        console.log('andato');
                     }
                 }, 50);
             } else {
                 filterProject(filterValue);
             }
-=======
-            loadAll = setInterval(function(){
-                if (infProject.loadCount !== projectPage) {
-                    infProject.loadNextPage();
-                } else {
-                    filterProject(filterValue);
-                }
-            }, 50);
->>>>>>> f9a375bfacac590827a624311bc52906e3086a53
 
         }
 
