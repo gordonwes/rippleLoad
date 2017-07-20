@@ -14,6 +14,8 @@
 
 <script>
     var nameCookie = '<?= $nameCookie ?>';
+    var projectPage = <?php $fi = new FilesystemIterator(__DIR__ . '/../projects/', FilesystemIterator::SKIP_DOTS);
+    printf("%d", iterator_count($fi) - 1); ?>;
 </script>
 
 <script src="<?= $baseUrl ?>/js/build/production<?php if ($isDev !== 'true') echo '.min' ?>.js"></script>
@@ -21,17 +23,17 @@
 <!--<script type="application/ld+json">
 { 
 "@context" : "http://schema.org",
-  "@type" : "Organization",
-  "name": "Bontà Viva",
-  "url" : "<?= $baseUrl ?>",
-  "logo" : "<?= $baseUrl ?>/images/logo.png",
-  "email": "info(at)bonta-viva.it",
-  "telephone": "+39800910290",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Borso del Grappa, Treviso, Italy",
-    "postalCode": "31030",
-    "streetAddress": "Via Molinetto, 76"
-  }
-  }
+"@type" : "Organization",
+"name": "Bontà Viva",
+"url" : "<?= $baseUrl ?>",
+"logo" : "<?= $baseUrl ?>/images/logo.png",
+"email": "info(at)bonta-viva.it",
+"telephone": "+39800910290",
+"address": {
+"@type": "PostalAddress",
+"addressLocality": "Borso del Grappa, Treviso, Italy",
+"postalCode": "31030",
+"streetAddress": "Via Molinetto, 76"
+}
+}
 </script>-->

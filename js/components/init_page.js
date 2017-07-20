@@ -18,7 +18,12 @@ function initPages(page) {
         setTimeout(function() {
 
             infProject = new InfiniteScroll(projectsContainer, {
-                path: './app/projects/projects_list_0{{#}}.php',
+                path: function() {
+                    if (this.loadCount < projectPage) {
+                        var nextIndex = this.loadCount + 2;
+                        return './app/projects/projects_list_0' + nextIndex + '.php';
+                    }
+                },
                 append: '.project',
                 elementScroll: scrollArea,
                 prefill: true,
@@ -138,6 +143,7 @@ function initPages(page) {
 
         function preloadAllPages(filterValue) {
 
+<<<<<<< HEAD
             if (!projectsLoaded) {
                 loadAll = setInterval(function(){
                     if (infProject.loadCount !== 2) {
@@ -152,6 +158,15 @@ function initPages(page) {
             } else {
                 filterProject(filterValue);
             }
+=======
+            loadAll = setInterval(function(){
+                if (infProject.loadCount !== projectPage) {
+                    infProject.loadNextPage();
+                } else {
+                    filterProject(filterValue);
+                }
+            }, 50);
+>>>>>>> f9a375bfacac590827a624311bc52906e3086a53
 
         }
 

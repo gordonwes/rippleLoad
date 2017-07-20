@@ -2,7 +2,7 @@ vendor/
 node_modules/
 .sass-cache/
 composer.lock
-css/style.min.css
-css/style.css.map
+package-lock
+css/
 js/build/
-app/*
+app/
