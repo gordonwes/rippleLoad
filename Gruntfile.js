@@ -93,9 +93,12 @@ module.exports = function (grunt) {
         watch: {
             html: {
                 files: ['src/*.php', 'src/fragments/*.php', 'src/projects/*.php'],
-                tasks: ['sass'],
-                options: {
-                    spawn: false
+                tasks: ['htmlmin'],
+                 options: {
+                    removeComments: true,
+                    collapseWhitespace: true,
+                    ignoreCustomFragments: [ /<%[\s\S]*?%>/, /<\?[\s\S]*?(\?>|$)/ ],
+                    html5: true
                 }
             },
             scripts: {

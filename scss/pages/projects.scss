@@ -15,23 +15,34 @@
         .container_fn_project{
             padding: 0 1.5rem;
             .filters{
-                margin-top: 3rem;
+                margin-top: 2rem;
+                text-align: left;
+                padding: 0 1.5rem;
+                margin-left: 7px;
                 button{
                     appearance: none;
                     -webkit-appearance: none;
-                    background-color: rgba(255,255,255,0.4);
-                    color: #5d5d5d;
+                    background-color: transparent;
+                    color: #fff;
                     border: none;
-                    padding: 1rem 2rem;
-                    font-size: 1.4rem;
+                    padding: 0;
+                    padding-bottom: 0.6rem;
+                    font-size: 1.5rem;
                     text-transform: uppercase;
-                    margin: 0 0.5rem;
+                    margin: 1rem 0;
+                    margin-right: 3rem;
                     font-weight: 500;
-                    border: 2px solid #fff;
-                    transition: all 0.2s;
                     cursor: pointer;
+                    outline: none;
                     &.is_checked{
-                        background-color: #fff;
+                        border-bottom: 2px solid #fff;
+                    }
+                    &:last-of-type{
+                        margin-right: 0;
+                    }
+                    &:selection{
+                        color: #fff;
+                        background: transparent;
                     }
                 }
             }
@@ -58,7 +69,18 @@
                         background-position: center;
                     }
                     .container_txt{
-
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        z-index: 2;
+                        h2{
+                            
+                        }
+                        p{
+                            
+                        }
                     }
                     &.is_filtered{
                         display: block !important;
@@ -73,14 +95,16 @@
             .projects_status{
                 display: none;
                 padding: 3rem 0;
-                border-top: 2px solid #fff;
-                text-align: center;
-                color: #fff;
-                width: calc(100% - 3rem);
                 margin-left: 1.5rem;
-                p{
+                text-align: left;
+                p, a{
                     color: #fff;
-                    font-size: 2rem;
+                    font-size: 1.5rem;
+                    text-transform: uppercase;
+                }
+                a{
+                    font-weight: 500;
+                    margin-left: 5px;
                 }
                 .loader-ellips {
                     font-size: 20px;

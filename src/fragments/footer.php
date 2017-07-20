@@ -14,6 +14,7 @@
 
 <script>
     var nameCookie = '<?= $nameCookie ?>';
+    var colors = <?= json_encode($colorsBkg) ?>;
     var projectPage = <?php $fi = new FilesystemIterator(__DIR__ . '/../projects/', FilesystemIterator::SKIP_DOTS);
     printf("%d", iterator_count($fi) - 1); ?>;
 </script>

@@ -84,3 +84,14 @@ function wordInString(s, word) {
 function capitalizeFirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+////// scroll to top //////////////
+
+function goTop(elemScroll) {
+     anime({
+        targets: document.querySelector(elemScroll),
+        scrollTop: 0,
+        duration: 600,
+        easing: 'easeInOutQuad'
+    });
+}

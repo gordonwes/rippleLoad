@@ -20,7 +20,8 @@ header{
                 font-size: 2rem;
                 color: #5d5d5d;
                 &.is_active{
-                    border-bottom: 2px solid #999;
+                    border-bottom-width: 2px;
+                    border-bottom-style: solid;
                 }
             }
             &:first-of-type{

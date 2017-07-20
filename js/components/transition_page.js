@@ -5,9 +5,9 @@ var cW;
 var bgColor = "#FFBE53";
 var animations = [];
 var circles = [];
+var currentColor, nextColor;
 
 var colorPicker = (function() {
-    var colors = ["#FFBE53", "#FF6138", "#2980B9", "#35bf5a"];
     var index = 0;
     function next() {
         index = index++ < colors.length-1 ? index : 0;
@@ -38,8 +38,8 @@ function handleEvent(e) {
         e.preventDefault();
         e = e.touches[0];
     }
-    var currentColor = colorPicker.current();
-    var nextColor = colorPicker.next();
+    currentColor = colorPicker.current();
+    nextColor = colorPicker.next();
     var targetR = calcPageFillRadius(e.pageX, e.pageY);
     var rippleSize = Math.min(200, (cW * .4));
     var minCoverDuration = 750;

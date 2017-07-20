@@ -241,7 +241,7 @@ function initBarba() {
             this.newContainer.style.visibility = 'visible';
             var _this = this;
             var fadeInPage = anime({
-                targets: this.newContainer, 
+                targets: this.newContainer,
                 opacity: ['0', '1'],
                 delay: 200,
                 duration: 400,
@@ -262,10 +262,13 @@ function initBarba() {
     Barba.Dispatcher.on('linkClicked', function(HTMLElement, MouseEvent) {
         setMenuVoice(HTMLElement);
         handleEvent(MouseEvent);
+        
+        HTMLElement.style.borderColor = nextColor;
+        
     });
 
     function setMenuVoice(triggerEvent) {
-        
+
         forEach(document.querySelectorAll('header nav a'), function (index, elem) {
             if (elem.classList.contains('is_active')) {
                 elem.classList.remove('is_active');
@@ -394,6 +397,17 @@ function wordInString(s, word) {
 
 function capitalizeFirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+////// scroll to top //////////////
+
+function goTop(elemScroll) {
+     anime({
+        targets: document.querySelector(elemScroll),
+        scrollTop: 0,
+        duration: 600,
+        easing: 'easeInOutQuad'
+    });
 }
 function initPages(page) {
 
@@ -566,9 +580,9 @@ var cW;
 var bgColor = "#FFBE53";
 var animations = [];
 var circles = [];
+var currentColor, nextColor;
 
 var colorPicker = (function() {
-    var colors = ["#FFBE53", "#FF6138", "#2980B9", "#35bf5a"];
     var index = 0;
     function next() {
         index = index++ < colors.length-1 ? index : 0;
@@ -599,8 +613,8 @@ function handleEvent(e) {
         e.preventDefault();
         e = e.touches[0];
     }
-    var currentColor = colorPicker.current();
-    var nextColor = colorPicker.next();
+    currentColor = colorPicker.current();
+    nextColor = colorPicker.next();
     var targetR = calcPageFillRadius(e.pageX, e.pageY);
     var rippleSize = Math.min(200, (cW * .4));
     var minCoverDuration = 750;

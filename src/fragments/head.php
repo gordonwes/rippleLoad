@@ -45,6 +45,12 @@
 <!-- Style -->
 <link href="<?= $baseUrl ?>/css/style<?php if ($isDev !== 'true') echo '.min' ?>.css" rel="stylesheet">
 
+<style type="text/css">
+    header nav a{
+        border-bottom-color: <?php echo $colorsBkg[0] ?>;
+    }
+</style>
+
 <script type="text/javascript">
     document.documentElement.classList.remove('no_js');
 </script>

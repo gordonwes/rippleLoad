@@ -1,8 +1,8 @@
 <article class="project graphic">
     <div class="container_img"></div>
     <div class="container_txt">
-        <h2>Lorem Ipsum</h2>
-        <p>Dolor sit amed</p>
+        <h2>Valbirra</h2>
+        <p>Dolor sit </p>
     </div>
 </article>
 
