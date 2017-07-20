@@ -44,7 +44,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                                 <span class="loader-ellips__dot"></span>
                             </div>
                             <p class="infinite-scroll-last">You've reached the end. <a href="#" onclick="goTop('.vertical_align')">Go TOP.</a></p>
-                            <p class="infinite-scroll-error">No more pages to load</p>
+                            <p class="infinite-scroll-error">Error loading next page. <a href="#" onclick="retryPageLoad()">RETRY</a></p>
                         </div>
                     </div>
 

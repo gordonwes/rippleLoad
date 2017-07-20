@@ -570,6 +570,10 @@ function initPages(page) {
 
         }
 
+        function retryPageLoad() {
+            infProject.loadNextPage();
+        }
+
     }
 
 }
