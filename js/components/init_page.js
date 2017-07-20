@@ -12,6 +12,7 @@ function initPages(page) {
         var scrollArea = page.querySelector('.vertical_align');
         var projects = page.querySelectorAll('.project');
         var filterCount = page.querySelector('.count');
+        var projectsLoaded = false;
         var infProject, loadAll;
 
         setTimeout(function() {
@@ -102,7 +103,7 @@ function initPages(page) {
             clearInterval(loadAll);
 
             var updateProject = page.querySelectorAll('.project');
-            
+
             if (filterValue !== '*') {
 
                 forEach(updateProject, function (index, elem) {
@@ -137,14 +138,20 @@ function initPages(page) {
 
         function preloadAllPages(filterValue) {
 
-            loadAll = setInterval(function(){
-                if (infProject.loadCount !== 2) {
-                    infProject.loadNextPage();
-                } else {
-                    filterProject(filterValue);
-                    console.log('andato');
-                }
-            }, 50);
+            if (!projectsLoaded) {
+                loadAll = setInterval(function(){
+                    if (infProject.loadCount !== 2) {
+                        projectsLoaded = false;
+                        infProject.loadNextPage();
+                    } else {
+                        filterProject(filterValue);
+                        projectsLoaded = true;
+                        console.log('andato');
+                    }
+                }, 50);
+            } else {
+                filterProject(filterValue);
+            }
 
         }
 
