@@ -14,10 +14,12 @@
         -webkit-overflow-scrolling: touch;
         .container_fn_project{
             padding: 0 1.5rem;
+            padding-left: calc(1.5rem + 10px);
+            position: relative;
             .filters{
-                margin-top: 2rem;
                 text-align: left;
                 padding: 0 1.5rem;
+                padding-top: 2rem;
                 button{
                     appearance: none;
                     -webkit-appearance: none;
@@ -33,6 +35,7 @@
                     font-weight: 500;
                     cursor: pointer;
                     outline: none;
+                    position: relative;
                     &.is_checked{
                         border-bottom: 2px solid #fff;
                     }
@@ -43,6 +46,16 @@
                         color: #fff;
                         background: transparent;
                     }
+                }
+            }
+            .container_count{
+                position: absolute;
+                top: 3rem;
+                right: 3rem;
+                font-size: 1.6rem;
+                color: #fff; 
+                span{
+                    font-weight: 500;
                 }
             }
             .container_projects{
@@ -75,10 +88,10 @@
                         height: 100%;
                         z-index: 2;
                         h2{
-                            
+
                         }
                         p{
-                            
+
                         }
                     }
                     &.is_filtered{

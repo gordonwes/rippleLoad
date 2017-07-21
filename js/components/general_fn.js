@@ -85,10 +85,16 @@ function capitalizeFirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+////// retry loading infinite scroll //////////////
+
+function retryPageLoad() {
+    location.reload();
+}
+
 ////// scroll to top //////////////
 
 function goTop(elemScroll) {
-     anime({
+    anime({
         targets: document.querySelector(elemScroll),
         scrollTop: 0,
         duration: 600,

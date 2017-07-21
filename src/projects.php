@@ -26,11 +26,13 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 
                     <div class="container_fn_project wrapper">
                         <div class="filters">
-                            <button class="button is_checked" data-filter="*">all <span></span></button>
-                            <button class="button" data-filter="website">website <span></span></button>
-                            <button class="button" data-filter="graphic">graphic <span></span></button>
-                            <button class="button" data-filter="native">native <span></span></button>
+                            <button class="button is_checked" data-filter="*">all</button>
+                            <button class="button" data-filter="website">website</button>
+                            <button class="button" data-filter="graphic">graphic</button>
+                            <button class="button" data-filter="native">native</button>
                         </div>
+                        
+                        <p class="container_count"><span>0</span> projects showed</p>
 
                         <div class="container_projects clear">
                             <?php include_once 'projects/projects_list_01.php'; ?>

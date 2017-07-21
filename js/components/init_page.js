@@ -33,14 +33,16 @@ function initPages(page) {
 
             infProject.on('append', function(response, path, items) {
                 showProjectOnScroll(items);
-                updateFilterCount();
             });
 
             initFilters();
             showProjectOnScroll(projects);
-            updateFilterCount();
+            if (docWidth > 767) {
+                updateFilterCount('*');
+            }
 
         }, 300);
+
 
         function showProjectOnScroll(projectArray) {
 
@@ -98,7 +100,6 @@ function initPages(page) {
                 filters.querySelector('.is_checked').classList.remove('is_checked');
                 event.target.classList.add('is_checked');
 
-                updateFilterCount();
             });
 
         }
@@ -133,11 +134,27 @@ function initPages(page) {
 
             }
 
+            if (docWidth > 767) {
+                updateFilterCount(filterValue);
+            }
+
         }
 
-        function updateFilterCount() {
+        function updateFilterCount(filterValue) {
 
+            var containerCount = page.querySelector('.container_count span');
 
+            if (filterValue !== '*') {
+                var totalCount = page.querySelectorAll('.' + filterValue).length;
+            } else {
+                var totalCount = page.querySelectorAll('.project').length;
+            }
+
+            if (totalCount !== 0) {
+
+                containerCount.textContent = totalCount;
+
+            }
 
         }
 
@@ -157,10 +174,6 @@ function initPages(page) {
                 filterProject(filterValue);
             }
 
-        }
-
-        function retryPageLoad() {
-            infProject.loadNextPage();
         }
 
     }
