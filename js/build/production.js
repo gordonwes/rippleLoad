@@ -450,13 +450,12 @@ function initPages(page) {
 
             infProject.on('append', function(response, path, items) {
                 showProjectOnScroll(items);
+                updateFilterCount('*');
             });
 
             initFilters();
             showProjectOnScroll(projects);
-            if (docWidth > 767) {
-                updateFilterCount('*');
-            }
+            updateFilterCount('*');
 
         }, 300);
 
@@ -551,25 +550,27 @@ function initPages(page) {
 
             }
 
-            if (docWidth > 767) {
-                updateFilterCount(filterValue);
-            }
+            updateFilterCount(filterValue);
 
         }
 
         function updateFilterCount(filterValue) {
 
-            var containerCount = page.querySelector('.container_count span');
+            if (docWidth > 767) {
 
-            if (filterValue !== '*') {
-                var totalCount = page.querySelectorAll('.' + filterValue).length;
-            } else {
-                var totalCount = page.querySelectorAll('.project').length;
-            }
+                var containerCount = page.querySelector('.container_count span');
 
-            if (totalCount !== 0) {
+                if (filterValue !== '*') {
+                    var totalCount = page.querySelectorAll('.' + filterValue).length;
+                } else {
+                    var totalCount = page.querySelectorAll('.project').length;
+                }
 
-                containerCount.textContent = totalCount;
+                if (totalCount !== 0) {
+
+                    containerCount.textContent = totalCount;
+
+                }
 
             }
 
