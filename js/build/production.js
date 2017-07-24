@@ -432,7 +432,7 @@ function initPages(page) {
         var projectsLoaded = false;
         var infProject, loadAll;
 
-        setTimeout(function() {
+        function initListProjects() {
 
             infProject = new InfiniteScroll(projectsContainer, {
                 path: function() {
@@ -450,13 +450,19 @@ function initPages(page) {
 
             infProject.on('append', function(response, path, items) {
                 showProjectOnScroll(items);
-                updateFilterCount('*');
+                if (page.querySelector('.button.is_checked').getAttribute('data-filter') === '*') {
+                    updateFilterCount('*');
+                }
             });
 
             initFilters();
             showProjectOnScroll(projects);
             updateFilterCount('*');
 
+        }
+
+        setTimeout(function() {
+            initListProjects();
         }, 300);
 
 
@@ -533,7 +539,7 @@ function initPages(page) {
                     elem.classList.remove('is_filtered');
                     elem.classList.add('is_hidden');
 
-                    if (elem.classList.contains(filterValue)) {
+                    if (elem.querySelector('[data-tag="' + filterValue + '"]')) {
                         elem.classList.add('is_filtered');
                     }
 
@@ -561,7 +567,7 @@ function initPages(page) {
                 var containerCount = page.querySelector('.container_count span');
 
                 if (filterValue !== '*') {
-                    var totalCount = page.querySelectorAll('.' + filterValue).length;
+                    var totalCount = page.querySelectorAll('[data-tag="' + filterValue + '"]').length;
                 } else {
                     var totalCount = page.querySelectorAll('.project').length;
                 }
@@ -591,6 +597,20 @@ function initPages(page) {
             } else {
                 filterProject(filterValue);
             }
+
+        }
+
+        function initDetailProject() {
+
+            forEach(projects, function (index, elem) {
+
+                elem.addEventListener('click', function() {
+
+
+
+                });
+
+            });
 
         }
 

@@ -74,6 +74,7 @@ module.exports = function (grunt) {
                 }]
             }
         },
+        clean: ['app/'],
         htmlmin: {
             dist: {
                 options: {
@@ -124,8 +125,8 @@ module.exports = function (grunt) {
     });
 
     // 4. Where we tell Grunt what to do when we type "grunt" into the terminal.
-    grunt.registerTask('build', ['concat', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'imagemin', 'htmlmin']);
-    grunt.registerTask('dev', ['concat', 'sass', 'autoprefixer', 'htmlmin']);
+    grunt.registerTask('build', ['concat', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'imagemin', 'clean', 'htmlmin']);
+    grunt.registerTask('dev', ['concat', 'sass', 'autoprefixer', 'clean', 'htmlmin']);
     grunt.registerTask('default', ['dev', 'watch']);
 
 };
