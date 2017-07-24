@@ -54,9 +54,9 @@ function initBarba() {
     Barba.Dispatcher.on('linkClicked', function(HTMLElement, MouseEvent) {
         setMenuVoice(HTMLElement);
         handleEvent(MouseEvent);
-        
+
         HTMLElement.style.borderColor = nextColor;
-        
+
     });
 
     function setMenuVoice(triggerEvent) {
