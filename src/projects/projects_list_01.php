@@ -3,7 +3,9 @@
     <div class="container_txt">
         <h2>Valbirra</h2>
         <p>Dolor sit </p>
+        <a href="#">See more</a>
     </div>
+    <div class="container_more_info"></div>
 </article>
 
 <article class="project native">

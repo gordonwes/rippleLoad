@@ -7,16 +7,14 @@
     user-select: none;
     transition: transform 0.2s, visibility 0.2s 0s;
     width: 100%;
-    //background: rgba(255,255,255,0.5);
     position: fixed;
     z-index: 3;
     top: 6.5rem;
     left: 0;
     height: 3px;
     .pace-progress {
-        background: rgba(0,0,0,0.2);
         position: absolute;
-        z-index: 2000;
+        background: rgba(255,255,255,0.5);
         top: 0;
         right: 100%;
         width: 100%;
