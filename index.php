@@ -9,30 +9,14 @@ $app = new Slim\App([
     'settings' => [
         'determineRouteBeforeAppMiddleware' => false,
         'displayErrorDetails' => true,
-        'db' => [
-            'driver' => 'mysql',
-            'host' => 'localhost',
-            'database' => 'ag',
-            'username' => 'root',
-            'password' => 'root',
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-        ],
         'renderer' => [
             'template_path' => __DIR__ . '/app/',
         ]
     ]
 ]);
 
-use Illuminate\Database\Capsule\Manager as Capsule;
 
 $container = $app->getContainer();
-
-$capsule = new \Illuminate\Database\Capsule\Manager;
-$capsule->addConnection($container['settings']['db']);
-$capsule->setAsGlobal();
-$capsule->bootEloquent();
 
 // view renderer
 $container['renderer'] = function ($c) {
@@ -65,14 +49,18 @@ $container['notFoundHandler'] = function ($c) {
     };
 };
 
-$app->post('/admin', function ($request, $response, $args) {
+/*$app->post('/admin', function ($request, $response, $args) {
 
-    $user = Capsule::table('users')->find(1)->name;
-    $psw = Capsule::table('users')->find(1)->password;
-    
-    $_SESSION["user"] = $user === $_POST['username'];
-    //$_SESSION["psw"] = password_verify(crypt($_POST['password'], $psw), $psw);
-    $_SESSION["psw"] = $_POST['password'] === $psw;
+    $table = Capsule::table('users')->find(1);
+    $user = $table->name;
+    $psw = $table->password;
+
+    if (empty($psw)) {
+        $table->password
+    }
+
+    $_SESSION["user"] = $user === $request->getParam('username');
+    $_SESSION["psw"] = password_verify($psw, password_hash($request->getParam('password'), PASSWORD_BCRYPT));
     $_SESSION["no-bot"] = empty($_POST['other']);
 
     if ($_SESSION["user"] && $_SESSION["psw"] && $_SESSION["no-bot"]) {
@@ -80,6 +68,60 @@ $app->post('/admin', function ($request, $response, $args) {
     } else {
         return $response->withRedirect('admin?error=true');
     }
+
+});*/
+
+$app->post('/admin', function ($request, $response, $args) {
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "root";
+    $dbname = "ag";
+
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query_user = $conn->query("SELECT name FROM users");
+        $query_psw = $conn->query("SELECT password FROM users");
+
+        $fetch_user = $query_user->fetch();
+        $user = $fetch_user["name"];
+
+        $fetch_psw = $query_psw->fetch();
+        $psw = $fetch_psw["password"];
+
+        if (!isset($psw)) {
+
+            $new_psw = password_hash($request->getParam('password'), PASSWORD_BCRYPT);
+
+            $sql = "UPDATE users SET password='$new_psw' WHERE id=1";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+
+            $_SESSION["user"] = $user === $request->getParam('username');
+            $_SESSION["psw"] = password_verify($request->getParam('password'), $psw);
+            $_SESSION["no-bot"] = empty($_POST['other']);
+
+        } else {
+
+            $_SESSION["user"] = $user === $request->getParam('username');
+            $_SESSION["psw"] = password_verify($request->getParam('password'), $psw);
+            $_SESSION["no-bot"] = empty($_POST['other']);
+
+        }
+
+        if ($_SESSION["user"] && $_SESSION["psw"] && $_SESSION["no-bot"]) {
+            return $response->withRedirect('projects');
+        } else {
+            return $response->withRedirect('admin?error=true');
+        }
+
+    } catch(PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+
+    $conn = null;
 
 });
 
