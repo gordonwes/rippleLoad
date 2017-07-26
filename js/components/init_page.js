@@ -73,6 +73,7 @@ function initPages(page) {
                                     hiddenProject = false;
                                 }
                             });
+
                         }
 
                     }
@@ -189,7 +190,7 @@ function initPages(page) {
 
                 elem.addEventListener('click', function() {
 
-
+                    
 
                 });
 

@@ -5,7 +5,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 ?>
 
 <!DOCTYPE html>
-<html class="no_js">
+<html class="no_js" lang="en">
     <head>
 
         <title><?= $pageTitle . ' | ' . $siteName ?></title>
@@ -31,7 +31,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                             <button class="button" data-filter="graphic">graphic</button>
                             <button class="button" data-filter="native">native</button>
                         </div>
-                        
+
                         <p class="container_count"><span>0</span> projects showed</p>
 
                         <div class="container_projects clear">
@@ -51,6 +51,13 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                     </div>
 
                 </section>
+
+                <?php session_start(); 
+                if ($_SESSION["admin"]) { ?>
+                <div class="container_admin">
+                    
+                </div>
+                <?php } ?>
 
             </div>
         </main>

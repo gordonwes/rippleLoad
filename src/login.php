@@ -1,6 +1,6 @@
 <?php
 require '_var.php'; 
-$pageTitle = 'Contact';
+$pageTitle = 'Login';
 $pageDesc = 'Lorem ipsum dolor sit amed';
 ?>
 
@@ -23,10 +23,18 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
             <div class="wrapper barba-container" data-namespace="<?= strtolower($pageTitle); ?>">
 
                 <section class="vertical_align">
-                    <div class="container_intro">
-                        <h1>Alberto Gorgonio</h1>
-                        <h2>web developer</h2>
-                        <a href='mail&#116;o&#58;gorgo&#37;6Eioal&#98;&#37;65rt&#111;&#64;&#37;67&#37;6D&#97;&#105;&#37;6C&#46;&#37;&#54;3om'>gorgonioalberto[at]gmail.com</a>
+                    <div class="container_login">
+                        <form role="form" method="post" action="<?= $baseUrl ?>/admin">
+
+                            <input type="text" name="username" placeholder="Username">
+
+                            <input type="password" name="password" placeholder="Password">
+
+                            <input type="text" name="other" style="position:absolute;left:-9999px;top:-9999px;">
+                            
+                            <input type="submit" name="submit" value="Register">
+
+                        </form>
                     </div>
                 </section>
 
