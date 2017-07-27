@@ -24,6 +24,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 
                 <section class="vertical_align">
                     <div class="container_login">
+                        
                         <form role="form" method="post" action="<?= $baseUrl ?>/admin">
 
                             <input type="text" name="username" placeholder="Username">
@@ -32,9 +33,10 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 
                             <input type="text" name="other" style="position:absolute;left:-9999px;top:-9999px;">
                             
-                            <input type="submit" name="submit" value="Register">
+                            <input type="submit" name="submit" value="Login">
 
                         </form>
+                        
                     </div>
                 </section>
 
