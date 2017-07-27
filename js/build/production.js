@@ -267,24 +267,6 @@ function initBarba() {
 
     });
 
-    function setMenuVoice(triggerEvent) {
-
-        forEach(document.querySelectorAll('header nav a'), function (index, elem) {
-            if (elem.classList.contains('is_active')) {
-                elem.classList.remove('is_active');
-            }
-            if (elem.getAttribute('href') == window.location.href) {
-                elem.addEventListener('click', function(e) {
-                    e.preventDefault();
-                });
-            }
-        });
-
-        if (triggerEvent && !triggerEvent.classList.contains('is_active')) {
-            triggerEvent.classList.add('is_active');
-        }
-    }
-
     setMenuVoice(document.querySelector('[href="' + window.location.href + '"]'));
 
 }
@@ -405,6 +387,24 @@ function retryPageLoad() {
     location.reload();
 }
 
+function setMenuVoice(triggerEvent) {
+
+    forEach(document.querySelectorAll('header nav a'), function (index, elem) {
+        if (elem.classList.contains('is_active')) {
+            elem.classList.remove('is_active');
+        }
+        if (elem.getAttribute('href') == window.location.href) {
+            elem.addEventListener('click', function(e) {
+                e.preventDefault();
+            });
+        }
+    });
+
+    if (triggerEvent && !triggerEvent.classList.contains('is_active')) {
+        triggerEvent.classList.add('is_active');
+    }
+}
+
 ////// scroll to top //////////////
 
 function goTop(elemScroll) {
@@ -421,7 +421,6 @@ function initPages(page) {
 
     if (actual_page === 'contact') {
 
-        console.log('contatti');
 
     } else if (actual_page === 'projects') {
 
@@ -607,7 +606,7 @@ function initPages(page) {
 
                 elem.addEventListener('click', function() {
 
-                    
+
 
                 });
 
@@ -615,7 +614,11 @@ function initPages(page) {
 
         }
 
-    }
+    } else if (actual_page === '404') {
+
+        setMenuVoice(document.querySelector('[href="' + window.location.href + '"]'));
+
+    } 
 
 }
 var colorChange = document.getElementById("color_change");

@@ -29,7 +29,7 @@
         "pace-js": "latest"
     },
     "scripts": {
-        "start": "npm install && php composer.phar install"
+        "start": "npm install && php composer.phar install && php composer.phar update && grunt"
     },
     "private": "true"
 }

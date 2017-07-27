@@ -91,6 +91,24 @@ function retryPageLoad() {
     location.reload();
 }
 
+function setMenuVoice(triggerEvent) {
+
+    forEach(document.querySelectorAll('header nav a'), function (index, elem) {
+        if (elem.classList.contains('is_active')) {
+            elem.classList.remove('is_active');
+        }
+        if (elem.getAttribute('href') == window.location.href) {
+            elem.addEventListener('click', function(e) {
+                e.preventDefault();
+            });
+        }
+    });
+
+    if (triggerEvent && !triggerEvent.classList.contains('is_active')) {
+        triggerEvent.classList.add('is_active');
+    }
+}
+
 ////// scroll to top //////////////
 
 function goTop(elemScroll) {

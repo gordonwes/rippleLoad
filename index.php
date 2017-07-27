@@ -49,28 +49,6 @@ $container['notFoundHandler'] = function ($c) {
     };
 };
 
-/*$app->post('/admin', function ($request, $response, $args) {
-
-    $table = Capsule::table('users')->find(1);
-    $user = $table->name;
-    $psw = $table->password;
-
-    if (empty($psw)) {
-        $table->password
-    }
-
-    $_SESSION["user"] = $user === $request->getParam('username');
-    $_SESSION["psw"] = password_verify($psw, password_hash($request->getParam('password'), PASSWORD_BCRYPT));
-    $_SESSION["no-bot"] = empty($_POST['other']);
-
-    if ($_SESSION["user"] && $_SESSION["psw"] && $_SESSION["no-bot"]) {
-        return $response->withRedirect('projects');
-    } else {
-        return $response->withRedirect('admin?error=true');
-    }
-
-});*/
-
 $app->post('/admin', function ($request, $response, $args) {
 
     $servername = "localhost";
@@ -81,36 +59,31 @@ $app->post('/admin', function ($request, $response, $args) {
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query_user = $conn->query("SELECT name FROM users");
-        $query_psw = $conn->query("SELECT password FROM users");
+        $query_user = $conn->query("SELECT username FROM admin");
+        $query_psw = $conn->query("SELECT password FROM admin");
 
         $fetch_user = $query_user->fetch();
-        $user = $fetch_user["name"];
+        $user = $fetch_user["username"];
 
         $fetch_psw = $query_psw->fetch();
         $psw = $fetch_psw["password"];
 
-        if (!isset($psw)) {
-
+        if (!isset($psw) || empty($psw)) {
+            
             $new_psw = password_hash($request->getParam('password'), PASSWORD_BCRYPT);
 
-            $sql = "UPDATE users SET password='$new_psw' WHERE id=1";
+            $sql = "UPDATE admin SET password='$new_psw' WHERE id=1";
 
             $stmt = $conn->prepare($sql);
             $stmt->execute();
 
-            $_SESSION["user"] = $user === $request->getParam('username');
-            $_SESSION["psw"] = password_verify($request->getParam('password'), $psw);
-            $_SESSION["no-bot"] = empty($_POST['other']);
-
-        } else {
-
-            $_SESSION["user"] = $user === $request->getParam('username');
-            $_SESSION["psw"] = password_verify($request->getParam('password'), $psw);
-            $_SESSION["no-bot"] = empty($_POST['other']);
-
         }
 
+        $_SESSION["user"] = $user === $request->getParam('username');
+        $_SESSION["psw"] = password_verify($request->getParam('password'), $psw);
+        $_SESSION["no-bot"] = empty($_POST['other']);
+        
+        
         if ($_SESSION["user"] && $_SESSION["psw"] && $_SESSION["no-bot"]) {
             return $response->withRedirect('projects');
         } else {
