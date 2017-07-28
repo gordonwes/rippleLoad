@@ -197,6 +197,53 @@ function initPages(page) {
 
         }
 
+        function adminImageUpload() {
+
+            if (page.querySelector('.container_admin')) {
+
+                var form = page.querySelector('.container_admin form');
+
+                form.onsubmit = function(e) {
+                    e.preventDefault();
+
+                    fetch('./upload', {
+                        method: "POST",
+                        body: new FormData(form),
+                        credentials: "same-origin"
+                    }).then(function(response) {
+                        if (response.ok) {
+                            console.log('perfetto');
+                        } else {
+                            var error = new Error(response.statusText);
+                            error.response = response;
+                            throw error;
+                        }
+                    });
+
+                };
+
+            }
+
+        }
+
+        function initAdmin() {
+            adminImageUpload();
+        }
+
+        initAdmin();
+
+    } else if (actual_page === 'login') {
+
+        function errorLogin() {
+
+            if (wordInString(window.location.href, 'error=true')) {
+                page.querySelector('.container_login').classList.add('incorrect_login');
+            }
+
+        }
+
+        errorLogin();
+
     } else if (actual_page === '404') {
 
         setMenuVoice(document.querySelector('[href="' + window.location.href + '"]'));

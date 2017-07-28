@@ -1,5 +1,3 @@
-<?php include_once '../session.php'; ?>
-
 <header>
 
     <nav class="wrapper">

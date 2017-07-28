@@ -22,6 +22,7 @@
         "js-cookie": "latest",
         "flickity": "latest",
         "imagesloaded": "latest",
+        "whatwg-fetch": "latest",
         "infinite-scroll": "latest",
         "masonry-layout": "latest",
         "isotope-layout": "latest",

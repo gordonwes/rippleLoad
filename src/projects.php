@@ -53,10 +53,9 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                 </section>
 
                 <?php 
-                session_start(); 
-                //if ($_SESSION["admin"]) { 
-                    include_once 'fragments/admin.php'; 
-                //} 
+                if (isset($_SESSION["admin"])) {
+                    include_once 'fragments/admin.php';
+                } 
                 ?>
 
             </div>

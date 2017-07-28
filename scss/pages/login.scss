@@ -4,6 +4,19 @@
 
 .barba-container[data-namespace="login"] {
 
-  
+    .vertical_align{
+        .container_login{
+            form{
+                input{
+                    
+                }
+            }
+            &.incorrect_login{
+                form{
+                    
+                }
+            }
+        }
+    }
 
 }

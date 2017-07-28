@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 // Require
 require __DIR__ . '/vendor/autoload.php';
 
@@ -69,7 +71,7 @@ $app->post('/admin', function ($request, $response, $args) {
         $psw = $fetch_psw["password"];
 
         if (!isset($psw) || empty($psw)) {
-            
+
             $new_psw = password_hash($request->getParam('password'), PASSWORD_BCRYPT);
 
             $sql = "UPDATE admin SET password='$new_psw' WHERE id=1";
@@ -82,9 +84,10 @@ $app->post('/admin', function ($request, $response, $args) {
         $_SESSION["user"] = $user === $request->getParam('username');
         $_SESSION["psw"] = password_verify($request->getParam('password'), $psw);
         $_SESSION["no-bot"] = empty($_POST['other']);
-        
-        
+
+
         if ($_SESSION["user"] && $_SESSION["psw"] && $_SESSION["no-bot"]) {
+            $_SESSION["admin"] = true;
             return $response->withRedirect('projects');
         } else {
             return $response->withRedirect('admin?error=true');
@@ -109,12 +112,10 @@ $app->post('/upload', function ($request, $response, $args) {
 
     if ($newfile->getError() === UPLOAD_ERR_OK) {
         $uploadFileName = $newfile->getClientFilename();
-        $newfile->moveTo("./upload/$uploadFileName");
+        $newfile->moveTo("/upload/$uploadFileName");
     }
 
 });
-
-require __DIR__ . '/app/session.php';
 
 $app->run();
 
