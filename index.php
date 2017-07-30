@@ -114,6 +114,8 @@ $app->post('/upload', function ($request, $response, $args) {
         $uploadFileName = $newfile->getClientFilename();
         echo __DIR__ . "/upload";
         //$newfile->moveTo(__DIR__ . "/upload");
+    } else {
+        echo 'ciao';
     }
 
 });

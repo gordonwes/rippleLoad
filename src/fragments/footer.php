@@ -7,7 +7,7 @@
         </div>
         <div id="contenitore_bottone_cookie">
             <a id="ok_cookie" href="#">OK</a>
-            <a href="https://it.wikipedia.org/wiki/Cookie" target="_blank">Più informazioni</a>
+            <a href="https://it.wikipedia.org/wiki/Cookie" target="_blank" rel="noopener">Più informazioni</a>
         </div>
     </div>
 </div>
