@@ -13,6 +13,11 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 
         <?php include_once 'fragments/head.php'; ?>
 
+        <?php if (isset($_SESSION["admin"])) { ?>
+        <link href="<?= $baseUrl ?>/css/admin<?php if ($isDev !== 'true') echo '.min' ?>.css" rel="stylesheet">
+        <script src="<?= $baseUrl ?>/js/build/admin<?php if ($isDev !== 'true') echo '.min' ?>.js"></script>
+        <?php } ?>
+
     </head>
 
     <body>

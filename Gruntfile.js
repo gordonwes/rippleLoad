@@ -23,12 +23,23 @@ module.exports = function (grunt) {
                     'js/app.js'
                 ],
                 dest: 'js/build/production.js'
+            },
+            admin: {
+                src: [
+                    'node_modules/whatwg-fetch/fetch.js',
+                    'js/admin.js'
+                ],
+                dest: 'js/build/admin.js'
             }
         },
         uglify: {
             dist: {
                 src: 'js/build/production.js',
                 dest: 'js/build/production.min.js'
+            },
+            admin: {
+                src: 'js/build/admin.js',
+                dest: 'js/build/admin.min.js'
             }
         },
         sass: {
@@ -40,12 +51,26 @@ module.exports = function (grunt) {
                 files: {
                     'css/style.css': 'scss/style.scss'
                 }
+            }, 
+            admin: {
+                options: {
+                    style: 'compressed',
+                    loadPath: ['scss/admin.scss']
+                },
+                files: {
+                    'css/admin.css': 'scss/admin.scss'
+                }
             }
         },
         autoprefixer: {
             dist: {
                 files: {
                     'css/style.css': 'css/style.css'
+                }
+            },
+            admin: {
+                files: {
+                    'css/admin.css': 'css/admin.css'
                 }
             }
         },
@@ -96,7 +121,7 @@ module.exports = function (grunt) {
             html: {
                 files: ['src/*.php', 'src/fragments/*.php', 'src/projects/*.php'],
                 tasks: ['htmlmin'],
-                 options: {
+                options: {
                     removeComments: true,
                     collapseWhitespace: true,
                     ignoreCustomFragments: [ /<%[\s\S]*?%>/, /<\?[\s\S]*?(\?>|$)/ ],

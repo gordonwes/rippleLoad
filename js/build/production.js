@@ -1076,41 +1076,6 @@ function initPages(page) {
 
         }
 
-        function adminImageUpload() {
-
-            if (page.querySelector('.container_admin')) {
-
-                var form = page.querySelector('.container_admin form');
-
-                form.onsubmit = function(e) {
-                    e.preventDefault();
-
-                    fetch('./upload', {
-                        method: "POST",
-                        body: new FormData(form),
-                        credentials: "same-origin"
-                    }).then(function(response) {
-                        if (response.ok) {
-                            console.log('perfetto');
-                        } else {
-                            var error = new Error(response.statusText);
-                            error.response = response;
-                            throw error;
-                        }
-                    });
-
-                };
-
-            }
-
-        }
-
-        function initAdmin() {
-            adminImageUpload();
-        }
-
-        initAdmin();
-
     } else if (actual_page === 'login') {
 
         function errorLogin() {

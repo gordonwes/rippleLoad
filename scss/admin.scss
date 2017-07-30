@@ -1,0 +1,19 @@
+@import 'var';
+
+header{
+    span{
+        position: absolute;
+        top: 50%;
+        right: 3rem;
+        transform: translate(0,-50%);
+        font-family: $title_font;
+        font-size: 1.6rem;
+    }
+}
+
+.container_admin{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
