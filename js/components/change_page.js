@@ -52,10 +52,16 @@ function initBarba() {
     });
 
     Barba.Dispatcher.on('linkClicked', function(HTMLElement, MouseEvent) {
-        setMenuVoice(HTMLElement);
         handleEvent(MouseEvent);
 
-        HTMLElement.style.borderColor = nextColor;
+        if (!HTMLElement.classList.contains('return_link')) {
+            setMenuVoice(HTMLElement);
+            HTMLElement.style.borderColor = nextColor;
+        } else {
+            var homeVoice = document.querySelector('[href="' + baseUrl + '/"]');
+            setMenuVoice(homeVoice);
+            homeVoice.style.borderColor = nextColor;
+        }
 
     });
 

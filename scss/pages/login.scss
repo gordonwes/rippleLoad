@@ -8,12 +8,22 @@
         .container_login{
             form{
                 input{
-                    
+                    background-color: #fff !important;
+                    padding: 1rem 2rem;
+                    font-size: 1.6rem;
+                    border: none;
+                    width: 100%;
+                    display: block;
+                    appearance: none;
+                    -webkit-appearance: none;
+                    &:-webkit-autofill{
+                        background-color: #fff !important;
+                    }
                 }
             }
             &.incorrect_login{
                 form{
-                    
+
                 }
             }
         }

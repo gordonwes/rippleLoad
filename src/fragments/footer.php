@@ -16,11 +16,15 @@
     var nameCookie = '<?= str_replace(' ', '_', strtolower($siteName)) ?>_cookie';
     var colors = <?= json_encode($colorsBkg) ?>;
     var firstColor = '<?= $mainColor ?>';
+    var baseUrl = '<?= $baseUrl ?>';
     var projectPage = <?php $fi = new FilesystemIterator(__DIR__ . '/../projects/', FilesystemIterator::SKIP_DOTS);
     printf("%d", iterator_count($fi) - 1); ?>;
 </script>
 
 <script src="<?= $baseUrl ?>/js/build/production<?php if ($isDev !== 'true') echo '.min' ?>.js"></script>
+<?php if (isset($_SESSION["admin"])) { ?>
+<script src="<?= $baseUrl ?>/js/build/admin<?php if ($isDev !== 'true') echo '.min' ?>.js"></script>
+<?php } ?>
 
 <!--<script type="application/ld+json">
 { 

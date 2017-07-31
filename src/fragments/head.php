@@ -44,6 +44,9 @@
 
 <!-- Style -->
 <link href="<?= $baseUrl ?>/css/style<?php if ($isDev !== 'true') echo '.min' ?>.css" rel="stylesheet">
+<?php if (isset($_SESSION["admin"])) { ?>
+<link href="<?= $baseUrl ?>/css/admin<?php if ($isDev !== 'true') echo '.min' ?>.css" rel="stylesheet">
+<?php } ?>
 
 <style type="text/css">
     header nav a{

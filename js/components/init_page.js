@@ -4,6 +4,7 @@ function initPages(page) {
 
     if (actual_page === 'contact') {
 
+        
 
     } else if (actual_page === 'projects') {
 
@@ -211,7 +212,7 @@ function initPages(page) {
 
     } else if (actual_page === '404') {
 
-        setMenuVoice(document.querySelector('[href="' + window.location.href + '"]'));
+        
 
     } 
 
