@@ -18,7 +18,7 @@ header{
                 padding: 1.5rem 0;
                 padding-bottom: 0.4rem;
                 font-size: 2rem;
-                color: #5d5d5d;
+                color: $gray;
                 &.is_active{
                     border-bottom-width: 2px;
                     border-bottom-style: solid;

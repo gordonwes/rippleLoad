@@ -6,9 +6,9 @@ header{
         top: 50%;
         right: 3rem;
         transform: translate(0,-50%);
-        font-family: $title_font;
+        font-family: $font;
         font-size: 1.6rem;
-        color: #5d5d5d;
+        color: $gray;
     }
 }
 

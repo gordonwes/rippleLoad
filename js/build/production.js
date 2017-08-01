@@ -889,7 +889,7 @@ function initPages(page) {
 
     if (actual_page === 'contact') {
 
-        
+
 
     } else if (actual_page === 'projects') {
 
@@ -1096,6 +1096,7 @@ function initPages(page) {
         errorLogin();
 
     } else if (actual_page === '404') {
+
 
 
     } 

@@ -8,7 +8,7 @@
     </nav>
 
     <?php if (isset($_SESSION["admin"])) { ?>
-    <span>CIAO ALBERTO</span>
+    <span>Ciao Alberto</span>
     <?php } ?>
 
 </header>

@@ -112,10 +112,8 @@ $app->post('/upload', function ($request, $response, $args) {
 
     if ($newfile->getError() === UPLOAD_ERR_OK) {
         $uploadFileName = $newfile->getClientFilename();
-        echo __DIR__ . "/upload";
+        echo 'perfetto';
         //$newfile->moveTo(__DIR__ . "/upload");
-    } else {
-        echo 'ciao';
     }
 
 });

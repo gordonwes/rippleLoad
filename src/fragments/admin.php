@@ -1,6 +1,6 @@
 <div class="container_admin">
     
-    <form role="form" method="post" enctype="multipart/form-data" action="<?= $baseUrl ?>/upload">
+    <form role="form" method="post" enctype="multipart/form-data" action="<?= $baseUrl ?>/upload" target="_self">
 
         <input type="hidden" name="MAX_FILE_SIZE" value="300000" />
         <input type="file" name="newfile">

@@ -54,14 +54,14 @@ strong, b {
 
 h1,h2,h3,h4,h5{
     line-height: $line_height_header;
-    font-family: $title_font;
-    color: $dark_gray;
+    font-family: $font;
+    color: #000;
 }
 
 p, a{
     line-height: $line_height_paragaph;
-    font-family: $text_font;
-    color: $dark_gray;
+    font-family: $font;
+    color: #000;
     font-weight: 300;
 }
 
