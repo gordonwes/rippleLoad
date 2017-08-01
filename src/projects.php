@@ -27,9 +27,17 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                     <div class="container_fn_project wrapper">
                         <div class="filters">
                             <button class="button is_checked" data-filter="*">all</button>
-                            <button class="button" data-filter="website">website</button>
-                            <button class="button" data-filter="graphic">graphic</button>
-                            <button class="button" data-filter="native">native</button>
+
+                            <?php
+                            foreach ($projectTags as $tag) {
+                                echo '<button class="button" data-filter="';
+                                echo $tag;
+                                echo '">';
+                                echo $tag;
+                                echo '</button>';
+                            }
+                            ?>
+
                         </div>
 
                         <p class="container_count"><span>0</span> projects showed</p>
@@ -51,12 +59,6 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                     </div>
 
                 </section>
-
-                <?php 
-                if (isset($_SESSION["admin"])) {
-                    include_once 'fragments/admin.php';
-                } 
-                ?>
 
             </div>
         </main>

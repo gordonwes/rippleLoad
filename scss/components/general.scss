@@ -83,6 +83,38 @@ canvas{
     height: 100%;
 }
 
+input{
+    &:not([type="file"]):not([type="checkbox"]){
+        background-color: #fff !important;
+        padding: 1rem 1.5rem;
+        margin: 0;
+        margin-bottom: 1.5rem;
+        font-size: 1.6rem;
+        border: none;
+        width: 100%;
+        display: block;
+        appearance: none;
+        outline: none;
+        -webkit-appearance: none;
+        &::selection {
+            background: rgba(0,0,0,0.3);
+        }
+        &:-webkit-autofill{
+            box-shadow: 0 0 0px 1000px #fff inset;
+        }
+        &[type="submit"] {
+            margin-bottom: 0;
+            cursor: pointer;
+            width: auto;
+            text-transform: uppercase;
+            padding: 1rem 3rem;
+            &:hover{
+                color: $gray;
+            }
+        }
+    }
+}
+
 .barba-container{
     display: table;
     width: 100%;

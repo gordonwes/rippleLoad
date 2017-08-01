@@ -855,9 +855,11 @@ function retryPageLoad() {
     location.reload();
 }
 
+////// set active menu voice //////////////
+
 function setMenuVoice(triggerEvent) {
 
-    forEach(document.querySelectorAll('header nav a'), function (index, elem) {
+    forEach(document.querySelectorAll('header nav li a'), function (index, elem) {
         if (elem.classList.contains('is_active')) {
             elem.classList.remove('is_active');
         }
@@ -883,15 +885,26 @@ function goTop(elemScroll) {
         easing: 'easeInOutQuad'
     });
 }
+
+////// detect back/forward button for change active menu //////////////
+
+window.addEventListener('popstate', function (e) {
+    var state = e.state;
+    if (state === null) {
+        var linkNow = document.querySelector('[href="' + window.location.href + '"]');
+        setMenuVoice(linkNow);
+        linkNow.style.borderColor = nextColor;
+    }
+});
 function initPages(page) {
 
-    var actual_page = page.getAttribute('data-namespace');
+    var actualPage = page.getAttribute('data-namespace');
 
-    if (actual_page === 'contact') {
+    if (actualPage === 'contact') {
 
 
 
-    } else if (actual_page === 'projects') {
+    } else if (actualPage === 'projects') {
 
         var projectsContainer = page.querySelector('.container_projects');
         var scrollArea = page.querySelector('.vertical_align');
@@ -1083,23 +1096,7 @@ function initPages(page) {
 
         }
 
-    } else if (actual_page === 'login') {
-
-        function errorLogin() {
-
-            if (wordInString(window.location.href, 'error=true')) {
-                page.querySelector('.container_login').classList.add('incorrect_login');
-            }
-
-        }
-
-        errorLogin();
-
-    } else if (actual_page === '404') {
-
-
-
-    } 
+    }
 
 }
 var colorChange = document.getElementById("color_change");

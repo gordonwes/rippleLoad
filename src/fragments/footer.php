@@ -22,9 +22,6 @@
 </script>
 
 <script src="<?= $baseUrl ?>/js/build/production<?php if ($isDev !== 'true') echo '.min' ?>.js"></script>
-<?php if (isset($_SESSION["admin"])) { ?>
-<script src="<?= $baseUrl ?>/js/build/admin<?php if ($isDev !== 'true') echo '.min' ?>.js"></script>
-<?php } ?>
 
 <!--<script type="application/ld+json">
 { 

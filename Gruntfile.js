@@ -30,6 +30,12 @@ module.exports = function (grunt) {
                     'js/admin.js'
                 ],
                 dest: 'js/build/admin.js'
+            },
+            login: {
+                src: [
+                    'js/login.js'
+                ],
+                dest: 'js/build/login.js'
             }
         },
         uglify: {
@@ -40,6 +46,10 @@ module.exports = function (grunt) {
             admin: {
                 src: 'js/build/admin.js',
                 dest: 'js/build/admin.min.js'
+            },
+            login: {
+                src: 'js/build/login.js',
+                dest: 'js/build/login.min.js'
             }
         },
         sass: {
@@ -60,6 +70,15 @@ module.exports = function (grunt) {
                 files: {
                     'css/admin.css': 'scss/admin.scss'
                 }
+            },
+            login: {
+                options: {
+                    style: 'compressed',
+                    loadPath: ['scss/login.scss']
+                },
+                files: {
+                    'css/login.css': 'scss/login.scss'
+                }
             }
         },
         autoprefixer: {
@@ -71,6 +90,11 @@ module.exports = function (grunt) {
             admin: {
                 files: {
                     'css/admin.css': 'css/admin.css'
+                }
+            },
+            login: {
+                files: {
+                    'css/login.css': 'css/login.css'
                 }
             }
         },

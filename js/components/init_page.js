@@ -1,12 +1,12 @@
 function initPages(page) {
 
-    var actual_page = page.getAttribute('data-namespace');
+    var actualPage = page.getAttribute('data-namespace');
 
-    if (actual_page === 'contact') {
+    if (actualPage === 'contact') {
 
 
 
-    } else if (actual_page === 'projects') {
+    } else if (actualPage === 'projects') {
 
         var projectsContainer = page.querySelector('.container_projects');
         var scrollArea = page.querySelector('.vertical_align');
@@ -198,22 +198,6 @@ function initPages(page) {
 
         }
 
-    } else if (actual_page === 'login') {
-
-        function errorLogin() {
-
-            if (wordInString(window.location.href, 'error=true')) {
-                page.querySelector('.container_login').classList.add('incorrect_login');
-            }
-
-        }
-
-        errorLogin();
-
-    } else if (actual_page === '404') {
-
-
-
-    } 
+    }
 
 }

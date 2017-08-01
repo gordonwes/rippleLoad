@@ -91,9 +91,11 @@ function retryPageLoad() {
     location.reload();
 }
 
+////// set active menu voice //////////////
+
 function setMenuVoice(triggerEvent) {
 
-    forEach(document.querySelectorAll('header nav a'), function (index, elem) {
+    forEach(document.querySelectorAll('header nav li a'), function (index, elem) {
         if (elem.classList.contains('is_active')) {
             elem.classList.remove('is_active');
         }
@@ -119,3 +121,14 @@ function goTop(elemScroll) {
         easing: 'easeInOutQuad'
     });
 }
+
+////// detect back/forward button for change active menu //////////////
+
+window.addEventListener('popstate', function (e) {
+    var state = e.state;
+    if (state === null) {
+        var linkNow = document.querySelector('[href="' + window.location.href + '"]');
+        setMenuVoice(linkNow);
+        linkNow.style.borderColor = nextColor;
+    }
+});

@@ -13,6 +13,8 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 
         <?php include_once 'fragments/head.php'; ?>
 
+        <link href="<?= $baseUrl ?>/css/login<?php if ($isDev !== 'true') echo '.min' ?>.css" rel="stylesheet">
+
     </head>
 
     <body>
@@ -25,7 +27,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                 <section class="vertical_align">
                     <div class="container_login">
 
-                        <form role="form" method="post" action="<?= $baseUrl ?>/admin">
+                        <form role="form" method="post" action="<?= $baseUrl ?>/login">
 
                             <input type="text" name="username" placeholder="Username">
 
@@ -44,6 +46,8 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
         </main>
 
         <?php include_once 'fragments/footer.php'; ?>
+
+        <script src="<?= $baseUrl ?>/js/build/login<?php if ($isDev !== 'true') echo '.min' ?>.js"></script>
 
     </body>
 </html>

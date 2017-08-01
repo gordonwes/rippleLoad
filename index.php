@@ -37,10 +37,19 @@ $app->get('/projects', function ($request, $response, $args) {
     return $response;
 })->setName('projects');
 
-$app->get('/admin', function ($request, $response, $args) {
+$app->get('/login', function ($request, $response, $args) {
     $response = $this->renderer->render($response, 'login.php', $args);
     return $response;
 })->setName('login');
+
+$app->get('/admin', function ($request, $response, $args) {
+    if (isset($_SESSION["admin"])) {
+        $response = $this->renderer->render($response, 'admin.php', $args);
+        return $response;
+    } else {
+        return $response->withRedirect('login');
+    }
+})->setName('admin');
 
 //Override the default Not Found Handler
 $container['notFoundHandler'] = function ($c) {
@@ -51,7 +60,7 @@ $container['notFoundHandler'] = function ($c) {
     };
 };
 
-$app->post('/admin', function ($request, $response, $args) {
+$app->post('/login', function ($request, $response, $args) {
 
     $servername = "localhost";
     $username = "root";
@@ -90,7 +99,7 @@ $app->post('/admin', function ($request, $response, $args) {
             $_SESSION["admin"] = true;
             return $response->withRedirect('projects');
         } else {
-            return $response->withRedirect('admin?error=true');
+            return $response->withRedirect('login?error=true');
         }
 
     } catch(PDOException $e) {
@@ -102,18 +111,31 @@ $app->post('/admin', function ($request, $response, $args) {
 });
 
 $app->post('/upload', function ($request, $response, $args) {
-    
+
+    $projectName = $request->getParam('projectname');
+    $projectUrl = $request->getParam('projecturl');
+    $projectTags = $request->getParam('projecttags');
+
     $files = $request->getUploadedFiles();
-    if (empty($files['newfile'])) {
-        throw new Exception('Expected a newfile');
-    }
 
-    $newfile = $files['newfile'];
+    if (!empty($files['newfile'])) {
 
-    if ($newfile->getError() === UPLOAD_ERR_OK) {
-        $uploadFileName = $newfile->getClientFilename();
-        echo 'perfetto';
-        //$newfile->moveTo(__DIR__ . "/upload");
+        $newfile = $files['newfile'];
+
+        if ($newfile->getError() === UPLOAD_ERR_OK) {
+
+            $uploadFileName = $newfile->getClientFilename();
+            $uploadFileType = $newfile->getClientMediaType();
+            $uploadFileSize = $newfile->getSize() / 1024;
+            $maxSize = $request->getParam('MAX_FILE_SIZE');
+
+            if ($uploadFileSize < $maxSize && $uploadFileType === 'image/jpeg' || $uploadFileType === 'image/png') {
+                //echo $newfile->getStream();  // retrieve asset
+                $newfile->moveTo(__DIR__ . "/assets/$uploadFileName");
+            }
+
+        }
+
     }
 
 });

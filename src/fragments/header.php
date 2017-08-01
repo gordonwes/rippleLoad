@@ -5,11 +5,10 @@
             <li><a href="<?= $baseUrl ?>/">CONTACT</a></li>
             <li><a href="<?= $baseUrl ?>/projects">PROJECTS</a></li>
         </ul>
+        <?php if (isset($_SESSION["admin"])) { ?>
+        <a href="<?= $baseUrl ?>/admin" class="no-barba">+ Add Project</a>
+        <?php } ?>
     </nav>
-
-    <?php if (isset($_SESSION["admin"])) { ?>
-    <span>Ciao Alberto</span>
-    <?php } ?>
 
 </header>
 
