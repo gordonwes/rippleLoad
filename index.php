@@ -17,7 +17,6 @@ $app = new Slim\App([
     ]
 ]);
 
-
 $container = $app->getContainer();
 
 // view renderer
@@ -112,15 +111,20 @@ $app->post('/login', function ($request, $response, $args) {
 
 $app->post('/upload', function ($request, $response, $args) {
 
+    $servername = "localhost";
+    $username = "root";
+    $password = "root";
+    $dbname = "ag";
+
     $projectName = $request->getParam('projectname');
     $projectUrl = $request->getParam('projecturl');
     $projectTags = $request->getParam('projecttags');
 
-    $files = $request->getUploadedFiles();
+    $projectCover = $request->getUploadedFiles();
 
-    if (!empty($files['newfile'])) {
+    if (!empty($projectCover['newfile'])) {
 
-        $newfile = $files['newfile'];
+        $newfile = $projectCover['newfile'];
 
         if ($newfile->getError() === UPLOAD_ERR_OK) {
 
@@ -130,16 +134,33 @@ $app->post('/upload', function ($request, $response, $args) {
             $maxSize = $request->getParam('MAX_FILE_SIZE');
 
             if ($uploadFileSize < $maxSize && $uploadFileType === 'image/jpeg' || $uploadFileType === 'image/png') {
-                //echo $newfile->getStream();  // retrieve asset
-                $newfile->moveTo(__DIR__ . "/assets/$uploadFileName");
-                return $response->withRedirect('projects?success=true');
-            } else {
-                return $response->withRedirect('admin?error=true');
+                $newfile->moveTo(__DIR__ . "/assets/upload/$uploadFileName");
             }
 
         }
 
     }
+
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $add_value = $conn->prepare("INSERT INTO projects(cover, title, url, tags)
+        VALUES(:cover, :title, :url, :tags)");
+
+        $add_value->execute(array(
+            "cover" => "images/upload/" . $uploadFileName,
+            "title" => $projectName,
+            "url" => $projectUrl,
+            "tags" => json_encode($projectTags)
+        ));
+
+        return $response->withRedirect('projects');
+
+    } catch(PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+
+    $conn = null;
 
 });
 

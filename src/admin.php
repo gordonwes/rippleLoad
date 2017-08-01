@@ -38,7 +38,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 
                                 <?php
     foreach ($projectTags as $tag) {
-        echo '<label><input type="checkbox" name="projecttags" value="';
+        echo '<label><input type="checkbox" name="projecttags[]" value="';
         echo $tag;
         echo '"><i></i><span>';
         echo $tag;

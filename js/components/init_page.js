@@ -45,7 +45,7 @@ function initPages(page) {
         }
 
         setTimeout(function() {
-            initListProjects();
+           // initListProjects();
         }, 300);
 
 
@@ -181,20 +181,6 @@ function initPages(page) {
             } else {
                 filterProject(filterValue);
             }
-
-        }
-
-        function initDetailProject() {
-
-            forEach(projects, function (index, elem) {
-
-                elem.addEventListener('click', function() {
-
-
-
-                });
-
-            });
 
         }
 
