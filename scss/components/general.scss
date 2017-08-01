@@ -107,6 +107,7 @@ input{
             cursor: pointer;
             width: auto;
             text-transform: uppercase;
+            display: inline-block;
             padding: 1rem 3rem;
             &:hover{
                 color: $gray;

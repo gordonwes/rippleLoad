@@ -26,7 +26,7 @@ module.exports = function (grunt) {
             },
             admin: {
                 src: [
-                    'node_modules/whatwg-fetch/fetch.js',
+                   // 'node_modules/whatwg-fetch/fetch.js',
                     'js/admin.js'
                 ],
                 dest: 'js/build/admin.js'

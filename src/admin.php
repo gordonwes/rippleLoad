@@ -29,8 +29,8 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 
                         <form role="form" method="POST" enctype="multipart/form-data" action="<?= $baseUrl ?>/upload">
 
-                            <input type="text" name="projectname" placeholder="Project Name">
-                            <input type="url" name="projecturl" placeholder="Project Url">
+                            <input type="text" name="projectname" placeholder="Project Name" required>
+                            <input type="url" name="projecturl" placeholder="Project Url" required>
 
                             <div class="container_filter">
 
@@ -53,17 +53,15 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                                 <input type="hidden" name="MAX_FILE_SIZE" value="200000000" />
                                 <label>
                                     <span>Upload image</span>
-                                    <input type="file" name="newfile" accept="image/*">
+                                    <input type="file" name="newfile" accept="image/*" required>
                                 </label>
                             </div>    
 
                             <input type="submit" name="submit" value="Upload Project"> 
+                            
+                            <span class="container_upload_result"></span>
 
                         </form>
-
-                        <div class="container_upload_result">
-
-                        </div>
 
                     </div>
                 </section>

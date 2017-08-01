@@ -95,6 +95,7 @@
             }
             label{
                 position: relative;
+                display: inline-block;
                 span{
                     cursor: pointer;
                     background-color: #fff;
@@ -111,8 +112,17 @@
                     position: absolute;
                     top: 0;
                     left: 0;
+                    z-index: -1;
+                    width: 100%;
                 }
             }
+        }
+        .container_upload_result{
+            font-family: $font;
+            font-size: 1.6rem;
+            color: #fff;
+            display: inline-block;
+            margin-left: 2rem;
         }
     }
 }

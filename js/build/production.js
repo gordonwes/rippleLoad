@@ -859,11 +859,11 @@ function retryPageLoad() {
 
 function setMenuVoice(triggerEvent) {
 
-    forEach(document.querySelectorAll('header nav li a'), function (index, elem) {
+    forEach(document.querySelectorAll('header nav a'), function (index, elem) {
         if (elem.classList.contains('is_active')) {
             elem.classList.remove('is_active');
         }
-        if (elem.getAttribute('href') == window.location.href) {
+        if (elem.getAttribute('href') == window.location.href && !elem.classList.contains('no-barba')) {
             elem.addEventListener('click', function(e) {
                 e.preventDefault();
             });

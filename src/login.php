@@ -29,9 +29,9 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 
                         <form role="form" method="post" action="<?= $baseUrl ?>/login">
 
-                            <input type="text" name="username" placeholder="Username">
+                            <input type="text" name="username" placeholder="Username" required>
 
-                            <input type="password" name="password" placeholder="Password">
+                            <input type="password" name="password" placeholder="Password" required>
 
                             <input type="text" name="other" style="position:absolute;left:-9999px;top:-9999px;">
 

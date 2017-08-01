@@ -132,6 +132,9 @@ $app->post('/upload', function ($request, $response, $args) {
             if ($uploadFileSize < $maxSize && $uploadFileType === 'image/jpeg' || $uploadFileType === 'image/png') {
                 //echo $newfile->getStream();  // retrieve asset
                 $newfile->moveTo(__DIR__ . "/assets/$uploadFileName");
+                return $response->withRedirect('projects?success=true');
+            } else {
+                return $response->withRedirect('admin?error=true');
             }
 
         }

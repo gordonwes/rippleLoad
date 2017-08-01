@@ -31,12 +31,16 @@ header{
         }
         >a{
             position: absolute;
-            top: 50%;
+            top: 0;
             right: 3rem;
-            transform: translate(0,-50%);
+            line-height: 2;
             font-family: $font;
             font-size: 1.6rem;
             color: $gray;
+            &.is_active{
+                border-bottom-width: 2px;
+                border-bottom-style: solid;
+            }
         }
     }
 }
