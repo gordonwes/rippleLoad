@@ -13,11 +13,94 @@ $app = new Slim\App([
         'displayErrorDetails' => true,
         'renderer' => [
             'template_path' => __DIR__ . '/app/',
+        ],
+        'db' => [
+            'servername' => 'localhost',
+            'username' => 'root',
+            'password' => 'root',
+            'dbname' => 'ag'
         ]
     ]
 ]);
 
 $container = $app->getContainer();
+
+$container['db'] = function ($c) {
+
+    $servername = $c->get('settings')['db']['servername'];
+    $username = $c->get('settings')['db']['username'];
+    $password = $c->get('settings')['db']['password'];
+    $dbname = $c->get('settings')['db']['dbname'];
+
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $conn;
+    } catch(PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+
+};
+
+$container['project_block'] = function ($c) {
+
+    $servername = $c->get('settings')['db']['servername'];
+    $username = $c->get('settings')['db']['username'];
+    $password = $c->get('settings')['db']['password'];
+    $dbname = $c->get('settings')['db']['dbname'];
+
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch(PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+
+    $main_query = "SELECT * FROM projects ORDER BY id DESC LIMIT 0, 12";
+    $main_query_init = $conn->prepare($main_query);
+    $main_query_init->execute();
+    $content_fetch = $main_query_init->fetchAll();
+
+    $conn = null;
+
+    $list_project = array();
+
+    foreach ($content_fetch as $project) {
+
+        $cover = $project['cover'];
+        $title = $project['title'];
+        $url = $project['url'];
+        $tags = $project['tags'];
+
+        $projectsBlock = '<article class="project">
+                                <div class="container_img" style="background-image:url(' . $cover . ');"></div>
+                                <div class="container_txt">
+                                <h2>' . $title . '</h2>
+                                <a href="' . $url . '">See more</a>
+                                <div class="project_tag">
+                                <span data-tag="';
+
+        foreach (json_decode($tags) as $tag) {
+            $projectsBlock .= $tag;
+            if ($tag !== end(json_decode($tags))) $projectsBlock .= ', ';
+        }
+
+        $projectsBlock .= '">';
+
+        foreach (json_decode($tags) as $tag) {
+            $projectsBlock .= $tag;
+            if ($tag !== end(json_decode($tags))) $projectsBlock .= ', ';
+        }
+
+        $projectsBlock .= '</span></div></div></article>';
+
+        $list_project[] = $projectsBlock;
+
+    }
+
+    return $list_project;
+
+};
 
 // view renderer
 $container['renderer'] = function ($c) {
@@ -32,7 +115,9 @@ $app->get('/', function ($request, $response, $args) {
 })->setName('contact');
 
 $app->get('/projects', function ($request, $response, $args) {
-    $response = $this->renderer->render($response, 'projects.php', $args);
+    $response = $this->renderer->render($response, 'projects.php', array(
+        'project_block' => $this->get("project_block")
+    ));
     return $response;
 })->setName('projects');
 
@@ -61,60 +146,47 @@ $container['notFoundHandler'] = function ($c) {
 
 $app->post('/login', function ($request, $response, $args) {
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "root";
-    $dbname = "ag";
+    $conn = $this->get("db");
 
-    try {
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query_user = $conn->query("SELECT username FROM admin");
-        $query_psw = $conn->query("SELECT password FROM admin");
+    $query_user = $conn->query("SELECT username FROM admin");
+    $query_psw = $conn->query("SELECT password FROM admin");
 
-        $fetch_user = $query_user->fetch();
-        $user = $fetch_user["username"];
+    $fetch_user = $query_user->fetch();
+    $user = $fetch_user["username"];
 
-        $fetch_psw = $query_psw->fetch();
-        $psw = $fetch_psw["password"];
-
-        if (!isset($psw) || empty($psw)) {
-
-            $new_psw = password_hash($request->getParam('password'), PASSWORD_BCRYPT);
-
-            $sql = "UPDATE admin SET password='$new_psw' WHERE id=1";
-
-            $stmt = $conn->prepare($sql);
-            $stmt->execute();
-
-        }
-
-        $_SESSION["user"] = $user === $request->getParam('username');
-        $_SESSION["psw"] = password_verify($request->getParam('password'), $psw);
-        $_SESSION["no-bot"] = empty($_POST['other']);
-
-
-        if ($_SESSION["user"] && $_SESSION["psw"] && $_SESSION["no-bot"]) {
-            $_SESSION["admin"] = true;
-            return $response->withRedirect('projects');
-        } else {
-            return $response->withRedirect('login?error=true');
-        }
-
-    } catch(PDOException $e) {
-        echo $sql . "<br>" . $e->getMessage();
-    }
+    $fetch_psw = $query_psw->fetch();
+    $psw = $fetch_psw["password"];
 
     $conn = null;
+
+    if (!isset($psw) || empty($psw)) {
+
+        $new_psw = password_hash($request->getParam('password'), PASSWORD_BCRYPT);
+
+        $sql = "UPDATE admin SET password='$new_psw' WHERE id=1";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+    }
+
+    $_SESSION["user"] = $user === $request->getParam('username');
+    $_SESSION["psw"] = password_verify($request->getParam('password'), $psw);
+    $_SESSION["no-bot"] = empty($_POST['other']);
+
+
+    if ($_SESSION["user"] && $_SESSION["psw"] && $_SESSION["no-bot"]) {
+        $_SESSION["admin"] = true;
+        return $response->withRedirect('projects');
+    } else {
+        return $response->withRedirect('login?error=true');
+    }
 
 });
 
 $app->post('/upload', function ($request, $response, $args) {
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "root";
-    $dbname = "ag";
+    $conn = $this->get("db");
 
     $projectName = $request->getParam('projectname');
     $projectUrl = $request->getParam('projecturl');
@@ -134,33 +206,35 @@ $app->post('/upload', function ($request, $response, $args) {
             $maxSize = $request->getParam('MAX_FILE_SIZE');
 
             if ($uploadFileSize < $maxSize && $uploadFileType === 'image/jpeg' || $uploadFileType === 'image/png') {
-                $newfile->moveTo(__DIR__ . "/assets/upload/$uploadFileName");
+                $newfile->moveTo(__DIR__ . "/images/upload/$uploadFileName");
+                $coverName = $uploadFileName;
+            } else {
+                $coverName = 'images/upload/default.jpg';
             }
 
         }
 
     }
 
-    try {
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $add_value = $conn->prepare("INSERT INTO projects(cover, title, url, tags)
+    $add_value = $conn->prepare("INSERT INTO projects(cover, title, url, tags)
         VALUES(:cover, :title, :url, :tags)");
 
-        $add_value->execute(array(
-            "cover" => "images/upload/" . $uploadFileName,
-            "title" => $projectName,
-            "url" => $projectUrl,
-            "tags" => json_encode($projectTags)
-        ));
+    $add_value->execute(array(
+        "cover" => "images/upload/" . $coverName,
+        "title" => $projectName,
+        "url" => $projectUrl,
+        "tags" => json_encode($projectTags)
+    ));
 
-        return $response->withRedirect('projects');
-
-    } catch(PDOException $e) {
-        echo $sql . "<br>" . $e->getMessage();
-    }
+    return $response->withRedirect('projects');
 
     $conn = null;
+
+});
+
+$app->post('/get', function ($request, $response, $args) {
+
+    return json_encode($this->get("project_block"));
 
 });
 

@@ -43,62 +43,10 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                         <p class="container_count"><span>0</span> projects showed</p>
 
                         <div class="container_projects clear">
-                            <?php 
-
-                            //include_once 'projects/projects_list_01.php'; 
-
-                            $servername = "localhost";
-                            $username = "root";
-                            $password = "root";
-                            $dbname = "ag";
-
-                            try {
-                                $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                $query_title = $conn->query("SELECT title FROM projects");
-                                $query_url = $conn->query("SELECT url FROM projects");
-                                $query_tags = $conn->query("SELECT tags FROM projects");
-                                $query_cover = $conn->query("SELECT cover FROM projects");
-
-                                $fetch_title = $query_title->fetch();
-                                $title = $fetch_title["title"];
-
-                                $fetch_url = $query_url->fetch();
-                                $url = $fetch_url["url"];
-
-                                $fetch_tags = $query_tags->fetch();
-                                $tags = $fetch_tags["tags"];
-
-                                $fetch_cover = $query_cover->fetch();
-                                $cover = $fetch_cover["cover"];
-
-                                $main_query = "SELECT * FROM projects ORDER BY id DESC LIMIT 0,10";
-                                $sql = $conn->prepare($main_query);
-                                $sql->execute();
-                                $content = $sql->fetchAll();
-                              
-                                foreach ($content as $project) {
-
-                                    echo '<article class="project"><div class="container_img" style="background-image:url("';
-                                    echo $cover;
-                                    echo ');"></div><div class="container_txt"><h2>';
-                                    echo $title;
-                                    echo '</h2><a href="';
-                                    echo $url;
-                                    echo '">See more</a><div class="project_tag"><span data-tag="';
-                                    echo json_decode($tags);
-                                    echo '">';
-                                    echo json_decode($tags);
-                                    echo '</span></div></div></article>';
-
-                                }
-
-                            } catch(PDOException $e) {
-                                echo $sql . "<br>" . $e->getMessage();
+                            <?php
+                            foreach ($project_block as $project) {
+                                echo $project;
                             }
-
-                            $conn = null;
-
                             ?>
                         </div>
 

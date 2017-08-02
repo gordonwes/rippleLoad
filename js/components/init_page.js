@@ -2,187 +2,92 @@ function initPages(page) {
 
     var actualPage = page.getAttribute('data-namespace');
 
-    if (actualPage === 'contact') {
-
-
-
-    } else if (actualPage === 'projects') {
+    if (actualPage === 'projects') {
 
         var projectsContainer = page.querySelector('.container_projects');
         var scrollArea = page.querySelector('.vertical_align');
         var projects = page.querySelectorAll('.project');
         var filterCount = page.querySelector('.count');
-        var projectsLoaded = false;
-        var infProject, loadAll;
 
-        function initListProjects() {
+        function initProjects() {
 
-            infProject = new InfiniteScroll(projectsContainer, {
-                path: function() {
-                    if (this.loadCount < projectPage) {
-                        var nextIndex = this.loadCount + 2;
-                        return './app/projects/projects_list_0' + nextIndex + '.php';
-                    }
-                },
-                append: '.project',
-                elementScroll: scrollArea,
-                prefill: true,
-                history: false,
-                status: '.projects_status'
-            });
-
-            infProject.on('append', function(response, path, items) {
-                showProjectOnScroll(items);
-                if (page.querySelector('.button.is_checked').getAttribute('data-filter') === '*') {
-                    updateFilterCount('*');
-                }
-            });
-
-            initFilters();
             showProjectOnScroll(projects);
-            updateFilterCount('*');
 
         }
-
-        setTimeout(function() {
-           // initListProjects();
-        }, 300);
-
 
         function showProjectOnScroll(projectArray) {
 
             forEach(projectArray, function (index, elem) {
 
-                if (!elem.classList.contains('is_hidden')) {
+                var hiddenProject = true;
 
-                    var hiddenProject = true;
+                function setAnimationElem() {
 
-                    function setAnimationElem() {
+                    var projectTop = elem.getBoundingClientRect().top;
+                    var heightProject = elem.offsetHeight;
 
-                        var projectTop = elem.getBoundingClientRect().top;
-                        var heightProject = elem.offsetHeight;
-
-                        if (projectTop - docHeight < -(heightProject / 2) && hiddenProject) {
-                            var animProject = anime({
-                                targets: elem,
-                                opacity: ['0', '1'],
-                                translateY: ['1.5rem', '0'],
-                                duration: 500,
-                                easing: 'easeInOutQuad',
-                                begin: function(anim) {
-                                    hiddenProject = false;
-                                }
-                            });
-
-                        }
+                    if (projectTop - docHeight < -(heightProject / 2) && hiddenProject) {
+                        var animProject = anime({
+                            targets: elem,
+                            opacity: ['0', '1'],
+                            translateY: ['1.5rem', '0'],
+                            duration: 500,
+                            easing: 'easeInOutQuad',
+                            begin: function(anim) {
+                                hiddenProject = false;
+                            }
+                        });
 
                     }
-
-                    function requestTick() {
-                        requestAnimationFrame(setAnimationElem);
-                    }
-
-                    setAnimationElem();
-                    scrollArea.addEventListener('scroll', requestTick);
 
                 }
+
+                function requestTick() {
+                    requestAnimationFrame(setAnimationElem);
+                }
+
+                setAnimationElem();
+                scrollArea.addEventListener('scroll', requestTick);
 
             });
 
         }
 
-        function initFilters() {
+        function loadNewProject() {
 
-            var filters = page.querySelector('.filters');
-
-            filters.addEventListener('click', function(event) {
-                if ( !matchesSelector(event.target, 'button')) {
-                    return;
-                }
-                var filterValue = event.target.getAttribute('data-filter');
-
-                preloadAllPages(filterValue);
-
-                filters.querySelector('.is_checked').classList.remove('is_checked');
-                event.target.classList.add('is_checked');
-
-            });
-
-        }
-
-        function filterProject(filterValue) {
-
-            clearInterval(loadAll);
-
-            var updateProject = page.querySelectorAll('.project');
-
-            if (filterValue !== '*') {
-
-                forEach(updateProject, function (index, elem) {
-
-                    elem.classList.remove('is_filtered');
-                    elem.classList.add('is_hidden');
-
-                    if (elem.querySelector('[data-tag="' + filterValue + '"]')) {
-                        elem.classList.add('is_filtered');
-                    }
-
-                });
-
-            } else {
-
-                forEach(updateProject, function (index, elem) {
-
-                    elem.classList.remove('is_filtered');
-                    elem.classList.remove('is_hidden');
-
-                });
-
-            }
-
-            updateFilterCount(filterValue);
-
-        }
-
-        function updateFilterCount(filterValue) {
-
-            if (docWidth > 767) {
-
-                var containerCount = page.querySelector('.container_count span');
-
-                if (filterValue !== '*') {
-                    var totalCount = page.querySelectorAll('[data-tag="' + filterValue + '"]').length;
+            fetch('./get', {  // ?result=10
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json'
+                },
+                credentials: "same-origin"
+            }).then(function(response) {
+                if (response.ok) {
+                    return Promise.resolve(response)
                 } else {
-                    var totalCount = page.querySelectorAll('.project').length;
+                    return Promise.reject(new Error(response.statusText))
                 }
-
-                if (totalCount !== 0) {
-
-                    containerCount.textContent = totalCount;
-
-                }
-
-            }
+            }).then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                appendNewProject(data);
+            });
 
         }
 
-        function preloadAllPages(filterValue) {
+        function appendNewProject(new_project) {
 
-            if (!projectsLoaded) {
-                loadAll = setInterval(function(){
-                    if (infProject.loadCount !== projectPage) {
-                        projectsLoaded = false;
-                        infProject.loadNextPage();
-                    } else {
-                        filterProject(filterValue);
-                        projectsLoaded = true;
-                    }
-                }, 50);
-            } else {
-                filterProject(filterValue);
-            }
+            forEach(new_project, function (index, elem) {             
+
+                projectsContainer.appendChild(elem);
+
+            });
 
         }
+
+        setTimeout(function() {
+            initProjects();
+        }, 300);
 
     }
 

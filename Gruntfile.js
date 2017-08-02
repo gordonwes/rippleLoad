@@ -15,8 +15,8 @@ module.exports = function (grunt) {
                     'node_modules/pace-js/pace.min.js',
                     'node_modules/whatwg-fetch/fetch.js',
                     //'node_modules/masonry-layout/dist/masonry.pkgd.min.js',
-                    //'node_modules/imagesloaded/imagesloaded.pkgd.min.js',
-                    'node_modules/infinite-scroll/dist/infinite-scroll.pkgd.min.js',
+                    'node_modules/imagesloaded/imagesloaded.pkgd.min.js',
+                    //'node_modules/infinite-scroll/dist/infinite-scroll.pkgd.min.js',
                     //'node_modules/isotope-layout/dist/isotope.pkgd.min.js',
                     // 'node_modules/flickity/dist/flickity.pkgd.min.js',
                     'js/components/*.js',
@@ -26,7 +26,6 @@ module.exports = function (grunt) {
             },
             admin: {
                 src: [
-                   // 'node_modules/whatwg-fetch/fetch.js',
                     'js/admin.js'
                 ],
                 dest: 'js/build/admin.js'

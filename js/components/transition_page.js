@@ -123,15 +123,7 @@ var resizeCanvas = function() {
 
 (function init() {
     resizeCanvas();
-    if (window.CP) {
-        // CodePen's loop detection was causin' problems
-        // and I have no idea why, so...
-        window.CP.PenTimer.MAX_TIME_IN_LOOP_WO_EXIT = 6000; 
-    }
     window.addEventListener("resize", resizeCanvas);
-    if (!!window.location.pathname.match(/fullcpgrid/)) {
-        startFauxClicking();
-    }
     handleInactiveUser();
 })();
 
@@ -148,13 +140,6 @@ function handleInactiveUser() {
 
     document.addEventListener("mousedown", clearInactiveTimeout);
     document.addEventListener("touchstart", clearInactiveTimeout);
-}
-
-function startFauxClicking() {
-    setTimeout(function(){
-        fauxClick(anime.random( cW * .2, cW * .8), anime.random(cH * .2, cH * .8));
-        startFauxClicking();
-    }, anime.random(200, 900));
 }
 
 function fauxClick(x, y) {

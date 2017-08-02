@@ -7,6 +7,7 @@
 .container_login{
     max-width: 40rem;
     margin: 0 auto;
+    text-align: left;
     &.incorrect_login{
         form{
             input:not([type="submit"]) {
