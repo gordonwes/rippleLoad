@@ -25,43 +25,70 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
             <div class="wrapper barba-container" data-namespace="<?= strtolower($pageTitle); ?>">
 
                 <section class="vertical_align">
-                    <div class="container_admin">
+                    <div class="container_admin wrapper clear">
 
-                        <form role="form" method="POST" enctype="multipart/form-data" action="<?= $baseUrl ?>/upload">
+                        <div class="list_projects">
+                            
+                            <h3>Projects List</h3>
 
-                            <input type="text" name="projectname" placeholder="Project Name" required>
-                            <input type="url" name="projecturl" placeholder="Project Url" required>
+                            <?php
+                            foreach ($project_list as $prj) {
 
-                            <div class="container_filter">
+                                echo '<div class="single_prj"><form role="form" method="POST" enctype="multipart/form-data" action="' . $baseUrl . '/delete/project">
+                                        <input type="num" value="' . $prj[0] . '" name="id_project" required>
+                                        <input type="submit" name="submit" value="">
+                                        </form><span>( ' . $prj[0] . ' )</span> ' . $prj[1] . '</div>';
 
-                                <h3>Filters</h3>
+                            }
+                            ?>
 
-                                <?php
-    foreach ($projectTags as $tag) {
+                        </div>
+
+                        <div class="container_forms">
+
+                            <form role="form" method="POST" enctype="multipart/form-data" action="<?= $baseUrl ?>/upload/tags">
+
+                                <input type="text" name="tagname" placeholder="Tag Name" required>
+                                <input type="submit" name="submit" value="Add New Tag">
+
+                            </form>
+
+                            <form role="form" method="POST" enctype="multipart/form-data" action="<?= $baseUrl ?>/upload/project">
+
+                                <input type="text" name="projectname" placeholder="Project Name" required>
+                                <textarea name="projectdesc" placeholder="Short Description"></textarea>
+                                <input type="url" name="projecturl" placeholder="Project Url" required>
+
+                                <div class="container_filter">
+
+                                    <h3>Tags</h3>
+
+                                    <?php
+    foreach ($tags_list as $tag) {
         echo '<label><input type="checkbox" name="projecttags[]" value="';
         echo $tag;
         echo '"><i></i><span>';
         echo $tag;
         echo '</span></label>';
     }
-                                ?>
+                                    ?>
 
-                            </div>
+                                </div>
 
-                            <div class="container_image_upload">
-                                <h3>Cover Image</h3>
-                                <input type="hidden" name="MAX_FILE_SIZE" value="200000000" />
-                                <label>
-                                    <span>Upload image</span>
-                                    <input type="file" name="newfile" accept="image/*" required>
-                                </label>
-                            </div>    
+                                <div class="container_image_upload">
+                                    <h3>Cover Image</h3>
+                                    <input type="hidden" name="MAX_FILE_SIZE" value="200000000" />
+                                    <label>
+                                        <span>Upload image</span>
+                                        <input type="file" name="newfile" accept="image/*" required>
+                                    </label>
+                                </div>    
 
-                            <input type="submit" name="submit" value="Upload Project"> 
-                            
-                            <span class="container_upload_result"></span>
+                                <input type="submit" name="submit" value="Upload Project"> 
 
-                        </form>
+                            </form>
+
+                        </div>
 
                     </div>
                 </section>

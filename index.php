@@ -42,6 +42,39 @@ $container['db'] = function ($c) {
 
 };
 
+$container['tagsBlock'] = function ($c) {
+
+    $servername = $c->get('settings')['db']['servername'];
+    $username = $c->get('settings')['db']['username'];
+    $password = $c->get('settings')['db']['password'];
+    $dbname = $c->get('settings')['db']['dbname'];
+
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch(PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+
+    $main_query = "SELECT * FROM tags ORDER BY id DESC";
+    $main_query_init = $conn->prepare($main_query);
+    $main_query_init->execute();
+    $tags_fetch = $main_query_init->fetchAll();
+
+    $conn = null;
+
+    $list_tags = array();
+
+    foreach ($tags_fetch as $tag) {
+
+        $list_tags[] = $tag['value'];
+
+    }
+
+    return $list_tags;
+
+};
+
 $container['projectBlock'] = function ($c) {
 
     $servername = $c->get('settings')['db']['servername'];
@@ -63,20 +96,24 @@ $container['projectBlock'] = function ($c) {
 
     $conn = null;
 
-    $list_project = array();
+    $block_project = array();
 
     foreach ($content_fetch as $project) {
 
         $cover = $project['cover'];
         $title = $project['title'];
+        $desc = $project['description'];
         $url = $project['url'];
         $tags = $project['tags'];
 
         $projectsBlock = '<article class="project">
                                 <div class="container_img" style="background-image:url(' . $cover . ');"></div>
                                 <div class="container_txt">
-                                <h2>' . $title . '</h2>
-                                <a href="' . $url . '">See more</a>
+                                <h2>' . $title . '</h2>';
+        if (isset($desc) && !empty($desc)) {
+            $projectsBlock .= '<p>' . $desc . '</p>';
+        }
+        $projectsBlock .= '<a href="' . $url . '">See more</a>
                                 <div class="project_tag">
                                 <span data-tag="';
 
@@ -94,7 +131,45 @@ $container['projectBlock'] = function ($c) {
 
         $projectsBlock .= '</span></div></div></article>';
 
-        $list_project[] = $projectsBlock;
+        $block_project[] = $projectsBlock;
+
+    }
+
+    return $block_project;
+
+};
+
+$container['projectList'] = function ($c) {
+
+    $servername = $c->get('settings')['db']['servername'];
+    $username = $c->get('settings')['db']['username'];
+    $password = $c->get('settings')['db']['password'];
+    $dbname = $c->get('settings')['db']['dbname'];
+
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch(PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+
+    $main_query = "SELECT * FROM projects ORDER BY id ASC";
+    $main_query_init = $conn->prepare($main_query);
+    $main_query_init->execute();
+    $content_fetch = $main_query_init->fetchAll();
+
+    $conn = null;
+
+    $list_project = array();
+
+    foreach ($content_fetch as $project) {
+
+        $id = $project['id'];
+        $title = $project['title'];
+
+        $projectsList = array($id, $title);
+
+        $list_project[] = $projectsList;
 
     }
 
@@ -116,6 +191,7 @@ $app->get('/', function ($request, $response, $args) {
 
 $app->get('/projects', function ($request, $response, $args) {
     $response = $this->renderer->render($response, 'projects.php', array(
+        'project_tags' => $this->get("tagsBlock"),
         'project_block' => $this->get("projectBlock")
     ));
     return $response;
@@ -128,7 +204,10 @@ $app->get('/login', function ($request, $response, $args) {
 
 $app->get('/admin', function ($request, $response, $args) {
     if (isset($_SESSION["admin"])) {
-        $response = $this->renderer->render($response, 'admin.php', $args);
+        $response = $this->renderer->render($response, 'admin.php', array(
+            'project_list' => $this->get("projectList"),
+            'tags_list' => $this->get("tagsBlock")
+        ));
         return $response;
     } else {
         return $response->withRedirect('login');
@@ -184,14 +263,14 @@ $app->post('/login', function ($request, $response, $args) {
 
 });
 
-$app->post('/upload', function ($request, $response, $args) {
+$app->post('/upload/project', function ($request, $response, $args) {
 
     $conn = $this->get("db");
 
     $projectName = $request->getParam('projectname');
     $projectUrl = $request->getParam('projecturl');
     $projectTags = $request->getParam('projecttags');
-
+    $projectDescription = $request->getParam('projectdesc');
     $projectCover = $request->getUploadedFiles();
 
     if (!empty($projectCover['newfile'])) {
@@ -216,19 +295,52 @@ $app->post('/upload', function ($request, $response, $args) {
 
     }
 
-    $add_value = $conn->prepare("INSERT INTO projects(cover, title, url, tags)
-        VALUES(:cover, :title, :url, :tags)");
+    $add_value = $conn->prepare("INSERT INTO projects(cover, title, description, url, tags)
+        VALUES(:cover, :title, :description, :url, :tags)");
 
     $add_value->execute(array(
         "cover" => "images/upload/" . $coverName,
         "title" => $projectName,
+        "description" => $projectDescription,
         "url" => $projectUrl,
         "tags" => json_encode($projectTags)
     ));
 
     $conn = null;
 
-    return $response->withRedirect('projects');
+    return $response->withRedirect('../admin');
+
+});
+
+$app->post('/upload/tags', function ($request, $response, $args) {
+
+    $conn = $this->get("db");
+
+    $tagName = $request->getParam('tagname');
+
+    $sql = "INSERT INTO tags SET value='$tagName'";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+    $conn = null;
+
+    return $response->withRedirect('../admin');
+
+});
+
+$app->post('/delete/project', function ($request, $response, $args) {
+
+    $conn = $this->get("db");
+
+    $id_to_delete = $request->getParam('id_project');
+
+    $sql = "DELETE FROM projects WHERE id ='$id_to_delete'";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+    $conn = null;
+
+    return $response->withRedirect('../admin');
 
 });
 

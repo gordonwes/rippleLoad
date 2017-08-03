@@ -9,6 +9,7 @@ function initPages(page) {
         var projects = page.querySelectorAll('.project');
         var totalProject = projects.length;
         var filters = page.querySelectorAll('.filters button');
+        var backTop = page.querySelector('.end_list');
 
         function initProjects(elems) {
 
@@ -84,7 +85,7 @@ function initPages(page) {
 
             var filterValue = button.getAttribute('data-filter');
             var filterCount = projectsContainer.querySelectorAll('[data-tag*="' + filterValue + '"]').length;
-            
+
             var countContainer = button.nextElementSibling;
 
             if (filterValue !== '*') {
@@ -104,11 +105,80 @@ function initPages(page) {
 
         function sortProjects(filterValue) {
 
-            forEach(projects, function (index, elem) {
-
-                
-
+            var hideProjectsOut = anime({
+                targets: projectsContainer,
+                opacity: ['1', '0'],
+                duration: 200,
+                easing: 'easeInOutQuad',
+                begin: function() {
+                    hideEndList();
+                },
+                complete: function() {
+                    initFiltering();
+                }
             });
+
+            function initFiltering() {
+
+                forEach(projects, function (index, elem) {
+
+                    elem.classList.add('is_hidden');
+                    elem.style.opacity = '0';
+
+                    if (filterValue !== '*') {
+                        if (elem.querySelector('[data-tag*="' + filterValue + '"]')) {
+                            elem.classList.remove('is_hidden');
+                        }
+                    } else {
+                        elem.classList.remove('is_hidden');
+                    }
+
+                    showProjectOnScroll(elem);
+
+                });
+
+                setTimeout(function() {
+                    projectsContainer.style.opacity = '1';    
+                    showEndList();
+                }, 30);
+
+            }
+
+            function hideEndList() {
+
+                var hideBackTop = anime({
+                    targets: backTop,
+                    opacity: ['1', '0'],
+                    duration: 200,
+                    easing: 'easeInOutQuad'
+                });
+
+            }
+
+            function showEndList() {
+
+                var showBackTop = anime({
+                    targets: backTop,
+                    opacity: ['0', '1'],
+                    duration: 400,
+                    easing: 'easeInOutQuad'
+                });
+
+                detectVisibilityGoTop(backTop.querySelector('a'));
+
+            }
+
+        }
+
+        function detectVisibilityGoTop(elem) {
+
+            var elemTop = elem.getBoundingClientRect().top;
+
+            if (elemTop > docHeight) {
+                elem.style.visibility = 'visible';
+            } else {
+                elem.style.visibility = 'hidden'; 
+            }
 
         }
 

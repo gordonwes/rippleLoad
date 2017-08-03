@@ -30,7 +30,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                             <button class="button is_checked" data-filter="*">all</button><span></span>
 
                             <?php
-                            foreach ($projectTags as $tag) {
+                            foreach ($project_tags as $tag) {
                                 echo '<button data-filter="';
                                 echo $tag;
                                 echo '">';

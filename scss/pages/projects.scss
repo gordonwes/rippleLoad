@@ -49,7 +49,7 @@
                     margin-right: 2.5rem;
                     cursor: default;
                     font-size: 1.2rem;
-                    transform: translate(0, -1px);
+                    transform: translate(0, -2px);
                     display: inline-block;
                     &:last-of-type{
                         margin-right: 0;
@@ -87,6 +87,9 @@
                         h2{
 
                         }
+                    }
+                    &.is_hidden{
+                        display: none;
                     }
                 }
             }

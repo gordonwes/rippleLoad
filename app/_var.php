@@ -8,11 +8,6 @@ $colorsBkg = array(
     "#F6BB42", 
     "#8CC152",  
 );
-$projectTags = array(
-    "website", 
-    "graphic",
-    "native", 
-);
 $mainColor = $colorsBkg[array_rand($colorsBkg, 1)];
 $author = 'Alberto Gorgonio';
 $telephoneDetect = 'no';

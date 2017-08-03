@@ -81,7 +81,7 @@ canvas{
     height: 100%;
 }
 
-input{
+input, textarea{
     &:not([type="file"]):not([type="checkbox"]){
         background-color: #fff !important;
         padding: 1rem 1.5rem;
@@ -91,6 +91,7 @@ input{
         border: none;
         width: 100%;
         display: block;
+        resize: none;
         appearance: none;
         outline: none;
         -webkit-appearance: none;
@@ -112,6 +113,10 @@ input{
             }
         }
     }
+}
+
+textarea{
+    height: 10rem;
 }
 
 .barba-container{
