@@ -236,8 +236,6 @@ $app->post('/login', function ($request, $response, $args) {
     $fetch_psw = $query_psw->fetch();
     $psw = $fetch_psw["password"];
 
-    $conn = null;
-
     if (!isset($psw) || empty($psw)) {
 
         $new_psw = password_hash($request->getParam('password'), PASSWORD_BCRYPT);
@@ -248,6 +246,8 @@ $app->post('/login', function ($request, $response, $args) {
         $stmt->execute();
 
     }
+
+    $conn = null;
 
     $_SESSION["user"] = $user === $request->getParam('username');
     $_SESSION["psw"] = password_verify($request->getParam('password'), $psw);

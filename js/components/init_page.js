@@ -15,6 +15,7 @@ function initPages(page) {
 
             loadCover(elems);
             initFilter();
+            detectVisibilityGoTop(backTop.querySelector('a'));
 
         }
 
