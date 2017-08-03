@@ -85,12 +85,6 @@ function capitalizeFirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-////// retry loading infinite scroll //////////////
-
-function retryPageLoad() {
-    location.reload();
-}
-
 ////// set active menu voice //////////////
 
 function setMenuVoice(triggerEvent) {
@@ -128,7 +122,9 @@ window.addEventListener('popstate', function (e) {
     var state = e.state;
     if (state === null) {
         var linkNow = document.querySelector('[href="' + window.location.href + '"]');
-        setMenuVoice(linkNow);
-        linkNow.style.borderColor = nextColor;
+        if (linkNow) {
+            setMenuVoice(linkNow);
+            linkNow.style.borderColor = nextColor;
+        }
     }
 });

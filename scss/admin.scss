@@ -35,7 +35,6 @@
                 cursor: pointer;
                 margin-bottom: 1.5rem;
                 span{
-                    font-family: $font;
                     font-size: 1.6rem;
                     color: #fff;
                     margin-left: 1rem;
@@ -99,7 +98,6 @@
                 span{
                     cursor: pointer;
                     background-color: #fff;
-                    font-family: $font;
                     font-size: 1.6rem;
                     color: $gray;
                     width: auto;
@@ -118,7 +116,6 @@
             }
         }
         .container_upload_result{
-            font-family: $font;
             font-size: 1.6rem;
             color: #fff;
             display: inline-block;

@@ -26,39 +26,33 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 
                     <div class="container_fn_project wrapper">
                         <div class="filters">
-                            <button class="button is_checked" data-filter="*">all</button>
+
+                            <button class="button is_checked" data-filter="*">all</button><span></span>
 
                             <?php
                             foreach ($projectTags as $tag) {
-                                echo '<button class="button" data-filter="';
+                                echo '<button data-filter="';
                                 echo $tag;
                                 echo '">';
                                 echo $tag;
-                                echo '</button>';
+                                echo '</button><span></span>';
                             }
                             ?>
 
                         </div>
 
-                        <p class="container_count"><span>0</span> projects showed</p>
-
                         <div class="container_projects clear">
+
                             <?php
                             foreach ($project_block as $project) {
                                 echo $project;
                             }
                             ?>
+
                         </div>
 
-                        <div class="projects_status">
-                            <div class="loader-ellips infinite-scroll-request">
-                                <span class="loader-ellips__dot"></span>
-                                <span class="loader-ellips__dot"></span>
-                                <span class="loader-ellips__dot"></span>
-                                <span class="loader-ellips__dot"></span>
-                            </div>
-                            <p class="infinite-scroll-last">You've reached the end. <a href="#" onclick="goTop('.vertical_align')">Go TOP.</a></p>
-                            <p class="infinite-scroll-error">Error loading next page. <a href="#" onclick="retryPageLoad()">RETRY</a></p>
+                        <div class="end_list">
+                            <p>You've reached the end. <a href="#" onclick="goTop('.vertical_align')">Go TOP.</a></p>
                         </div>
                     </div>
 

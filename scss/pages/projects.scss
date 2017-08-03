@@ -14,12 +14,12 @@
         -webkit-overflow-scrolling: touch;
         .container_fn_project{
             padding: 0 1.5rem;
-            // padding-left: calc(1.5rem + 10px);
             position: relative;
             .filters{
                 text-align: left;
                 padding: 0 1.5rem;
                 padding-top: 2rem;
+                opacity: 0;
                 button{
                     appearance: none;
                     -webkit-appearance: none;
@@ -31,7 +31,7 @@
                     font-size: 1.6rem;
                     text-transform: uppercase;
                     margin: 1rem 0;
-                    margin-right: 3rem;
+                    margin-right: 5px;
                     font-weight: 500;
                     cursor: pointer;
                     outline: none;
@@ -39,23 +39,21 @@
                     &.is_checked{
                         border-bottom: 2px solid #fff;
                     }
-                    &:last-of-type{
-                        margin-right: 0;
-                    }
                     &:selection{
                         color: #fff;
                         background: transparent;
                     }
                 }
-            }
-            .container_count{
-                position: absolute;
-                top: 3rem;
-                right: 3rem;
-                font-size: 1.6rem;
-                color: #fff; 
                 span{
-                    font-weight: 500;
+                    color: rgba(255,255,255,0.6);
+                    margin-right: 2.5rem;
+                    cursor: default;
+                    font-size: 1.2rem;
+                    transform: translate(0, -1px);
+                    display: inline-block;
+                    &:last-of-type{
+                        margin-right: 0;
+                    }
                 }
             }
             .container_projects{
@@ -89,24 +87,11 @@
                         h2{
 
                         }
-                        p{
-
-                        }
-                    }
-                    &.is_filtered{
-                        display: block !important;
-                    }
-                    &.is_hidden{
-                        display: none;
-                        opacity: 1 !important;
-                        transform: none !important;
                     }
                 }
             }
-            .projects_status{
-                display: none;
-                padding: 3rem 0;
-                margin-left: 1.5rem;
+            .end_list{
+                padding: 3rem 1.5rem;
                 text-align: left;
                 p, a{
                     color: #fff;
@@ -114,55 +99,6 @@
                 }
                 a{
                     font-weight: 500;
-                }
-                .loader-ellips {
-                    font-size: 20px;
-                    position: relative;
-                    width: 4em;
-                    height: 1em;
-                    margin: 10px auto;
-                }
-
-                .loader-ellips__dot {
-                    display: block;
-                    width: 1em;
-                    height: 1em;
-                    border-radius: 0.5em;
-                    background: #fff;
-                    position: absolute;
-                    animation-duration: 0.5s;
-                    animation-timing-function: ease;
-                    animation-iteration-count: infinite;
-                }
-
-                .loader-ellips__dot:nth-child(1),
-                .loader-ellips__dot:nth-child(2) {
-                    left: 0;
-                }
-                .loader-ellips__dot:nth-child(3) { left: 1.5em; }
-                .loader-ellips__dot:nth-child(4) { left: 3em; }
-
-                @keyframes reveal {
-                    from { transform: scale(0.001); }
-                    to { transform: scale(1); }
-                }
-
-                @keyframes slide {
-                    to { transform: translateX(1.5em) }
-                }
-
-                .loader-ellips__dot:nth-child(1) {
-                    animation-name: reveal;
-                }
-
-                .loader-ellips__dot:nth-child(2),
-                .loader-ellips__dot:nth-child(3) {
-                    animation-name: slide;
-                }
-
-                .loader-ellips__dot:nth-child(4) {
-                    animation-name: reveal;
-                    animation-direction: reverse;
                 }
             }
         }

@@ -42,7 +42,7 @@ $container['db'] = function ($c) {
 
 };
 
-$container['project_block'] = function ($c) {
+$container['projectBlock'] = function ($c) {
 
     $servername = $c->get('settings')['db']['servername'];
     $username = $c->get('settings')['db']['username'];
@@ -56,7 +56,7 @@ $container['project_block'] = function ($c) {
         echo $sql . "<br>" . $e->getMessage();
     }
 
-    $main_query = "SELECT * FROM projects ORDER BY id DESC LIMIT 0, 12";
+    $main_query = "SELECT * FROM projects ORDER BY id DESC";
     $main_query_init = $conn->prepare($main_query);
     $main_query_init->execute();
     $content_fetch = $main_query_init->fetchAll();
@@ -116,7 +116,7 @@ $app->get('/', function ($request, $response, $args) {
 
 $app->get('/projects', function ($request, $response, $args) {
     $response = $this->renderer->render($response, 'projects.php', array(
-        'project_block' => $this->get("project_block")
+        'project_block' => $this->get("projectBlock")
     ));
     return $response;
 })->setName('projects');
@@ -226,15 +226,9 @@ $app->post('/upload', function ($request, $response, $args) {
         "tags" => json_encode($projectTags)
     ));
 
-    return $response->withRedirect('projects');
-
     $conn = null;
 
-});
-
-$app->post('/get', function ($request, $response, $args) {
-
-    return json_encode($this->get("project_block"));
+    return $response->withRedirect('projects');
 
 });
 

@@ -15,6 +15,7 @@
     transform: none;
     z-index: 9;
     box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    color: $gray;
     #contenitore_testo_cookie{
         display: inline-block;   
         text-transform: uppercase;
@@ -26,6 +27,7 @@
         padding-bottom: 3rem;
         a{
             font-weight: $bold;
+            color: inherit;
             &#ok_cookie{
                 margin-right: 1.5rem;
             }

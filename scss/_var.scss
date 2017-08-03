@@ -16,6 +16,6 @@ $line_height_header: 1.2;
 
 // Colors
 
-$selection: rgba(255,255,255,0.8);
-$selection_color: #000;
 $gray: #5d5d5d;
+$selection: rgba(255,255,255,0.8);
+$selection_color: $gray;
