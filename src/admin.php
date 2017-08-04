@@ -32,12 +32,15 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                             <h3>Projects List</h3>
 
                             <?php
+                            $i = 0;
                             foreach ($project_list as $prj) {
 
                                 echo '<div class="single_prj"><form role="form" method="POST" enctype="multipart/form-data" action="' . $baseUrl . '/delete/project">
-                                        <input type="num" value="' . $prj[0] . '" name="id_project" required>
+                                        <input type="num" value="' . $prj[0] . '" name="timestamp_project" required>
                                         <input type="submit" name="submit" value="">
-                                        </form><span>( ' . $prj[0] . ' )</span> ' . $prj[1] . '</div>';
+                                        </form><span>( ' . $i . ' )</span> ' . $prj[1] . '</div>';
+                                
+                                $i++;
 
                             }
                             ?>
@@ -46,11 +49,11 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 
                         <div class="container_forms">
 
-                            <form role="form" method="POST" enctype="multipart/form-data" action="<?= $baseUrl ?>/upload/tags">
+                            <form role="form" method="POST" enctype="multipart/form-data" action="<?= $baseUrl ?>/manager/tags">
 
                                 <input type="text" name="tagname" placeholder="Tag Name" required>
-                                <input type="submit" name="submit_tag" value="Add New Tag">
-                                <input type="submit" name="remove_tag" value="Remove Tag">
+                                <input type="submit" name="submit" value="Add New Tag">
+                                <input type="submit" name="remove" value="Remove Tag">
 
                             </form>
 

@@ -56,7 +56,7 @@ $container['tagsBlock'] = function ($c) {
         echo $sql . "<br>" . $e->getMessage();
     }
 
-    $main_query = "SELECT * FROM tags ORDER BY id DESC";
+    $main_query = "SELECT * FROM tags ORDER BY value DESC";
     $main_query_init = $conn->prepare($main_query);
     $main_query_init->execute();
     $tags_fetch = $main_query_init->fetchAll();
@@ -89,7 +89,7 @@ $container['projectBlock'] = function ($c) {
         echo $sql . "<br>" . $e->getMessage();
     }
 
-    $main_query = "SELECT * FROM projects ORDER BY id DESC";
+    $main_query = "SELECT * FROM projects ORDER BY timestamp DESC";
     $main_query_init = $conn->prepare($main_query);
     $main_query_init->execute();
     $content_fetch = $main_query_init->fetchAll();
@@ -153,7 +153,7 @@ $container['projectList'] = function ($c) {
         echo $sql . "<br>" . $e->getMessage();
     }
 
-    $main_query = "SELECT * FROM projects ORDER BY id ASC";
+    $main_query = "SELECT * FROM projects ORDER BY timestamp ASC";
     $main_query_init = $conn->prepare($main_query);
     $main_query_init->execute();
     $content_fetch = $main_query_init->fetchAll();
@@ -164,7 +164,7 @@ $container['projectList'] = function ($c) {
 
     foreach ($content_fetch as $project) {
 
-        $id = $project['id'];
+        $id = $project['timestamp'];
         $title = $project['title'];
 
         $projectsList = array($id, $title);
@@ -235,6 +235,19 @@ $app->post('/login', function ($request, $response, $args) {
 
     $fetch_psw = $query_psw->fetch();
     $psw = $fetch_psw["password"];
+    
+    if (!isset($user) || empty($user)) {
+
+        $new_user = $request->getParam('username');
+
+        $sql = "UPDATE admin SET username='$new_user' WHERE id=1";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        
+        return $response->withRedirect('login');
+
+    }
 
     if (!isset($psw) || empty($psw)) {
 
@@ -244,6 +257,8 @@ $app->post('/login', function ($request, $response, $args) {
 
         $stmt = $conn->prepare($sql);
         $stmt->execute();
+        
+        return $response->withRedirect('login');
 
     }
 
@@ -256,7 +271,7 @@ $app->post('/login', function ($request, $response, $args) {
 
     if ($_SESSION["user"] && $_SESSION["psw"] && $_SESSION["no-bot"]) {
         $_SESSION["admin"] = true;
-        return $response->withRedirect('projects');
+        return $response->withRedirect('admin');
     } else {
         return $response->withRedirect('login?error=true');
     }
@@ -295,15 +310,16 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
     }
 
-    $add_value = $conn->prepare("INSERT INTO projects(cover, title, description, url, tags)
-        VALUES(:cover, :title, :description, :url, :tags)");
+    $add_value = $conn->prepare("INSERT INTO projects(cover, title, description, url, tags, timestamp)
+        VALUES(:cover, :title, :description, :url, :tags, :timestamp)");
 
     $add_value->execute(array(
         "cover" => "images/upload/" . $coverName,
         "title" => $projectName,
         "description" => $projectDescription,
         "url" => $projectUrl,
-        "tags" => json_encode($projectTags)
+        "tags" => json_encode($projectTags),
+        "timestamp" => date("Y.m.d.h.i.sa")
     ));
 
     $conn = null;
@@ -312,15 +328,25 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
 });
 
-$app->post('/upload/tags', function ($request, $response, $args) {
+$app->post('/manager/tags', function ($request, $response, $args) {
 
     $conn = $this->get("db");
 
     $tagName = $request->getParam('tagname');
 
-    $sql = "INSERT INTO tags SET value='$tagName'";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
+    if ($request->getParam('submit') == 'Add New Tag') {
+
+        $sql = "INSERT INTO tags SET value='$tagName'";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+    } else {
+
+        $sql = "DELETE FROM tags WHERE value ='$tagName'";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+    }
 
     $conn = null;
 
@@ -332,9 +358,9 @@ $app->post('/delete/project', function ($request, $response, $args) {
 
     $conn = $this->get("db");
 
-    $id_to_delete = $request->getParam('id_project');
+    $timestamp_to_delete = $request->getParam('timestamp_project');
 
-    $sql = "DELETE FROM projects WHERE id ='$id_to_delete'";
+    $sql = "DELETE FROM projects WHERE timestamp ='$timestamp_to_delete'";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
@@ -345,14 +371,3 @@ $app->post('/delete/project', function ($request, $response, $args) {
 });
 
 $app->run();
-
-
-
-
-
-
-
-
-
-
-
