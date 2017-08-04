@@ -28,7 +28,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                     <div class="container_admin wrapper clear">
 
                         <div class="list_projects">
-                            
+
                             <h3>Projects List</h3>
 
                             <?php
@@ -49,7 +49,8 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                             <form role="form" method="POST" enctype="multipart/form-data" action="<?= $baseUrl ?>/upload/tags">
 
                                 <input type="text" name="tagname" placeholder="Tag Name" required>
-                                <input type="submit" name="submit" value="Add New Tag">
+                                <input type="submit" name="submit_tag" value="Add New Tag">
+                                <input type="submit" name="remove_tag" value="Remove Tag">
 
                             </form>
 
