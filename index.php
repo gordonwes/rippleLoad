@@ -113,7 +113,7 @@ $container['projectBlock'] = function ($c) {
         if (isset($desc) && !empty($desc)) {
             $projectsBlock .= '<p>' . $desc . '</p>';
         }
-        $projectsBlock .= '<a href="' . $url . '">See more</a>
+        $projectsBlock .= '<a href="' . $url . '" target="_blank" rel="noopener">Visit Site</a>
                                 <div class="project_tag">
                                 <span data-tag="';
 
