@@ -4,16 +4,17 @@
 
 @import 'var';
 
-.container_login{
-    max-width: 40rem;
-    margin: 0 auto;
-    text-align: left;
-    &.incorrect_login{
-        form{
-            input:not([type="submit"]) {
-                border-left: 3px solid #E53935;
+.barba-container[data-namespace="login"]{
+    .container_login{
+        max-width: 40rem;
+        margin: 0 auto;
+        text-align: left;
+        &.incorrect_login{
+            form{
+                input:not([type="submit"]) {
+                    border-left: 3px solid #E53935;
+                }
             }
         }
     }
 }
-

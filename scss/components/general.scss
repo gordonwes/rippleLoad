@@ -144,3 +144,26 @@ textarea{
         }
     }
 }
+
+.no_js{
+
+    #color_change{
+        background-color: #F6BB42;
+    }
+    .barba-container[data-namespace="projects"]{
+        .vertical_align{
+            .container_fn_project{
+                .container_projects{
+                    padding-top: 4rem;
+                    .project{
+                        opacity: 1;
+                    }
+                }
+                .filters{
+                    display: none;
+                }
+            }
+        }
+    }
+
+}

@@ -3,7 +3,7 @@
 
 $baseUrl = 'http://localhost:8888/rippleLoad';
 $siteName = 'AG';
-$colorsBkg = array( 
+$colorsBkg = array(
     "#5D9CEC", 
     "#FC6E51",
     "#F6BB42", 

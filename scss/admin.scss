@@ -181,3 +181,19 @@
         }
     }
 }
+
+@media screen and (max-width:767px) {
+    .barba-container[data-namespace="admin"]{
+        .vertical_align{
+            .container_admin{
+                .list_projects, .container_forms{
+                    width: 100%;
+                    float: none;
+                }
+                .list_projects{
+                    margin-bottom: 3rem;
+                }
+            }
+        }
+    }
+}

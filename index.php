@@ -118,8 +118,7 @@ $container['projectBlock'] = function ($c) {
                                 <span data-tag="';
 
         foreach (json_decode($tags) as $tag) {
-            $projectsBlock .= $tag;
-            if ($tag !== end(json_decode($tags))) $projectsBlock .= ', ';
+            $projectsBlock .= $tag . ' ';
         }
 
         $projectsBlock .= '">';
@@ -177,6 +176,12 @@ $container['projectList'] = function ($c) {
 
 };
 
+$container['devProjects'] = function ($c) {
+    
+    return scandir(__DIR__ . "/development");
+
+};
+
 // view renderer
 $container['renderer'] = function ($c) {
     $settings = $c->get('settings')['renderer'];
@@ -214,6 +219,17 @@ $app->get('/admin', function ($request, $response, $args) {
     }
 })->setName('admin');
 
+$app->get('/dev', function ($request, $response, $args) {
+    if (isset($_SESSION["admin"])) {
+        $response = $this->renderer->render($response, 'dev.php', array(
+            'dev_projects' => $this->get("devProjects")
+        ));
+        return $response;
+    } else {
+        return $response->withRedirect('login');
+    }
+})->setName('dev');
+
 //Override the default Not Found Handler
 $container['notFoundHandler'] = function ($c) {
     return function ($request, $response) use ($c) {
@@ -235,7 +251,7 @@ $app->post('/login', function ($request, $response, $args) {
 
     $fetch_psw = $query_psw->fetch();
     $psw = $fetch_psw["password"];
-    
+
     if (!isset($user) || empty($user)) {
 
         $new_user = $request->getParam('username');
@@ -244,7 +260,7 @@ $app->post('/login', function ($request, $response, $args) {
 
         $stmt = $conn->prepare($sql);
         $stmt->execute();
-        
+
         return $response->withRedirect('login');
 
     }
@@ -257,7 +273,7 @@ $app->post('/login', function ($request, $response, $args) {
 
         $stmt = $conn->prepare($sql);
         $stmt->execute();
-        
+
         return $response->withRedirect('login');
 
     }

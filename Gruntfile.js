@@ -78,6 +78,15 @@ module.exports = function (grunt) {
                 files: {
                     'css/login.css': 'scss/login.scss'
                 }
+            },
+            other: {
+                options: {
+                    style: 'compressed',
+                    loadPath: ['scss/dev.scss']
+                },
+                files: {
+                    'css/dev.css': 'scss/dev.scss'
+                }
             }
         },
         autoprefixer: {
@@ -94,6 +103,11 @@ module.exports = function (grunt) {
             login: {
                 files: {
                     'css/login.css': 'css/login.css'
+                }
+            },
+            other: {
+                files: {
+                    'css/dev.css': 'css/dev.css'
                 }
             }
         },
