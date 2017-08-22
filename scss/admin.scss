@@ -23,6 +23,12 @@
                 font-size: 2rem;
                 text-transform: uppercase;
             }
+            p{
+                &.empyt_list{
+                    font-size: 1.6rem;
+                    opacity: 0.8;
+                }
+            }
             .list_projects{
                 float: left;
                 width: 50%;
@@ -76,6 +82,16 @@
                 float: left;
                 width: 50%;
                 form{
+                    input:not([name="tagname"]){
+                        &:required{
+                            &:valid{
+                                border-left: 3px solid #3fa93d;
+                            }
+                            &:invalid{
+                                border-left: 3px solid #E53935;
+                            }
+                        }
+                    }
                     &:first-of-type{
                         margin-bottom: 3rem;
                         border-bottom: 2px solid #fff;

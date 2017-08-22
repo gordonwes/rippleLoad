@@ -29,12 +29,6 @@ module.exports = function (grunt) {
                     'js/admin.js'
                 ],
                 dest: 'js/build/admin.js'
-            },
-            login: {
-                src: [
-                    'js/login.js'
-                ],
-                dest: 'js/build/login.js'
             }
         },
         uglify: {
@@ -45,10 +39,6 @@ module.exports = function (grunt) {
             admin: {
                 src: 'js/build/admin.js',
                 dest: 'js/build/admin.min.js'
-            },
-            login: {
-                src: 'js/build/login.js',
-                dest: 'js/build/login.min.js'
             }
         },
         sass: {

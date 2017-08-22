@@ -87,18 +87,40 @@
                         padding: 1.5rem;
                         background-color: rgba(0,0,0,0.4);
                         text-align: left;
+                        h2{
+                            margin-bottom: 0.5rem;
+                        }
                         p{
                             font-size: 1.6rem;
                         }
                         a{
                             font-size: 2rem;
+                            padding-left: 2rem;
+                            margin-top: 0.5rem;
+                            position: relative;
+                            &:before{
+                                content: '';
+                                position: absolute;
+                                background-image: url(../images/icons/link.svg);
+                                background-size: contain;
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                height: 1.5rem;
+                                width: 1.5rem;
+                                position: absolute;
+                                top: 0.5rem;
+                                left: 0;
+
+                            }
                         }
                         .project_tag{
+                            position: absolute;
+                            bottom: 1.5rem;
+                            left: 1.5rem;
                             span{
                                 font-size: 1.3rem;
-                                position: absolute;
-                                bottom: 1.5rem;
-                                text-transform: uppercase;
+                                position: relative;
+                                text-transform: capitalize;
                             }
                         }
                     }

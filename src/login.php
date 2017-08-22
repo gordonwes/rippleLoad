@@ -25,19 +25,30 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
             <div class="wrapper barba-container" data-namespace="<?= strtolower($pageTitle); ?>">
 
                 <section class="vertical_align">
-                    <div class="container_login">
+                    <div class="container_login <?php if (isset($max_attempts)) echo 'max_attempts'; if (isset($error)) echo 'incorrect_login' ?>">
 
                         <form role="form" method="post" action="<?= $baseUrl ?>/login">
 
-                            <input type="text" name="username" placeholder="Username" required>
+                            <input type="text" name="username" placeholder="Username" required <?php if (isset($max_attempts)) echo 'disabled' ?>>
 
-                            <input type="password" name="password" placeholder="Password" required>
+                            <input type="password" name="password" placeholder="Password" required <?php if (isset($max_attempts)) echo 'disabled' ?>>
 
                             <input type="text" name="other" style="position:absolute;left:-9999px;top:-9999px;">
 
-                            <input type="submit" name="submit" value="Login">
+                            <input type="submit" name="submit" value="Login" <?php if (isset($max_attempts)) echo 'disabled' ?>>
 
                         </form>
+
+                        <?php if (isset($max_attempts)) { ?>
+                        <p class="message_attempts">Too many attempts, try again in 10 minutes.</p>
+                        <?php } 
+                         if (isset($error)) { ?>
+                        <p class="message_error">Error, incorrect user or password.</p>
+                        <?php } 
+                        if (isset($credential_set)) { ?>
+                        <p class="message_credential_set">First login detected. Data store in DB. <br/> Log in again.</p>
+                        <?php } ?>
+                        
 
                     </div>
                 </section>
@@ -46,8 +57,6 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
         </main>
 
         <?php include_once 'fragments/footer.php'; ?>
-
-        <script src="<?= $baseUrl ?>/js/build/login<?php if ($isDev !== 'true') echo '.min' ?>.js"></script>
 
     </body>
 </html>

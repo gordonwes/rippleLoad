@@ -19,6 +19,9 @@ $app = new Slim\App([
             'username' => 'root',
             'password' => 'root',
             'dbname' => 'ag'
+        ],
+        'idleTime' => [
+            'time' => 600
         ]
     ]
 ]);
@@ -105,6 +108,7 @@ $container['projectBlock'] = function ($c) {
         $desc = $project['description'];
         $url = $project['url'];
         $tags = $project['tags'];
+        $ref_tags = json_decode($tags);
 
         $projectsBlock = '<article class="project">
                                 <div class="container_img" style="background-image:url(' . $cover . ');"></div>
@@ -117,15 +121,19 @@ $container['projectBlock'] = function ($c) {
                                 <div class="project_tag">
                                 <span data-tag="';
 
-        foreach (json_decode($tags) as $tag) {
-            $projectsBlock .= $tag . ' ';
+        if (is_array($ref_tags) || $ref_tags instanceof Traversable) {
+            foreach ($ref_tags as $tag) {
+                $projectsBlock .= $tag . ' ';
+            }
         }
 
         $projectsBlock .= '">';
 
-        foreach (json_decode($tags) as $tag) {
-            $projectsBlock .= $tag;
-            if ($tag !== end(json_decode($tags))) $projectsBlock .= ', ';
+        if (is_array($ref_tags) || $ref_tags instanceof Traversable) {
+            foreach ($ref_tags as $tag) {
+                $projectsBlock .= $tag;
+                if ($tag !== end($ref_tags)) $projectsBlock .= ', ';
+            }
         }
 
         $projectsBlock .= '</span></div></div></article>';
@@ -177,8 +185,22 @@ $container['projectList'] = function ($c) {
 };
 
 $container['devProjects'] = function ($c) {
-    
+
     return scandir(__DIR__ . "/development");
+
+};
+
+$container['timeIdle'] = function ($c) {
+
+    $idleTime = $c->get('settings')['idleTime']['time'];
+
+    if (time() - $_SESSION['timestamp'] > $idleTime){
+        session_destroy();
+        session_unset();
+        return header("Refresh:0");
+    } else {
+        $_SESSION['timestamp'] = time();
+    }
 
 };
 
@@ -203,12 +225,37 @@ $app->get('/projects', function ($request, $response, $args) {
 })->setName('projects');
 
 $app->get('/login', function ($request, $response, $args) {
-    $response = $this->renderer->render($response, 'login.php', $args);
-    return $response;
+
+    if (isset($_SESSION["admin"])) {
+
+        return $response->withRedirect('admin');
+
+    } else {
+        $conn = $this->get("db");
+
+        $user_ip = $_SERVER["REMOTE_ADDR"];
+
+        $query_login = $conn->query("SELECT COUNT(*) FROM ip WHERE address LIKE '$user_ip' AND timestamp > (now() - interval 10 minute)");
+        $fetch_attempt = $query_login->fetch();
+
+        if ($fetch_attempt[0] > 3) {
+            $response = $this->renderer->render($response, 'login.php', array(
+                'max_attempts' => 'true'
+            ));
+            return $response;
+        } else {
+            $response = $this->renderer->render($response, 'login.php', $args);
+            return $response;
+        }
+    }
+
 })->setName('login');
 
 $app->get('/admin', function ($request, $response, $args) {
     if (isset($_SESSION["admin"])) {
+
+        $this->get("timeIdle");
+
         $response = $this->renderer->render($response, 'admin.php', array(
             'project_list' => $this->get("projectList"),
             'tags_list' => $this->get("tagsBlock")
@@ -221,6 +268,9 @@ $app->get('/admin', function ($request, $response, $args) {
 
 $app->get('/dev', function ($request, $response, $args) {
     if (isset($_SESSION["admin"])) {
+
+        $this->get("timeIdle");
+
         $response = $this->renderer->render($response, 'dev.php', array(
             'dev_projects' => $this->get("devProjects")
         ));
@@ -252,44 +302,81 @@ $app->post('/login', function ($request, $response, $args) {
     $fetch_psw = $query_psw->fetch();
     $psw = $fetch_psw["password"];
 
-    if (!isset($user) || empty($user)) {
+    $user_ip = $_SERVER["REMOTE_ADDR"];
+    $sql = "INSERT INTO ip (address ,timestamp)VALUES ('$user_ip',CURRENT_TIMESTAMP)";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
 
-        $new_user = $request->getParam('username');
+    $user_ip = $_SERVER["REMOTE_ADDR"];
 
-        $sql = "UPDATE admin SET username='$new_user' WHERE id=1";
+    $query_login = $conn->query("SELECT COUNT(*) FROM ip WHERE address LIKE '$user_ip' AND timestamp > (now() - interval 10 minute)");
+    $fetch_attempt = $query_login->fetch();
 
+    if (!isset($user) || empty($user) || !isset($psw) || empty($psw)) {
+
+        if (!isset($user) || empty($user)) {
+
+            $new_user = $request->getParam('username');
+
+            $sql = "UPDATE admin SET username='$new_user' WHERE id=1";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+
+        }
+
+        if (!isset($psw) || empty($psw)) {
+
+            $new_psw = password_hash($request->getParam('password'), PASSWORD_BCRYPT);
+
+            $sql = "UPDATE admin SET password='$new_psw' WHERE id=1";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+
+        }
+
+        $sql = "DELETE FROM ip WHERE address ='$user_ip'";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
 
-        return $response->withRedirect('login');
+        $response = $this->renderer->render($response, 'login.php', array(
+            'credential_set' => 'true'
+        ));
+
+        return $response;
 
     }
-
-    if (!isset($psw) || empty($psw)) {
-
-        $new_psw = password_hash($request->getParam('password'), PASSWORD_BCRYPT);
-
-        $sql = "UPDATE admin SET password='$new_psw' WHERE id=1";
-
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-
-        return $response->withRedirect('login');
-
-    }
-
-    $conn = null;
 
     $_SESSION["user"] = $user === $request->getParam('username');
     $_SESSION["psw"] = password_verify($request->getParam('password'), $psw);
     $_SESSION["no-bot"] = empty($_POST['other']);
 
+    if ($_SESSION["user"] && $_SESSION["psw"] && $_SESSION["no-bot"] && $fetch_attempt[0] <= 4) {
 
-    if ($_SESSION["user"] && $_SESSION["psw"] && $_SESSION["no-bot"]) {
         $_SESSION["admin"] = true;
+
+        $_SESSION['timestamp'] = time();
+
+        $sql = "DELETE FROM ip WHERE address ='$user_ip'";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        $conn = null;
+
         return $response->withRedirect('admin');
+    } elseif ($fetch_attempt[0] > 4) {
+        $response = $this->renderer->render($response, 'login.php', array(
+            'max_attempts' => 'true'
+        ));
+        $conn = null;
+        return $response;
     } else {
-        return $response->withRedirect('login?error=true');
+        $response = $this->renderer->render($response, 'login.php', array(
+            'error' => 'true'
+        ));
+        $conn = null;
+        return $response;
     }
 
 });
@@ -315,12 +402,53 @@ $app->post('/upload/project', function ($request, $response, $args) {
             $uploadFileSize = $newfile->getSize() / 1024;
             $maxSize = $request->getParam('MAX_FILE_SIZE');
 
-            if ($uploadFileSize < $maxSize && $uploadFileType === 'image/jpeg' || $uploadFileType === 'image/png') {
-                $newfile->moveTo(__DIR__ . "/images/upload/$uploadFileName");
-                $coverName = $uploadFileName;
+            // $uploadFileSize < $maxSize
+
+            $newfile->moveTo(__DIR__ . "/images/upload/$uploadFileName");
+            $path = __DIR__ . "/images/upload/$uploadFileName";
+
+            if ($uploadFileType === 'image/jpeg') {
+                $im = imagecreatefromjpeg($path);
+            } elseif ($uploadFileType === 'image/png') {
+                $im = imagecreatefrompng($path);
             } else {
-                $coverName = 'images/upload/default.jpg';
+                return false;
             }
+
+            list($width, $height) = getimagesize($path);
+
+            $maxWidth = 420;
+            $maxHeight = 420;
+
+            // Calculate ratio of desired maximum sizes and original sizes.
+            $widthRatio = $maxWidth / $width;
+            $heightRatio = $maxHeight / $height;
+
+            // Ratio used for calculating new image dimensions.
+            $ratio = min($widthRatio, $heightRatio);
+
+            // Calculate new image dimensions.
+            $newWidth  = (int)$width  * $ratio;
+            $newHeight = (int)$height * $ratio;
+
+            // Create final image with new dimensions.
+            $newImage = imagecreatetruecolor($newWidth, $newHeight);
+            imagecopyresampled($newImage, $im, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+            if ($uploadFileType === 'image/jpeg') {
+                imageinterlace($newImage, true);
+                imagejpeg($newImage, $path, 80);
+            } elseif ($uploadFileType === 'image/png') {
+                imagepng($newImage, $path, 7);
+            } else {
+                return false;
+            }
+
+            // Free up the memory.
+            imagedestroy($im);
+            imagedestroy($newImage);
+
+            $coverName = $uploadFileName;
 
         }
 
