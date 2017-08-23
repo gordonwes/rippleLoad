@@ -29,16 +29,22 @@ header{
                 margin-left: 0;
             }
         }
-        >a{
+        .container_admin_link{
             position: absolute;
             top: 0;
             right: 3rem;
-            line-height: 2;
-            font-size: 1.6rem;
-            color: $gray;
-            &.is_active{
-                border-bottom-width: 2px;
-                border-bottom-style: solid;
+            a{
+                padding-bottom: 0.4rem;
+                line-height: 2;
+                font-size: 1.6rem;
+                color: $gray;
+                &.is_active{
+                    border-bottom-width: 2px;
+                    border-bottom-style: solid;
+                }
+                &:first-of-type{ 
+                    margin-right: 2rem;
+                }
             }
         }
     }

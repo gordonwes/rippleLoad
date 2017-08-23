@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Creato il: Ago 04, 2017 alle 15:19
+-- Creato il: Ago 22, 2017 alle 11:28
 -- Versione del server: 5.6.35
 -- Versione PHP: 7.0.15
 
@@ -30,6 +30,18 @@ CREATE TABLE `admin` (
   `id` int(11) UNSIGNED NOT NULL,
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `ip`
+--
+
+CREATE TABLE `ip` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -70,6 +82,12 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indici per le tabelle `ip`
+--
+ALTER TABLE `ip`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indici per le tabelle `projects`
 --
 ALTER TABLE `projects`
@@ -91,10 +109,15 @@ ALTER TABLE `tags`
 ALTER TABLE `admin`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT per la tabella `ip`
+--
+ALTER TABLE `ip`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+--
 -- AUTO_INCREMENT per la tabella `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT per la tabella `tags`
 --

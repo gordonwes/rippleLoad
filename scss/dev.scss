@@ -1,0 +1,32 @@
+/*////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////// DEV ///////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////*/
+
+@import 'var';
+
+.barba-container[data-namespace="dev"]{
+    ul{
+        padding-top: 9.5rem;
+        li{
+            a{
+                color: #fff;
+                line-height: 2;
+                font-size: 1.6rem;
+                padding-left: 2.5rem;
+                position: relative;
+                &:before{
+                    content: '';
+                    background-image: url(../images/icons/link.svg);
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    height: 1.5rem;
+                    width: 1.5rem;
+                    position: absolute;
+                    top: 0.25rem;
+                    left: 0;
+                }
+            }
+        }
+    }
+}

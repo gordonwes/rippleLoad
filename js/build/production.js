@@ -512,7 +512,7 @@ function initPages(page) {
         function setCountFilter(button) {
 
             var filterValue = button.getAttribute('data-filter');
-            var filterCount = projectsContainer.querySelectorAll('[data-tag*="' + filterValue + '"]').length;
+            var filterCount = projectsContainer.querySelectorAll('[data-tag~="' + filterValue + '"]').length;
 
             var countContainer = button.nextElementSibling;
 
@@ -554,7 +554,7 @@ function initPages(page) {
                     elem.style.opacity = '0';
 
                     if (filterValue !== '*') {
-                        if (elem.querySelector('[data-tag*="' + filterValue + '"]')) {
+                        if (elem.querySelector('[data-tag~="' + filterValue + '"]')) {
                             elem.classList.remove('is_hidden');
                         }
                     } else {

@@ -39,9 +39,12 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                                         <input type="num" value="' . $prj[0] . '" name="timestamp_project" required>
                                         <input type="submit" name="submit" value="">
                                         </form><span>( ' . $i . ' )</span> ' . $prj[1] . '</div>';
-                                
+
                                 $i++;
 
+                            }
+                            if (count($project_list) == 0) {
+                                echo '<p class="empyt_list">No projects yet!</p>';
                             }
                             ?>
 
@@ -75,6 +78,9 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
         echo $tag;
         echo '</span></label>';
     }
+                                  if (count($tags_list) == 0) {
+                                      echo '<p class="empyt_list">No tags yet!</p>';
+                                  }
                                     ?>
 
                                 </div>
