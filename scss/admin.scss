@@ -164,34 +164,6 @@
                             }
                         }
                     }
-                    .container_image_upload{
-                        h3{
-                            margin-bottom: 1.5rem;
-                            margin-top: 3rem;
-                        }
-                        label{
-                            position: relative;
-                            display: inline-block;
-                            span{
-                                cursor: pointer;
-                                background-color: #fff;
-                                font-size: 1.6rem;
-                                color: $gray;
-                                width: auto;
-                                padding: 1rem 3rem;
-                                margin-bottom: 1.5rem;
-                                display: inline-block;
-                            }
-                            input[type="file"] {
-                                opacity: 0;
-                                position: absolute;
-                                top: 0;
-                                left: 0;
-                                z-index: -1;
-                                width: 100%;
-                            }
-                        }
-                    }
                 }
             }
         }

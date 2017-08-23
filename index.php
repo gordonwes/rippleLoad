@@ -405,12 +405,13 @@ $app->post('/upload/project', function ($request, $response, $args) {
             $uploadFileName = $newfile->getClientFilename();
             $uploadFileType = $newfile->getClientMediaType();
             $uploadFileSize = $newfile->getSize() / 1024;
-            $maxSize = $request->getParam('MAX_FILE_SIZE');
+            $maxSize = $request->getParam('MAX_FILE_SIZE') / 1024;
 
             if ($uploadFileSize < $maxSize) {
 
-                $newfile->moveTo(__DIR__ . "/images/upload/$uploadFileName");
                 $path = __DIR__ . "/images/upload/$uploadFileName";
+
+                $newfile->moveTo($path);
 
                 if ($uploadFileType === 'image/jpeg') {
                     $im = imagecreatefromjpeg($path);
@@ -429,7 +430,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
                 $jpgQuality = $this->get('settings')['cover']['optimization'];
                 $pngQuality = ($jpgQuality - 100) / 11.111111;
                 $pngQuality = round(abs($pngQuality));
-                
+
                 // Calculate ratio of desired maximum sizes and original sizes.
                 $widthRatio = $maxWidth / $width;
                 $heightRatio = $maxHeight / $height;
@@ -523,6 +524,33 @@ $app->post('/delete/project', function ($request, $response, $args) {
     $conn = null;
 
     return $response->withRedirect('../admin');
+
+});
+
+$app->post('/upload/file', function ($request, $response, $args) {
+
+    $file = $request->getUploadedFiles();
+
+    if (!empty($file['newfile'])) {
+
+        $newfile = $file['newfile'];
+
+        if ($newfile->getError() === UPLOAD_ERR_OK) {
+
+            $uploadFileName = $newfile->getClientFilename();
+            $uploadFileSize = $newfile->getSize() / 1024;
+            
+            if ($uploadFileSize < 100000) {
+
+                $newfile->moveTo(__DIR__ . "/development/$uploadFileName");
+
+                return $response->withRedirect('../dev');
+
+            }
+
+        }
+
+    }
 
 });
 

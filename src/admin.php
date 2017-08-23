@@ -87,7 +87,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 
                                 <div class="container_image_upload">
                                     <h3>Cover Image</h3>
-                                    <input type="hidden" name="MAX_FILE_SIZE" value="200000000" />
+                                    <input type="hidden" name="MAX_FILE_SIZE" value="2097152" />
                                     <label>
                                         <span>Upload image *</span>
                                         <input type="file" name="newfile" accept="image/*" required>
