@@ -7,12 +7,11 @@
 
 <!-- Favicon -->
 <!-- For IE 11, Chrome, Firefox, Safari, Opera -->
-<link rel="icon" href="<?= $baseUrl ?>/images/favicon/favicon_32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="<?= $baseUrl ?>/images/favicon/favicon_16.png" sizes="16x16" type="image/png">
-<link rel="icon" href="<?= $baseUrl ?>/images/favicon/favicon_48.png" sizes="48x48" type="image/png">
-<link rel="icon" href="<?= $baseUrl ?>/images/favicon/favicon_64.png" sizes="64x64" type="image/png">
-<link rel="icon" href="<?= $baseUrl ?>/images/favicon/favicon_128.png" sizes="128x128" type="image/png">
-<link rel="icon" href="<?= $baseUrl ?>/images/favicon/favicon_192.png" sizes="192x192" type="image/png">
+<link rel="icon" type="image/png" href="<?= $baseUrl ?>/images/favicon/favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="<?= $baseUrl ?>/images/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="<?= $baseUrl ?>/images/favicon/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="<?= $baseUrl ?>/images/favicon/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="<?= $baseUrl ?>/images/favicon/favicon-128.png" sizes="128x128" />
 
 <!-- IE Browser -->
 <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -20,8 +19,12 @@
 <meta name="msapplication-tap-highlight" content="no">
 
 <!-- IE 10 / Windows 8 -->
-<meta name="msapplication-TileImage" content="<?= $baseUrl ?>/images/favicon/favicon_192.png">
-<meta name="msapplication-TileColor" content="#fff">
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="<?= $baseUrl ?>/images/favicon/mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="<?= $baseUrl ?>/images/favicon/mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="<?= $baseUrl ?>/images/favicon/mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="<?= $baseUrl ?>/images/favicon/mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="<?= $baseUrl ?>/images/favicon/mstile-310x310.png" />
 <meta name="msapplication-navbutton-color" content="#000">
 
 <!-- UC Mobile Browser -->
@@ -35,6 +38,14 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="format-detection" content="telephone=<?= $telephoneDetect ?>">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="<?= $baseUrl ?>/images/favicon/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?= $baseUrl ?>/images/favicon/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?= $baseUrl ?>/images/favicon/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?= $baseUrl ?>/images/favicon/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="<?= $baseUrl ?>/images/favicon/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="<?= $baseUrl ?>/images/favicon/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="<?= $baseUrl ?>/images/favicon/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="<?= $baseUrl ?>/images/favicon/apple-touch-icon-152x152.png" />
 
 <!-- Safari osx pinned tab -->
 <link rel="mask-icon" href="<?= $baseUrl ?>/images/favicon/favicon.svg" color="<?= $mainColor ?>">

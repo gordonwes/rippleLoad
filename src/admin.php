@@ -54,7 +54,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 
                             <form role="form" method="POST" enctype="multipart/form-data" action="<?= $baseUrl ?>/manager/tags">
 
-                                <input type="text" name="tagname" placeholder="Tag Name" required>
+                                <input type="text" name="tagname" placeholder="Tag Name *" required>
                                 <input type="submit" name="submit" value="Add New Tag">
                                 <input type="submit" name="remove" value="Remove Tag">
 
@@ -62,9 +62,9 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 
                             <form role="form" method="POST" enctype="multipart/form-data" action="<?= $baseUrl ?>/upload/project">
 
-                                <input type="text" name="projectname" placeholder="Project Name" required>
+                                <input type="text" name="projectname" placeholder="Project Name *" required>
                                 <textarea name="projectdesc" placeholder="Short Description"></textarea>
-                                <input type="url" name="projecturl" placeholder="Project Url" required>
+                                <input type="url" name="projecturl" placeholder="Project Url *" required>
 
                                 <div class="container_filter">
 
@@ -89,7 +89,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                                     <h3>Cover Image</h3>
                                     <input type="hidden" name="MAX_FILE_SIZE" value="200000000" />
                                     <label>
-                                        <span>Upload image</span>
+                                        <span>Upload image *</span>
                                         <input type="file" name="newfile" accept="image/*" required>
                                     </label>
                                 </div>    

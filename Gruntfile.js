@@ -112,21 +112,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        imagemin: {
-            dynamic: {
-                options: {
-                    optimizationLevel: 3,
-                    progressive: true,
-                    svgoPlugins: [{removeViewBox: false}]
-                },
-                files: [{
-                    expand: true,
-                    cwd: 'assets/',
-                    src: ['**/*.{png,jpg,gif,svg,jpeg}', '*.{png,jpg,gif,svg,jpeg}'],
-                    dest: 'images/'
-                }]
-            }
-        },
         clean: ['app/'],
         htmlmin: {
             dist: {
@@ -178,7 +163,7 @@ module.exports = function (grunt) {
     });
 
     // 4. Where we tell Grunt what to do when we type "grunt" into the terminal.
-    grunt.registerTask('build', ['concat', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'imagemin', 'clean', 'htmlmin']);
+    grunt.registerTask('build', ['concat', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'clean', 'htmlmin']);
     grunt.registerTask('dev', ['concat', 'sass', 'autoprefixer', 'clean', 'htmlmin']);
     grunt.registerTask('default', ['dev', 'watch']);
 

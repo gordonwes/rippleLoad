@@ -21,7 +21,7 @@ domReady(function () {
                 if (nameFile !== '') {
                     inputImage.parentElement.querySelector('span').textContent = nameFile;
                 } else {
-                    inputImage.parentElement.querySelector('span').textContent = 'Upload image';
+                    inputImage.parentElement.querySelector('span').textContent = 'Upload image *';
                 }
             });
 

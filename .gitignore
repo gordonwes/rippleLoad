@@ -6,4 +6,5 @@ package-lock
 css/*
 js/build/*
 app/*
-images/*
+images/upload/*
+development/

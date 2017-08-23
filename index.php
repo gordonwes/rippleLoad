@@ -12,7 +12,7 @@ $app = new Slim\App([
         'determineRouteBeforeAppMiddleware' => false,
         'displayErrorDetails' => true,
         'renderer' => [
-            'template_path' => __DIR__ . '/app/',
+            'template_path' => __DIR__ . '/app/'
         ],
         'db' => [
             'servername' => 'localhost',
@@ -22,6 +22,11 @@ $app = new Slim\App([
         ],
         'idleTime' => [
             'time' => 600
+        ],
+        'cover' => [
+            'max_width' => 450,
+            'max_height' => 450,
+            'optimization' => 80
         ]
     ]
 ]);
@@ -402,53 +407,60 @@ $app->post('/upload/project', function ($request, $response, $args) {
             $uploadFileSize = $newfile->getSize() / 1024;
             $maxSize = $request->getParam('MAX_FILE_SIZE');
 
-            // $uploadFileSize < $maxSize
+            if ($uploadFileSize < $maxSize) {
 
-            $newfile->moveTo(__DIR__ . "/images/upload/$uploadFileName");
-            $path = __DIR__ . "/images/upload/$uploadFileName";
+                $newfile->moveTo(__DIR__ . "/images/upload/$uploadFileName");
+                $path = __DIR__ . "/images/upload/$uploadFileName";
 
-            if ($uploadFileType === 'image/jpeg') {
-                $im = imagecreatefromjpeg($path);
-            } elseif ($uploadFileType === 'image/png') {
-                $im = imagecreatefrompng($path);
-            } else {
-                return false;
+                if ($uploadFileType === 'image/jpeg') {
+                    $im = imagecreatefromjpeg($path);
+                    header('Content-Type: image/jpeg');
+                } elseif ($uploadFileType === 'image/png') {
+                    $im = imagecreatefrompng($path);
+                    header('Content-Type: image/png');
+                } else {
+                    return false;
+                }
+
+                list($width, $height) = getimagesize($path);
+
+                $maxWidth = $this->get('settings')['cover']['max_width'];
+                $maxHeight = $this->get('settings')['cover']['max_height'];
+                $jpgQuality = $this->get('settings')['cover']['optimization'];
+                $pngQuality = ($jpgQuality - 100) / 11.111111;
+                $pngQuality = round(abs($pngQuality));
+                
+                // Calculate ratio of desired maximum sizes and original sizes.
+                $widthRatio = $maxWidth / $width;
+                $heightRatio = $maxHeight / $height;
+
+                // Ratio used for calculating new image dimensions.
+                $ratio = min($widthRatio, $heightRatio);
+
+                // Calculate new image dimensions.
+                $newWidth  = (int)$width  * $ratio;
+                $newHeight = (int)$height * $ratio;
+
+                // Create final image with new dimensions.
+                $newImage = imagecreatetruecolor($newWidth, $newHeight);
+                imagecopyresampled($newImage, $im, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                if ($uploadFileType === 'image/jpeg') {
+                    imageinterlace($newImage, true);
+                    imagejpeg($newImage, $path, $jpgQuality);
+                } elseif ($uploadFileType === 'image/png') {
+                    imagepng($newImage, $path, $pngQuality);
+                } else {
+                    return false;
+                }
+
+                // Free up the memory.
+                imagedestroy($im);
+                imagedestroy($newImage);
+
+                $coverName = $uploadFileName;
+
             }
-
-            list($width, $height) = getimagesize($path);
-
-            $maxWidth = 420;
-            $maxHeight = 420;
-
-            // Calculate ratio of desired maximum sizes and original sizes.
-            $widthRatio = $maxWidth / $width;
-            $heightRatio = $maxHeight / $height;
-
-            // Ratio used for calculating new image dimensions.
-            $ratio = min($widthRatio, $heightRatio);
-
-            // Calculate new image dimensions.
-            $newWidth  = (int)$width  * $ratio;
-            $newHeight = (int)$height * $ratio;
-
-            // Create final image with new dimensions.
-            $newImage = imagecreatetruecolor($newWidth, $newHeight);
-            imagecopyresampled($newImage, $im, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-
-            if ($uploadFileType === 'image/jpeg') {
-                imageinterlace($newImage, true);
-                imagejpeg($newImage, $path, 80);
-            } elseif ($uploadFileType === 'image/png') {
-                imagepng($newImage, $path, 7);
-            } else {
-                return false;
-            }
-
-            // Free up the memory.
-            imagedestroy($im);
-            imagedestroy($newImage);
-
-            $coverName = $uploadFileName;
 
         }
 
