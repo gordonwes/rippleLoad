@@ -49,11 +49,12 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                                 <input type="file" name="newfile" required>
                             </label>
                         </div>
+                        <div class="container_progress">
+                            <progress id="progressBar" value="0" max="100"></progress>
+                            <p id="progressCount">0%</p>
+                        </div>
                         <input type="submit" value="UPLOAD">
                     </form>
-
-                    <progress id="progressBar" value="0" max="100"></progress>
-                    <p id="progressCount"></p>
 
                 </section>
 

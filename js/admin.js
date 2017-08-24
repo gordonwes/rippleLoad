@@ -34,6 +34,7 @@ domReady(function () {
             var formAll = uploadAll.parentElement;
             var progressBar = document.getElementById('#progressBar');
             var progressCount = document.getElementById('#progressCount');
+            var url = formAll.getAttribute('action');
 
             function sendFile(file) {
 
@@ -51,7 +52,7 @@ domReady(function () {
                 request.addEventListener("load", function() {
                     setTimeout(function() {
                         console.log('completo');
-                        // window.location.reload(true);        
+                        window.location.replace(url);   
                     }, 200);
                 }, false);
 
@@ -63,7 +64,7 @@ domReady(function () {
                     console.log('abort');
                 }, false);
 
-                request.open('POST', formAll.getAttribute('action'), true);
+                request.open('POST', url, true);
 
                 request.setRequestHeader("Content-type", file.type);  
                 request.setRequestHeader("X_FILE_NAME", file.name);
@@ -74,6 +75,7 @@ domReady(function () {
 
             formAll.addEventListener('submit', function(e) {
                 e.preventDefault();
+                formAll.classList.add('on_load');
                 var file = inputFile.files[0];
                 sendFile(file);
             });
@@ -82,6 +84,6 @@ domReady(function () {
 
     }
 
-    fileUpload();
+   // fileUpload();
 
 });

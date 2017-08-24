@@ -37,5 +37,28 @@
                 text-transform: uppercase;
             }
         }
+        .container_progress{
+            opacity: 0;
+            height: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s 0s;
+            #progressBar{
+                max-width: 25rem;
+                width: 100%;
+                margin-bottom: 0.2rem;
+            }
+            #progressCount{
+                font-size: 1.4rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+        &.on_load{
+            .container_progress{
+                opacity: 1;
+                visibility: visible;
+                height: auto;
+                transition: opacity 0.3s, visibility 0s;
+            }
+        }
     }
 }

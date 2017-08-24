@@ -539,7 +539,7 @@ $app->post('/upload/file', function ($request, $response, $args) {
 
             $uploadFileName = $newfile->getClientFilename();
             $uploadFileSize = $newfile->getSize() / 1024;
-            
+
             if ($uploadFileSize < 100000) {
 
                 $newfile->moveTo(__DIR__ . "/development/$uploadFileName");

@@ -128,6 +128,7 @@
                                 opacity: 0;
                                 visibility: hidden;
                                 transition: transform 0.2s, opacity 0.2s, visibility 0s 0.2s;
+                                line-height: 1.4;
                             }
                             &:hover{
                                 &:before{
