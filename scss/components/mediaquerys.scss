@@ -41,14 +41,27 @@
 
 @media screen and (max-width:767px) {
 
-    .barba-container[data-namespace="projects"]{
-        .vertical_align{
-            .container_fn_project{
-                .container_count{
-                    display: none;
+    h1{
+        font-size: 4rem;
+    }
+
+    .barba-container{
+        &[data-namespace="contact"]{
+            .container_intro{
+                a{
+                    font-size: 2.2rem;
                 }
             }
-        } 
+        }
+        &[data-namespace="projects"]{
+            .vertical_align{
+                .container_fn_project{
+                    .container_count{
+                        display: none;
+                    }
+                }
+            } 
+        }
     } 
 
 }

@@ -28,14 +28,21 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                     <ul>
                         <?php
 
+                        $real_dev = 0;
+
                         foreach ($dev_projects as $dev) {
 
                             if (substr($dev, 0, 1 ) !== ".") {
                                 echo '<li><a href="' . $baseUrl . '/development/' . $dev . '" target="_blank">';
                                 echo $dev;
                                 echo '</a></li>';
+                                $real_dev++; 
                             }
 
+                        }
+
+                        if ($real_dev == 0) {
+                            echo '<p class="empyt_list">No file yet!</p>';
                         }
 
                         ?>

@@ -63,6 +63,24 @@ p, a{
     font-weight: 300;
 }
 
+p{
+    &.empyt_list{
+        font-size: 1.6rem;
+        opacity: 0.8;
+    }
+}
+
+h1{
+    font-size: 5rem;
+    span{
+        font-size: 8rem;
+    }
+}
+
+h2{
+    font-size: 3rem;
+}
+
 img, svg{
     user-drag: none;
     -moz-user-select: none;
@@ -158,18 +176,6 @@ textarea{
         text-align: center;
         h1, h2, a{
             color: #fff;
-        }
-        h1{
-            font-size: 5rem;
-            span{
-                font-size: 8rem;
-            }
-        }
-        h2{
-            font-size: 3rem;
-        }
-        a{
-            font-size: 2.5rem;
         }
     }
 }

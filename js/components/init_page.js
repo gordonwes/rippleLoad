@@ -9,13 +9,13 @@ function initPages(page) {
         var projects = page.querySelectorAll('.project');
         var totalProject = projects.length;
         var filters = page.querySelectorAll('.filters button');
-        var backTop = page.querySelector('.end_list');
+        var backTop = page.querySelector('.end_list a');
 
         function initProjects(elems) {
 
             loadCover(elems);
             initFilter();
-            detectVisibilityGoTop(backTop.querySelector('a'));
+            detectVisibilityGoTop(backTop);
 
         }
 
@@ -165,7 +165,7 @@ function initPages(page) {
                     easing: 'easeInOutQuad'
                 });
 
-                detectVisibilityGoTop(backTop.querySelector('a'));
+                detectVisibilityGoTop(backTop);
 
             }
 
@@ -173,12 +173,16 @@ function initPages(page) {
 
         function detectVisibilityGoTop(elem) {
 
-            var elemTop = elem.getBoundingClientRect().top;
+            if (elem) {
 
-            if (elemTop > docHeight) {
-                elem.style.visibility = 'visible';
-            } else {
-                elem.style.visibility = 'hidden'; 
+                var elemTop = elem.getBoundingClientRect().top;
+
+                if (elemTop > docHeight) {
+                    elem.style.visibility = 'visible';
+                } else {
+                    elem.style.visibility = 'hidden'; 
+                }
+
             }
 
         }

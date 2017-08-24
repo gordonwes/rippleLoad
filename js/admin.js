@@ -74,16 +74,16 @@ domReady(function () {
             }
 
             formAll.addEventListener('submit', function(e) {
-                e.preventDefault();
+                // e.preventDefault();
                 formAll.classList.add('on_load');
                 var file = inputFile.files[0];
-                sendFile(file);
+                // sendFile(file);
             });
 
         }
 
     }
 
-   // fileUpload();
+    fileUpload();
 
 });

@@ -30,6 +30,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                             <button class="button is_checked" data-filter="*">all</button><span></span>
 
                             <?php
+
                             foreach ($project_tags as $tag) {
                                 echo '<button data-filter="';
                                 echo $tag;
@@ -44,6 +45,11 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                         <div class="container_projects clear">
 
                             <?php
+
+                            if (count($project_block) == 0) {
+                                echo '<p class="empyt_list">No projects yet!</p>';
+                            }
+
                             foreach ($project_block as $project) {
                                 echo $project;
                             }
@@ -51,9 +57,14 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 
                         </div>
 
+                        <?php
+
+                        if (count($project_block) !== 0) {
+                        ?>
                         <div class="end_list">
                             <p>You've reached the end. <a href="#" onclick="goTop('.vertical_align')">Go TOP.</a></p>
                         </div>
+                        <?php } ?>
                     </div>
 
                 </section>
