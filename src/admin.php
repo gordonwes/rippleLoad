@@ -32,7 +32,9 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                             <h3>Projects List</h3>
 
                             <?php
+
                             $i = 0;
+
                             foreach ($project_list as $prj) {
 
                                 echo '<div class="single_prj"><form role="form" method="POST" enctype="multipart/form-data" action="' . $baseUrl . '/delete/project">
@@ -43,9 +45,11 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                                 $i++;
 
                             }
+
                             if (count($project_list) == 0) {
                                 echo '<p class="empyt_list">No projects yet!</p>';
                             }
+
                             ?>
 
                         </div>
@@ -71,6 +75,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                                     <h3>Tags</h3>
 
                                     <?php
+
     foreach ($tags_list as $tag) {
         echo '<label><input type="checkbox" name="projecttags[]" value="';
         echo $tag;
@@ -81,22 +86,26 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                                   if (count($tags_list) == 0) {
                                       echo '<p class="empyt_list">No tags yet!</p>';
                                   }
+
                                     ?>
 
                                 </div>
 
                                 <div class="container_image_upload">
                                     <h3>Cover Image</h3>
-                                    <input type="hidden" name="MAX_FILE_SIZE" value="2097152" />
                                     <label>
                                         <span>Upload image *</span>
                                         <input type="file" name="newfile" accept="image/*" required>
                                     </label>
-                                </div>    
+                                </div>
 
                                 <input type="submit" name="submit" value="Upload Project"> 
 
                             </form>
+
+                            <?php if (isset($img_too_big)) { ?>
+                            <p class="file_big">Img too big! 2MB's the limit ;)</p>
+                            <?php }  ?>
 
                         </div>
 

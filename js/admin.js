@@ -32,52 +32,68 @@ domReady(function () {
         if (uploadAll) {
 
             var formAll = uploadAll.parentElement;
-            var progressBar = document.getElementById('#progressBar');
-            var progressCount = document.getElementById('#progressCount');
             var url = formAll.getAttribute('action');
+            var progressBar = document.getElementById('progressBar');
+            var progressCount = document.getElementById('progressCount');
 
             function sendFile(file) {
 
-                var request = new XMLHttpRequest();
+                if (file.size < 100000000) { // 100MB
 
-                request.addEventListener("progress", function(evt) {
-                    if (evt.lengthComputable) {
-                        var percentComplete = Math.round(evt.loaded / evt.total * 100) + '%'; 
-                        progressBar.max = evt.total;
-                        progressBar.value = evt.loaded;  
-                        progressCount.textContent = percentComplete;
+                    var request = new XMLHttpRequest();
+
+                    request.upload.addEventListener("progress", function(evt) {
+
+                        if (evt.lengthComputable) {
+                            var percentComplete = Math.round(evt.loaded / evt.total * 100) + '%'; 
+                            progressBar.max = evt.total;
+                            progressBar.value = evt.loaded;
+                            progressCount.textContent = percentComplete;
+                        }
+                    }, false);
+
+                    request.addEventListener("load", function() {
+                        setTimeout(function() {
+                            formAll.submit();
+                        }, 200);
+                    }, false);
+
+                    request.addEventListener("error", function() {
+                        console.log('error');
+                    }, false);
+
+                    request.addEventListener("abort", function() {
+                        console.log('abort');
+                    }, false);
+
+                    request.open('POST', url, true);
+
+                    request.setRequestHeader("Content-type", file.type);
+                    request.setRequestHeader("X_FILE_NAME", file.name);
+
+                    request.send(file);
+
+                } else {
+                    document.querySelector('.file_big').style.visibility = 'visible';
+                    if (formAll.classList.contains('on_load')) {
+                        formAll.classList.remove('on_load');
                     }
-                }, false);
-
-                request.addEventListener("load", function() {
-                    setTimeout(function() {
-                        console.log('completo');
-                        window.location.replace(url);   
-                    }, 200);
-                }, false);
-
-                request.addEventListener("error", function() {
-                    console.log('error');
-                }, false);
-
-                request.addEventListener("abort", function() {
-                    console.log('abort');
-                }, false);
-
-                request.open('POST', url, true);
-
-                request.setRequestHeader("Content-type", file.type);  
-                request.setRequestHeader("X_FILE_NAME", file.name);
-
-                request.send(file);
+                }
 
             }
 
             formAll.addEventListener('submit', function(e) {
-                // e.preventDefault();
+                e.preventDefault();
                 formAll.classList.add('on_load');
                 var file = inputFile.files[0];
-                // sendFile(file);
+                sendFile(file);
+            });
+
+            inputFile.addEventListener('change', function() {
+                document.querySelector('.file_big').style.visibility = 'hidden';
+                if (formAll.classList.contains('on_load')) {
+                    formAll.classList.remove('on_load');
+                }
             });
 
         }

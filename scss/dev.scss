@@ -27,6 +27,34 @@
                     left: 0;
                 }
             }
+            form{
+                display: inline-block;
+                input[type="text"] {
+                    visibility: hidden;
+                    opacity: 0;
+                    height: 0;
+                    width: 0;
+                    line-height: 0;
+                    font-size: 0;
+                    margin: 0;
+                    padding: 0;
+                }
+                input[type="submit"] {
+                    display: inline-block;
+                    background-color: transparent !important;
+                    padding: 0;
+                    margin-right: 0.8rem;
+                    line-height: 1;
+                    vertical-align: middle;
+                    height: 1.7rem;
+                    width: 1.7rem;
+                    margin-top: -6px;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-image: url(../images/icons/trash.svg);
+                }
+            }
         }
     }
     form{
@@ -35,6 +63,8 @@
                 color: #fff;
                 font-size: 2rem;
                 text-transform: uppercase;
+                padding-top: 2rem;
+                border-top: 2px solid #fff;
             }
         }
         .container_progress{

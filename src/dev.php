@@ -33,7 +33,11 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                         foreach ($dev_projects as $dev) {
 
                             if (substr($dev, 0, 1 ) !== ".") {
-                                echo '<li><a href="' . $baseUrl . '/development/' . $dev . '" target="_blank">';
+                                echo '<li><form role="form" method="POST" enctype="multipart/form-data" action="' . $baseUrl . '/delete/dev">
+                                        <input type="text" value="' . $dev . '" name="name_dev" required>
+                                        <input type="submit" name="submit" value="">
+                                    </form>';
+                                echo '<a href="' . $baseUrl . '/development/' . $dev . '" target="_blank">';
                                 echo $dev;
                                 echo '</a></li>';
                                 $real_dev++; 
@@ -48,7 +52,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                         ?>
                     </ul>
 
-                    <form role="form" method="POST" enctype="multipart/form-data" action="<?= $baseUrl ?>/upload/file">
+                    <form role="form" method="POST" enctype="multipart/form-data" action="<?= $baseUrl ?>/upload/dev">
                         <div class="container_file_upload">
                             <h3>Upload File</h3>
                             <label>
@@ -62,6 +66,12 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                         </div>
                         <input type="submit" value="UPLOAD">
                     </form>
+
+                    <p class="file_big" style="visibility:hidden;">File too big! 100MB's the limit ;)</p>
+
+                    <?php if (isset($file_too_big)) { ?>
+                    <p class="file_big">File too big! 100MB's the limit ;)</p>
+                    <?php }  ?>
 
                 </section>
 

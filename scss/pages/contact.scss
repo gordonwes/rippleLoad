@@ -12,48 +12,6 @@
             margin-top: 1.5rem;
             font-size: 2.5rem;
         }
-        /*.glitch{
-            position: relative;
-            &:after, &:before {
-                content: attr(data-text);
-                position: absolute;
-                z-index: -1;
-                top: 0;
-                color: #fff;
-                background: #434A54;
-                overflow: hidden;
-                clip: rect(0,900px,0,0); 
-                font-size: 5rem;
-                font-family: $font;
-            }
-            &:after{
-                left: 2px;
-                text-shadow: -1px 0 red;
-                animation: noise-anim 2s infinite linear alternate-reverse;
-            }
-            &:before{
-                left: -2px;
-                text-shadow: 1px 0 blue;
-                animation: noise-anim-2 3s infinite linear alternate-reverse;
-            }
-        }*/
-    }
-
-    @keyframes noise-anim{
-        $steps:20;
-        @for $i from 0 through $steps{
-            #{percentage($i*(1/$steps))}{
-                clip: rect(random(50)+px,9999px,random(50)+px,0);
-            }
-        }
-    }
-    @keyframes noise-anim-2{
-        $steps:20;
-        @for $i from 0 through $steps{
-            #{percentage($i*(1/$steps))}{
-                clip: rect(random(50)+px,9999px,random(50)+px,0);
-            }
-        }
     }
 
 }

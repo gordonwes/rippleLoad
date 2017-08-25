@@ -405,9 +405,8 @@ $app->post('/upload/project', function ($request, $response, $args) {
             $uploadFileName = $newfile->getClientFilename();
             $uploadFileType = $newfile->getClientMediaType();
             $uploadFileSize = $newfile->getSize() / 1024;
-            $maxSize = $request->getParam('MAX_FILE_SIZE') / 1024;
 
-            if ($uploadFileSize < $maxSize) {
+            if ($uploadFileSize < 2000) {
 
                 $path = __DIR__ . "/images/upload/$uploadFileName";
 
@@ -461,27 +460,36 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
                 $coverName = $uploadFileName;
 
+            } else {
+
+                $response = $this->renderer->render($response, 'admin.php', array(
+                    'img_too_big' => 'true',
+                    'project_list' => $this->get("projectList"),
+                    'tags_list' => $this->get("tagsBlock")
+                ));
+                return $response;
+
             }
+
+            $add_value = $conn->prepare("INSERT INTO projects(cover, title, description, url, tags, timestamp)
+        VALUES(:cover, :title, :description, :url, :tags, :timestamp)");
+
+            $add_value->execute(array(
+                "cover" => "images/upload/" . $coverName,
+                "title" => $projectName,
+                "description" => $projectDescription,
+                "url" => $projectUrl,
+                "tags" => json_encode($projectTags),
+                "timestamp" => date("Y.m.d.h.i.sa")
+            ));
+
+            $conn = null;
+
+            return $response->withRedirect('../admin');
 
         }
 
     }
-
-    $add_value = $conn->prepare("INSERT INTO projects(cover, title, description, url, tags, timestamp)
-        VALUES(:cover, :title, :description, :url, :tags, :timestamp)");
-
-    $add_value->execute(array(
-        "cover" => "images/upload/" . $coverName,
-        "title" => $projectName,
-        "description" => $projectDescription,
-        "url" => $projectUrl,
-        "tags" => json_encode($projectTags),
-        "timestamp" => date("Y.m.d.h.i.sa")
-    ));
-
-    $conn = null;
-
-    return $response->withRedirect('../admin');
 
 });
 
@@ -527,7 +535,38 @@ $app->post('/delete/project', function ($request, $response, $args) {
 
 });
 
-$app->post('/upload/file', function ($request, $response, $args) {
+$app->post('/delete/dev', function ($request, $response, $args) {
+
+    $name_to_delete = $request->getParam('name_dev');
+
+    if ($name_to_delete) {
+        $path_delete = __DIR__ . '/development/' . $name_to_delete;
+        if (is_writable($path_delete)) {
+            if (!is_dir($path_delete)) {
+                unlink($path_delete);
+            } else {
+                if (substr($path_delete, strlen($path_delete) - 1, 1) != '/') {
+                    $path_delete .= '/';
+                }
+                $files = glob($path_delete . '*', GLOB_MARK);
+                foreach ($files as $file) {
+                    if (is_dir($file)) {
+                        self::deleteDir($file);
+                    } else {
+                        unlink($file);
+                    }
+                }
+                rmdir($path_delete);
+            }
+        }
+
+    }
+
+    return $response->withRedirect('../dev');
+
+});
+
+$app->post('/upload/dev', function ($request, $response, $args) {
 
     $file = $request->getUploadedFiles();
 
@@ -545,6 +584,14 @@ $app->post('/upload/file', function ($request, $response, $args) {
                 $newfile->moveTo(__DIR__ . "/development/$uploadFileName");
 
                 return $response->withRedirect('../dev');
+
+            } else {
+
+                $response = $this->renderer->render($response, 'dev.php', array(
+                    'file_too_big' => 'true',
+                    'dev_projects' => $this->get("devProjects")
+                ));
+                return $response;
 
             }
 
