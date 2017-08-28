@@ -8,6 +8,20 @@
     }
 }
 
+@media screen and (max-width:1600px) {
+
+    .barba-container[data-namespace="contact"]{
+        .container_intro{
+            h2{
+                .container_slide{
+                    line-height: 1.15;
+                }
+            }
+        }
+    }
+
+}
+
 @media screen and (max-width:1295px) {
     .barba-container[data-namespace="projects"]{
         .vertical_align {
@@ -74,7 +88,7 @@
 
 @media screen and (max-width:400px) {
     html{
-       // font-size: 7px; 
+        // font-size: 7px; 
     }
     .barba-container[data-namespace="projects"]{
         .vertical_align{

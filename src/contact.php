@@ -43,7 +43,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                         <a class="email" href='mail&#116;o&#58;gorgo&#37;6Eioal&#98;&#37;65rt&#111;&#64;&#37;67&#37;6D&#97;&#105;&#37;6C&#46;&#37;&#54;3om'>gorgonioalberto[at]gmail.com</a>
                     </div>
                 </section>
-
+                
             </div>
         </main>
 
