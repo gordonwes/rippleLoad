@@ -7,11 +7,61 @@
     .container_intro{
         display: inline-block !important;
         text-align: left;
-        a{
+        h1, h2{
+            span:not(.slide):not(.container_slide):not(.container_transition_slide){
+                color: rgba(255,255,255,0.55);
+            }
+        }
+        h2{
+            a{
+                font-size: 3rem;
+            }
+            .container_slide{
+                overflow: hidden;
+                display: inline-block;
+                height: 4rem;
+                vertical-align: middle;
+                -webkit-mask-image: -webkit-linear-gradient(transparent, white, white, white, transparent);
+                mask-image: linear-gradient(transparent, white, white, white, transparent);
+                mask-type: luminance;
+                mask-mode: alpha;
+                .container_transition_slide{
+                    animation-name: wordSlider;
+                    animation-timing-function: ease-in-out;
+                    animation-iteration-count: infinite;
+                    animation-duration: 8s;
+                    display: inline-block;
+                    span.slide{
+                        display: block;
+                    }
+                }
+            }
+        }
+        a.email{
             display: inline-block;
             margin-top: 1.5rem;
             font-size: 2.5rem;
+            border-bottom: 2px solid rgba(255,255,255,0.55);
+            padding-bottom: 0.2rem;
         }
     }
 
+}
+
+@keyframes wordSlider {
+    $steps: -0%, -33.3333%, -66.6666%;
+
+    @for $index from 0 to length($steps)-1 {
+        $next: $index+1;
+        $step: floor(100/(length($steps)-1));
+        $animation_step: floor($step*.2);
+
+        #{$step*$index}%,
+        #{($step*$next) - $animation_step}% {
+            transform: translateY(nth($steps, $index+1));
+        }
+    }
+    100% {
+        transform: translateY(nth($steps, length($steps)));
+    }
 }

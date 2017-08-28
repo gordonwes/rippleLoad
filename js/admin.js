@@ -50,6 +50,7 @@ domReady(function () {
                             progressBar.value = evt.loaded;
                             progressCount.textContent = percentComplete;
                         }
+                        
                     }, false);
 
                     request.addEventListener("load", function() {

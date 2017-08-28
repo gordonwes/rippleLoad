@@ -54,13 +54,17 @@ function initBarba() {
     Barba.Dispatcher.on('linkClicked', function(HTMLElement, MouseEvent) {
         handleEvent(MouseEvent);
 
-        if (!HTMLElement.classList.contains('return_link')) {
-            setMenuVoice(HTMLElement);
-            HTMLElement.style.borderColor = nextColor;
-        } else {
+        if (HTMLElement.classList.contains('project_link')) {
+            var projectsVoice = document.querySelector('[href="' + baseUrl + '/projects"]');
+            setMenuVoice(projectsVoice);
+            projectsVoice.style.borderColor = nextColor;
+        } else if (HTMLElement.classList.contains('home_link')) {
             var homeVoice = document.querySelector('[href="' + baseUrl + '/"]');
             setMenuVoice(homeVoice);
             homeVoice.style.borderColor = nextColor;
+        } else {            
+            setMenuVoice(HTMLElement);
+            HTMLElement.style.borderColor = nextColor;
         }
 
     });

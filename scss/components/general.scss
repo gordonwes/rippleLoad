@@ -61,7 +61,7 @@ h1,h2,h3,h4,h5{
 p, a{
     line-height: $line_height_paragaph;
     font-weight: 300;
-    &.return_link{
+    &.home_link{
         font-size: 2.5rem;
     }
 }
@@ -78,7 +78,7 @@ p{
 
 h1{
     font-size: 5rem;
-    span{
+    .alert{
         font-size: 8rem;
     }
 }

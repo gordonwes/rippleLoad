@@ -36,6 +36,7 @@
                     cursor: pointer;
                     outline: none;
                     position: relative;
+                    font-family: $font;
                     &.is_checked{
                         border-bottom: 2px solid #fff;
                     }

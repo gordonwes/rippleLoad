@@ -24,8 +24,8 @@ $pageDesc = '';
 
                 <section class="vertical_align">
                     <div class="container_404">
-                        <h1><span>404</span><br>Page not found</h1>
-                        <a class="return_link" href='<?= $baseUrl ?>/'>return home</a>
+                        <h1><span class="alert">404</span><br>Page not found</h1>
+                        <a class="home_link" href='<?= $baseUrl ?>/'>return home</a>
                     </div>
                 </section>
 

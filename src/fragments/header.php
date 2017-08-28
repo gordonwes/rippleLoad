@@ -9,7 +9,7 @@
         <?php if (isset($_SESSION["admin"])) { ?>
         <div class="container_admin_link">
             <a href="<?= $baseUrl ?>/dev" class="no-barba">DEV</a>
-            <a href="<?= $baseUrl ?>/admin" class="no-barba">+ Add Project</a>
+            <a href="<?= $baseUrl ?>/admin" class="no-barba">ADMIN</a>
         </div>
         <?php } ?>
 
