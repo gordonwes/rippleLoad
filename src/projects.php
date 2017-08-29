@@ -27,12 +27,12 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                     <div class="container_fn_project wrapper">
                         <div class="filters">
 
-                            <button class="button is_checked" data-filter="*">all</button><span></span>
+                            <button class="button is_checked link" data-filter="*">all</button><span></span>
 
                             <?php
 
                             foreach ($project_tags as $tag) {
-                                echo '<button data-filter="';
+                                echo '<button class="link" data-filter="';
                                 echo $tag;
                                 echo '">';
                                 echo $tag;

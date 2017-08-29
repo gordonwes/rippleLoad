@@ -34,11 +34,7 @@
                     font-weight: 500;
                     cursor: pointer;
                     outline: none;
-                    position: relative;
                     font-family: $font;
-                    &.is_checked{
-                        border-bottom: 2px solid #fff;
-                    }
                     &:selection{
                         color: #fff;
                         background: transparent;
@@ -169,40 +165,6 @@
                 }
                 a{
                     font-weight: 500;
-                }
-            }
-        }
-    }
-}
-
-.support_var{
-    .barba-container[data-namespace="projects"] {
-        .vertical_align{
-            .container_fn_project{
-                .filters{
-                    button{
-                        border-bottom: none !important;
-                        &:before{
-                            content: '';
-                            position: absolute;
-                            z-index: -1;
-                            bottom: 0.4rem;
-                            left: -0.6rem;
-                            width: calc(100% + 1.2rem);
-                            height: 35%;
-                            background: rgba(255,255,255,0.3);
-                            transform: scale3d(1,0,1);
-                            transform-origin: 50% 100%;
-                            transition: transform 0.3s;
-                            transition-timing-function: cubic-bezier(0.7,0,0.3,1);
-                        }
-                        &.is_checked{
-                            &:before{
-                                transform: scale3d(1,1,1);
-                                transform-origin: 50% 0%;
-                            }
-                        }
-                    }
                 }
             }
         }

@@ -17,21 +17,6 @@
                     line-height: inherit;
                 }
                 a{
-                    position: relative;
-                    &:before{
-                        content: '';
-                        position: absolute;
-                        z-index: -1;
-                        bottom: 0.6rem;
-                        left: -0.6rem;
-                        width: calc(100% + 1.2rem);
-                        height: 30%;
-                        background: rgba(255,255,255,0.3);
-                        transform: scale3d(1,0,1);
-                        transform-origin: 50% 100%;
-                        transition: transform 0.3s;
-                        transition-timing-function: cubic-bezier(0.7,0,0.3,1);
-                    }
                     &:hover{
                         &:before{
                             transform: scale3d(1,1,1);

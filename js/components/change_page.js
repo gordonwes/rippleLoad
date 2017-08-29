@@ -57,25 +57,14 @@ function initBarba() {
         if (HTMLElement.classList.contains('project_link')) {
             var projectsVoice = document.querySelector('[href="' + baseUrl + '/projects"]');
             setMenuVoice(projectsVoice);
-            if (!support_var) {
-                projectsVoice.style.borderColor = nextColor;
-            }
         } else if (HTMLElement.classList.contains('home_link')) {
             var homeVoice = document.querySelector('[href="' + baseUrl + '/"]');
             setMenuVoice(homeVoice);
-            if (!support_var) {
-                homeVoice.style.borderColor = nextColor;
-            }
         } else {            
             setMenuVoice(HTMLElement);
-            if (!support_var) {
-                HTMLElement.style.borderColor = nextColor;
-            }
         }
 
-        if (support_var) {
-            document.documentElement.style.setProperty('--bkg', nextColor);
-        }
+        document.documentElement.style.setProperty('--bkg', nextColor);
 
     });
 

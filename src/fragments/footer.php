@@ -17,13 +17,6 @@
     var colors = <?= json_encode($colorsBkg) ?>;
     var firstColor = '<?= $mainColor ?>';
     var baseUrl = '<?= $baseUrl ?>';
-    var supportCssVar = window.CSS && window.CSS.supports && window.CSS.supports('--fake-var', 0);
-    if (supportCssVar) {
-        var support_var = true;
-        document.body.classList.add('support_var');
-    } else {
-        var support_var = false;
-    }
 </script>
 
 <script src="<?= $baseUrl ?>/js/build/production<?php if ($isDev !== 'true') echo '.min' ?>.js"></script>

@@ -57,14 +57,11 @@
 <link href="<?= $baseUrl ?>/css/style<?php if ($isDev !== 'true') echo '.min' ?>.css" rel="stylesheet">
 
 <style type="text/css">
-    header nav a{
-        border-bottom-color: <?= $mainColor ?>;
-    }
     :root{
         --bkg: <?= $mainColor ?>;
     }
     header nav a:before{
-        background: var(--bkg);
+        background: var(--bkg) !important;
     }
 </style>
 

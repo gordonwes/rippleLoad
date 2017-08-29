@@ -2,14 +2,14 @@
 
     <nav class="wrapper">
         <ul>
-            <li><a href="<?= $baseUrl ?>/">CONTACT</a></li>
-            <li><a href="<?= $baseUrl ?>/projects">PROJECTS</a></li>
+            <li><a class="link" href="<?= $baseUrl ?>/">CONTACT</a></li>
+            <li><a class="link" href="<?= $baseUrl ?>/projects">PROJECTS</a></li>
         </ul>
 
         <?php if (isset($_SESSION["admin"])) { ?>
         <div class="container_admin_link">
-            <a href="<?= $baseUrl ?>/dev" class="no-barba">DEV</a>
-            <a href="<?= $baseUrl ?>/admin" class="no-barba">ADMIN</a>
+            <a href="<?= $baseUrl ?>/dev" class="no-barba link">DEV</a>
+            <a href="<?= $baseUrl ?>/admin" class="no-barba link">ADMIN</a>
         </div>
         <?php } ?>
 
