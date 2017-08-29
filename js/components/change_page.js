@@ -18,7 +18,7 @@ function initBarba() {
             var fadeOutPage = anime({
                 targets: _this.oldContainer,
                 opacity: ['1', '0'],
-                duration: 200,
+                duration: 150,
                 easing: 'easeInOutQuad',
                 complete: function() {
                     deferred.resolve();
@@ -35,6 +35,7 @@ function initBarba() {
             var fadeInPage = anime({
                 targets: this.newContainer,
                 opacity: ['0', '1'],
+                delay: 200,
                 duration: 400,
                 easing: 'easeInOutQuad'
             });
@@ -52,6 +53,21 @@ function initBarba() {
 
     Barba.Dispatcher.on('linkClicked', function(HTMLElement, MouseEvent) {
         handleEvent(MouseEvent);
+
+        if (HTMLElement.classList.contains('project_link')) {
+            var projectsVoice = document.querySelector('[href="' + baseUrl + '/projects"]');
+            setMenuVoice(projectsVoice);
+        } else if (HTMLElement.classList.contains('home_link')) {
+            var homeVoice = document.querySelector('[href="' + baseUrl + '/"]');
+            setMenuVoice(homeVoice);
+        } else {            
+            setMenuVoice(HTMLElement);
+        }
+
+        document.documentElement.style.setProperty('--bkg', nextColor);
+
     });
+
+    setMenuVoice(document.querySelector('[href="' + window.location.href + '"]'));
 
 }

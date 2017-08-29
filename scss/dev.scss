@@ -1,0 +1,94 @@
+/*////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////// DEV ///////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////*/
+
+@import 'var';
+
+.barba-container[data-namespace="dev"]{
+    ul{
+        padding-top: 9.5rem;
+        li{
+            a{
+                color: #fff;
+                line-height: 2;
+                font-size: 1.6rem;
+                padding-left: 2.5rem;
+                position: relative;
+                &:before{
+                    content: '';
+                    background-image: url(../images/icons/link.svg);
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    height: 1.5rem;
+                    width: 1.5rem;
+                    position: absolute;
+                    top: 0.25rem;
+                    left: 0;
+                }
+            }
+            form{
+                display: inline-block;
+                input[type="text"] {
+                    visibility: hidden;
+                    opacity: 0;
+                    height: 0;
+                    width: 0;
+                    line-height: 0;
+                    font-size: 0;
+                    margin: 0;
+                    padding: 0;
+                }
+                input[type="submit"] {
+                    display: inline-block;
+                    background-color: transparent !important;
+                    padding: 0;
+                    margin-right: 0.8rem;
+                    line-height: 1;
+                    vertical-align: middle;
+                    height: 1.7rem;
+                    width: 1.7rem;
+                    margin-top: -6px;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-image: url(../images/icons/trash.svg);
+                }
+            }
+        }
+    }
+    form{
+        .container_file_upload{
+            h3{
+                color: #fff;
+                font-size: 2rem;
+                text-transform: uppercase;
+                padding-top: 2rem;
+                border-top: 2px solid #fff;
+            }
+        }
+        .container_progress{
+            opacity: 0;
+            height: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s 0s;
+            #progressBar{
+                max-width: 25rem;
+                width: 100%;
+                margin-bottom: 0.2rem;
+            }
+            #progressCount{
+                font-size: 1.4rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+        &.on_load{
+            .container_progress{
+                opacity: 1;
+                visibility: visible;
+                height: auto;
+                transition: opacity 0.3s, visibility 0s;
+            }
+        }
+    }
+}

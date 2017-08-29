@@ -84,3 +84,47 @@ function wordInString(s, word) {
 function capitalizeFirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+////// set active menu voice //////////////
+
+function setMenuVoice(triggerEvent) {
+
+    forEach(document.querySelectorAll('header nav a'), function (index, elem) {
+        if (elem.classList.contains('is_active')) {
+            elem.classList.remove('is_active');
+        }
+        if (elem.getAttribute('href') == window.location.href && !elem.classList.contains('no-barba')) {
+            elem.addEventListener('click', function(e) {
+                e.preventDefault();
+            });
+        }
+    });
+
+    if (triggerEvent && !triggerEvent.classList.contains('is_active')) {
+        triggerEvent.classList.add('is_active');
+    }
+}
+
+////// scroll to top //////////////
+
+function goTop(elemScroll) {
+    anime({
+        targets: document.querySelector(elemScroll),
+        scrollTop: 0,
+        duration: 600,
+        easing: 'easeInOutQuad'
+    });
+}
+
+////// detect back/forward button for change active menu //////////////
+
+window.addEventListener('popstate', function (e) {
+    var state = e.state;
+    if (state === null) {
+        var linkNow = document.querySelector('[href="' + window.location.href + '"]');
+        if (linkNow) {
+            setMenuVoice(linkNow);
+            document.documentElement.style.setProperty('--bkg', nextColor);
+        }
+    }
+});

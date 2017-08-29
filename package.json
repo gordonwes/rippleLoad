@@ -1,16 +1,17 @@
 {
-    "name": "Prova",
-    "version": "0.0.1",
-    "description": "Lorem ipsum",
-    "author": "Alberto Gorgonio <agorgonio@atklab.com>",
+    "name": "AGPersonalWebsite",
+    "version": "1.1.0",
+    "description": "My Personal Website",
+    "author": "Alberto Gorgonio <gorgonioalberto@gmail.com>",
     "devDependencies": {
         "grunt": "latest",
         "grunt-autoprefixer": "latest",
         "grunt-contrib-concat": "latest",
+        "grunt-contrib-clean": "latest",
         "grunt-contrib-copy": "latest",
         "grunt-contrib-sass": "latest",
         "grunt-contrib-cssmin": "latest",
-        "grunt-contrib-imagemin": "latest",
+        "grunt-contrib-htmlmin": "latest",
         "grunt-contrib-uglify": "latest",
         "grunt-contrib-watch": "latest",
         "load-grunt-tasks": "latest"
@@ -20,11 +21,15 @@
         "js-cookie": "latest",
         "flickity": "latest",
         "imagesloaded": "latest",
+        "whatwg-fetch": "latest",
+        "infinite-scroll": "latest",
+        "masonry-layout": "latest",
+        "isotope-layout": "latest",
         "barba.js": "latest",
         "pace-js": "latest"
     },
     "scripts": {
-        "start": "npm install && php composer.phar install"
+        "start": "npm install && php composer.phar install && php composer.phar update && grunt"
     },
     "private": "true"
 }

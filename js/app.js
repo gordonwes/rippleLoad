@@ -5,7 +5,7 @@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@//
 
 domReady(function () {
-    
+
     var mainContainer = document.querySelector('.barba-container');
 
     setCookie();
@@ -13,5 +13,5 @@ domReady(function () {
     initBarba();
 
     initPages(mainContainer);
-
+    
 });

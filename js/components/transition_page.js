@@ -2,20 +2,28 @@ var colorChange = document.getElementById("color_change");
 var ctx = colorChange.getContext("2d");
 var cH;
 var cW;
-var bgColor = "#FFBE53";
 var animations = [];
 var circles = [];
+<<<<<<< HEAD
 var isDeviceFast = true;
+=======
+var currentColor, nextColor, indexColor;
+>>>>>>> sql
 
 var colorPicker = (function() {
-    var colors = ["#FFBE53", "#FF6138", "#2980B9", "#35bf5a"];
-    var index = 0;
+
+    forEach(colors, function (index, elem) {
+        if (elem === firstColor) {
+             indexColor = index;
+        }
+    });
+
     function next() {
-        index = index++ < colors.length-1 ? index : 0;
-        return colors[index];
+        indexColor = indexColor++ < colors.length-1 ? indexColor : 0;
+        return colors[indexColor];
     }
     function current() {
-        return colors[index]
+        return colors[indexColor]
     }
     return {
         next: next,
@@ -39,8 +47,8 @@ function handleEvent(e) {
         e.preventDefault();
         e = e.touches[0];
     }
-    var currentColor = colorPicker.current();
-    var nextColor = colorPicker.next();
+    currentColor = colorPicker.current();
+    nextColor = colorPicker.next();
     var targetR = calcPageFillRadius(e.pageX, e.pageY);
     var rippleSize = Math.min(200, (cW * .4));
     var minCoverDuration = 750;
@@ -57,7 +65,7 @@ function handleEvent(e) {
         duration:  Math.max(targetR / 2 , minCoverDuration ),
         easing: "easeOutQuart",
         complete: function(){
-            bgColor = pageFill.fill;
+            firstColor = pageFill.fill;
             removeAnimation(fillAnimation);
         }
     });
@@ -99,7 +107,7 @@ Circle.prototype.draw = function() {
 var animate = anime({
     duration: Infinity,
     update: function() {
-        ctx.fillStyle = bgColor;
+        ctx.fillStyle = firstColor;
         ctx.fillRect(0, 0, cW, cH);
         animations.forEach(function(anim) {
             anim.animatables.forEach(function(animatable) {
@@ -124,15 +132,7 @@ var resizeCanvas = function() {
 
 (function init() {
     resizeCanvas();
-    if (window.CP) {
-        // CodePen's loop detection was causin' problems
-        // and I have no idea why, so...
-        window.CP.PenTimer.MAX_TIME_IN_LOOP_WO_EXIT = 6000; 
-    }
     window.addEventListener("resize", resizeCanvas);
-    if (!!window.location.pathname.match(/fullcpgrid/)) {
-        startFauxClicking();
-    }
     handleInactiveUser();
 })();
 
@@ -149,13 +149,6 @@ function handleInactiveUser() {
 
     document.addEventListener("mousedown", clearInactiveTimeout);
     document.addEventListener("touchstart", clearInactiveTimeout);
-}
-
-function startFauxClicking() {
-    setTimeout(function(){
-        fauxClick(anime.random( cW * .2, cW * .8), anime.random(cH * .2, cH * .8));
-        startFauxClicking();
-    }, anime.random(200, 900));
 }
 
 function fauxClick(x, y) {

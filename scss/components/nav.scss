@@ -3,16 +3,43 @@
 ////////////////////////////////////////////////////////////////////////////////*/
 
 header{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 1.5rem 0 2rem 0;
+    z-index: 3;
+    background-color: #fff;
     nav{
-        text-align: center;
-        margin-top: 3rem;
+        position: relative;
         li{
             display: inline-block;
+            margin: 0 1.5rem;
             a{
-                padding: 1.5rem;
+                padding-bottom: 0.4rem;
                 font-size: 2rem;
-                color: #fff;
+                color: $gray;
             }
+            &:first-of-type{
+                margin-left: 0;
+            }
+        }
+        .container_admin_link{
+            position: absolute;
+            top: 0;
+            right: 3rem;
+            a{
+                padding-bottom: 0.4rem;
+                line-height: 2;
+                font-size: 1.6rem;
+                color: $gray;
+                &:first-of-type{ 
+                    margin-right: 2rem;
+                }
+            }
+        }
+        a.link:before{
+            background: #999;
         }
     }
 }

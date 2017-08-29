@@ -9,8 +9,14 @@ html {
 body{
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    -webkit-overflow-scrolling: touch; 
-    transition: transform 0.5s;
+    -webkit-overflow-scrolling: touch;
+    font-family: $font;
+    color: #fff;
+}
+
+body, html, main{
+    height: 100%;
+    overflow: hidden;
 }
 
 .clear{
@@ -34,7 +40,7 @@ body{
 .wrapper{
     max-width: $max_width;
     margin: 0 auto;
-    padding: 0 $normal_pad;
+    padding: 0 3rem;
 }
 
 a{
@@ -50,15 +56,35 @@ strong, b {
 
 h1,h2,h3,h4,h5{
     line-height: $line_height_header;
-    font-family: $title_font;
-    color: $dark_gray;
 }
 
 p, a{
     line-height: $line_height_paragaph;
-    font-family: $text_font;
-    color: $dark_gray;
     font-weight: 300;
+    &.home_link{
+        font-size: 2.5rem;
+    }
+}
+
+p{
+    &.empyt_list, &.file_big{
+        font-size: 1.6rem;
+        opacity: 0.8;
+    }
+    &.file_big{
+        margin-top: 2rem;
+    }
+}
+
+h1{
+    font-size: 5rem;
+    .alert{
+        font-size: 8rem;
+    }
+}
+
+h2{
+    font-size: 3rem;
 }
 
 img, svg{
@@ -70,11 +96,140 @@ img, svg{
     }
 }
 
+.link{
+    border: none !important;
+    position: relative;
+    &:before{
+        content: '';
+        position: absolute;
+        z-index: -1;
+        left: -0.6rem;
+        width: calc(100% + 1.2rem);
+        opacity: 0.3;
+        transform: scale3d(1,0,1);
+        transform-origin: 50% 100%;
+        background: #fff;
+        transition: transform 0.3s;
+        transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+        bottom: 0.4rem;
+        height: 30%;
+    }
+    &.is_active, &.is_checked{
+        &:before{
+            transform: scale3d(1,1,1);
+            transform-origin: 50% 0%;
+        }
+    }
+}
+
 canvas{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: -1;
     width: 100%;
     height: 100%;
+}
+
+input, textarea{
+    &:not([type="file"]):not([type="checkbox"]){
+        background-color: #fff !important;
+        padding: 1rem 1.5rem;
+        margin: 0;
+        margin-bottom: 1.5rem;
+        font-size: 1.6rem;
+        border: none;
+        width: 100%;
+        display: block;
+        resize: none;
+        appearance: none;
+        outline: none;
+        -webkit-appearance: none;
+        &::selection {
+            background: rgba(0,0,0,0.3);
+        }
+        &:-webkit-autofill{
+            box-shadow: 0 0 0px 1000px #fff inset;
+        }
+        &[type="submit"] {
+            margin-bottom: 0;
+            cursor: pointer;
+            width: auto;
+            text-transform: uppercase;
+            display: inline-block;
+            padding: 1rem 3rem;
+            &:hover{
+                color: $gray;
+            }
+        }
+    }
+}
+
+.container_image_upload, .container_file_upload{
+    h3{
+        margin-bottom: 1.5rem;
+        margin-top: 3rem;
+    }
+    label{
+        position: relative;
+        display: inline-block;
+        span{
+            cursor: pointer;
+            background-color: #fff;
+            font-size: 1.6rem;
+            color: $gray;
+            width: auto;
+            padding: 1rem 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+        input[type="file"] {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+        }
+    }
+}
+
+textarea{
+    height: 10rem;
+}
+
+.barba-container{
+    display: table;
+    width: 100%;
+    height: 100%;
+    .vertical_align{
+        display: table-cell;
+        vertical-align: middle;
+        h1, h2, a{
+            color: #fff;
+        }
+    }
+}
+
+.no_js{
+
+    #color_change{
+        background-color: #F6BB42;
+    }
+    .barba-container[data-namespace="projects"]{
+        .vertical_align{
+            .container_fn_project{
+                .container_projects{
+                    padding-top: 4rem;
+                    .project{
+                        opacity: 1;
+                    }
+                }
+                .filters{
+                    display: none;
+                }
+            }
+        }
+    }
+
 }

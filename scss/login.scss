@@ -1,0 +1,34 @@
+/*////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////// LOGIN ///////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////*/
+
+@import 'var';
+
+.barba-container[data-namespace="login"]{
+    .container_login{
+        max-width: 40rem;
+        margin: 0 auto;
+        .message_attempts, .message_error, .message_credential_set{
+            margin-top: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+        &.incorrect_login{
+            form{
+                input:not([type="submit"]) {
+                    border-left: 3px solid #E53935;
+                }
+            }
+        }
+        &.max_attempts{
+            form{
+                input{
+                    &[type="submit"]{
+                        cursor: not-allowed;
+                        opacity: 0.9;
+                    }
+                }
+            }
+        }
+    }
+}
