@@ -37,6 +37,9 @@
                     font-family: $font;
                     &:selection{
                         color: #fff;
+                        
+                        direction: inherit;
+                        
                         background: transparent;
                     }
                 }
