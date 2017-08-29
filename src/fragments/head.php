@@ -60,6 +60,12 @@
     header nav a{
         border-bottom-color: <?= $mainColor ?>;
     }
+    :root{
+        --bkg: <?= $mainColor ?>;
+    }
+    header nav a:before{
+        background: var(--bkg);
+    }
 </style>
 
 <script type="text/javascript">

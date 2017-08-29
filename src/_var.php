@@ -11,6 +11,7 @@ $colorsBkg = array(
     "#434A54"
 );
 $mainColor = $colorsBkg[array_rand($colorsBkg, 1)];
+
 $author = 'Alberto Gorgonio';
 $telephoneDetect = 'no';
 $isDev = 'true';

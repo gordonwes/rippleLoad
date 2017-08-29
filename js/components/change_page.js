@@ -57,14 +57,24 @@ function initBarba() {
         if (HTMLElement.classList.contains('project_link')) {
             var projectsVoice = document.querySelector('[href="' + baseUrl + '/projects"]');
             setMenuVoice(projectsVoice);
-            projectsVoice.style.borderColor = nextColor;
+            if (!support_var) {
+                projectsVoice.style.borderColor = nextColor;
+            }
         } else if (HTMLElement.classList.contains('home_link')) {
             var homeVoice = document.querySelector('[href="' + baseUrl + '/"]');
             setMenuVoice(homeVoice);
-            homeVoice.style.borderColor = nextColor;
+            if (!support_var) {
+                homeVoice.style.borderColor = nextColor;
+            }
         } else {            
             setMenuVoice(HTMLElement);
-            HTMLElement.style.borderColor = nextColor;
+            if (!support_var) {
+                HTMLElement.style.borderColor = nextColor;
+            }
+        }
+
+        if (support_var) {
+            document.documentElement.style.setProperty('--bkg', nextColor);
         }
 
     });

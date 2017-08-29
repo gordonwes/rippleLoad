@@ -4,7 +4,7 @@ function initPages(page) {
 
     if (actualPage === 'contact') {
 
-
+        
 
     }
 

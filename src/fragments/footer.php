@@ -17,24 +17,13 @@
     var colors = <?= json_encode($colorsBkg) ?>;
     var firstColor = '<?= $mainColor ?>';
     var baseUrl = '<?= $baseUrl ?>';
+    var supportCssVar = window.CSS && window.CSS.supports && window.CSS.supports('--fake-var', 0);
+    if (supportCssVar) {
+        var support_var = true;
+        document.body.classList.add('support_var');
+    } else {
+        var support_var = false;
+    }
 </script>
 
 <script src="<?= $baseUrl ?>/js/build/production<?php if ($isDev !== 'true') echo '.min' ?>.js"></script>
-
-<!--<script type="application/ld+json">
-{ 
-"@context" : "http://schema.org",
-"@type" : "Organization",
-"name": "Bontà Viva",
-"url" : "<?= $baseUrl ?>",
-"logo" : "<?= $baseUrl ?>/images/logo.png",
-"email": "info(at)bonta-viva.it",
-"telephone": "+39800910290",
-"address": {
-"@type": "PostalAddress",
-"addressLocality": "Borso del Grappa, Treviso, Italy",
-"postalCode": "31030",
-"streetAddress": "Via Molinetto, 76"
-}
-}
-</script>-->

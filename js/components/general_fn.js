@@ -124,7 +124,8 @@ window.addEventListener('popstate', function (e) {
         var linkNow = document.querySelector('[href="' + window.location.href + '"]');
         if (linkNow) {
             setMenuVoice(linkNow);
-            linkNow.style.borderColor = nextColor;
+            //linkNow.style.borderColor = nextColor;
+            linkNow.style.background = nextColor;
         }
     }
 });

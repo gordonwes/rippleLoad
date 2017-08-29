@@ -49,3 +49,36 @@ header{
         }
     }
 }
+
+.support_var{
+    header{
+        nav{
+            li{
+                a{
+                    border: none !important;
+                    position: relative;
+                    &:before{
+                        content: '';
+                        position: absolute;
+                        z-index: -1;
+                        bottom: 0.4rem;
+                        left: -0.6rem;
+                        width: calc(100% + 1.2rem);
+                        height: 23%;
+                        opacity: 0.3;
+                        transform: scale3d(1,0,1);
+                        transform-origin: 50% 100%;
+                        transition: transform 0.3s;
+                        transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+                    }
+                    &.is_active{
+                        &:before{
+                            transform: scale3d(1,1,1);
+                            transform-origin: 50% 0%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
