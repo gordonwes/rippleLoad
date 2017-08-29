@@ -578,6 +578,8 @@ $app->post('/upload/dev', function ($request, $response, $args) {
 
             $uploadFileName = $newfile->getClientFilename();
             $uploadFileSize = $newfile->getSize() / 1024;
+            
+            ini_set('memory_limit', '128M');
 
             if ($uploadFileSize < 100000) {
 
