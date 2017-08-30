@@ -5,6 +5,11 @@
 @import 'var';
 
 .barba-container[data-namespace="login"]{
+    display: table;
+    .vertical_align{
+        display: table-cell;
+        vertical-align: middle;
+    }
     .container_login{
         max-width: 40rem;
         margin: 0 auto;

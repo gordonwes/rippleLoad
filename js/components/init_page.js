@@ -2,12 +2,6 @@ function initPages(page) {
 
     var actualPage = page.getAttribute('data-namespace');
 
-    if (actualPage === 'contact') {
-
-        
-
-    }
-
     if (actualPage === 'projects') {
 
         var projectsContainer = page.querySelector('.container_projects');

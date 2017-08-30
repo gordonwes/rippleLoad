@@ -20,53 +20,53 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
         <?php include_once 'fragments/header.php'; ?>
 
         <main id="barba-wrapper">
-            <div class="wrapper barba-container" data-namespace="<?= strtolower($pageTitle); ?>">
+            <div class="barba-container" data-namespace="<?= strtolower($pageTitle); ?>">
 
                 <section class="vertical_align">
+                    <div class="wrapper">
+                        <div class="container_fn_project">
+                            <div class="filters">
 
-                    <div class="container_fn_project wrapper">
-                        <div class="filters">
+                                <button class="button is_checked link" data-filter="*">all</button><span></span>
 
-                            <button class="button is_checked link" data-filter="*">all</button><span></span>
+                                <?php
+
+                                foreach ($project_tags as $tag) {
+                                    echo '<button class="link" data-filter="';
+                                    echo $tag;
+                                    echo '">';
+                                    echo $tag;
+                                    echo '</button><span></span>';
+                                }
+                                ?>
+
+                            </div>
+
+                            <div class="container_projects clear">
+
+                                <?php
+
+                                if (count($project_block) == 0) {
+                                    echo '<p class="empyt_list">No projects yet!</p>';
+                                }
+
+                                foreach ($project_block as $project) {
+                                    echo $project;
+                                }
+                                ?>
+
+                            </div>
 
                             <?php
 
-                            foreach ($project_tags as $tag) {
-                                echo '<button class="link" data-filter="';
-                                echo $tag;
-                                echo '">';
-                                echo $tag;
-                                echo '</button><span></span>';
-                            }
+                            if (count($project_block) !== 0) {
                             ?>
-
+                            <div class="end_list">
+                                <p>You've reached the end. <a href="#" onclick="goTop('.vertical_align')">Go TOP.</a></p>
+                            </div>
+                            <?php } ?>
                         </div>
-
-                        <div class="container_projects clear">
-
-                            <?php
-
-                            if (count($project_block) == 0) {
-                                echo '<p class="empyt_list">No projects yet!</p>';
-                            }
-
-                            foreach ($project_block as $project) {
-                                echo $project;
-                            }
-                            ?>
-
-                        </div>
-
-                        <?php
-
-                        if (count($project_block) !== 0) {
-                        ?>
-                        <div class="end_list">
-                            <p>You've reached the end. <a href="#" onclick="goTop('.vertical_align')">Go TOP.</a></p>
-                        </div>
-                        <?php } ?>
                     </div>
-
                 </section>
 
             </div>

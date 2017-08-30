@@ -22,59 +22,61 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
         <?php include_once 'fragments/header.php'; ?>
 
         <main id="barba-wrapper">
-            <div class="wrapper barba-container" data-namespace="<?= strtolower($pageTitle); ?>">
+            <div class="barba-container" data-namespace="<?= strtolower($pageTitle); ?>">
+                <div class="vertical_align">
+                    <div class="wrapper">
+                        <section>
+                            <ul>
+                                <?php
 
-                <section>
-                    <ul>
-                        <?php
+                                $real_dev = 0;
 
-                        $real_dev = 0;
+                                foreach ($dev_projects as $dev) {
 
-                        foreach ($dev_projects as $dev) {
-
-                            if (substr($dev, 0, 1 ) !== ".") {
-                                echo '<li><form role="form" method="POST" enctype="multipart/form-data" action="' . $baseUrl . '/delete/dev">
+                                    if (substr($dev, 0, 1 ) !== ".") {
+                                        echo '<li><form role="form" method="POST" enctype="multipart/form-data" action="' . $baseUrl . '/delete/dev">
                                         <input type="text" value="' . $dev . '" name="name_dev" required>
                                         <input type="submit" name="submit" value="">
                                     </form>';
-                                echo '<a href="' . $baseUrl . '/development/' . $dev . '" target="_blank">';
-                                echo $dev;
-                                echo '</a></li>';
-                                $real_dev++; 
-                            }
+                                        echo '<a href="' . $baseUrl . '/development/' . $dev . '" target="_blank">';
+                                        echo $dev;
+                                        echo '</a></li>';
+                                        $real_dev++; 
+                                    }
 
-                        }
+                                }
 
-                        if ($real_dev == 0) {
-                            echo '<p class="empyt_list">No file yet!</p>';
-                        }
+                                if ($real_dev == 0) {
+                                    echo '<p class="empyt_list">No file yet!</p>';
+                                }
 
-                        ?>
-                    </ul>
+                                ?>
+                            </ul>
 
-                    <form role="form" method="POST" enctype="multipart/form-data" action="<?= $baseUrl ?>/upload/dev">
-                        <div class="container_file_upload">
-                            <h3>Upload File</h3>
-                            <label>
-                                <span>Upload file</span>
-                                <input type="file" name="newfile" required>
-                            </label>
-                        </div>
-                        <div class="container_progress">
-                            <progress id="progressBar" value="0" max="100"></progress>
-                            <p id="progressCount">0%</p>
-                        </div>
-                        <input type="submit" value="UPLOAD">
-                    </form>
+                            <form role="form" method="POST" enctype="multipart/form-data" action="<?= $baseUrl ?>/upload/dev">
+                                <div class="container_file_upload">
+                                    <h3>Upload File</h3>
+                                    <label>
+                                        <span>Upload file</span>
+                                        <input type="file" name="newfile" required>
+                                    </label>
+                                </div>
+                                <div class="container_progress">
+                                    <progress id="progressBar" value="0" max="100"></progress>
+                                    <p id="progressCount">0%</p>
+                                </div>
+                                <input type="submit" value="UPLOAD">
+                            </form>
 
-                    <p class="file_big" style="visibility:hidden;">File too big! 100MB's the limit ;)</p>
+                            <p class="file_big" style="visibility:hidden;">File too big! 100MB's the limit ;)</p>
 
-                    <?php if (isset($file_too_big)) { ?>
-                    <p class="file_big">File too big! 100MB's the limit ;)</p>
-                    <?php }  ?>
+                            <?php if (isset($file_too_big)) { ?>
+                            <p class="file_big">File too big! 100MB's the limit ;)</p>
+                            <?php }  ?>
 
-                </section>
-
+                        </section>
+                    </div>
+                </div>
             </div>
         </main>
 

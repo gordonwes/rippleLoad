@@ -5,13 +5,9 @@
 @import 'var';
 
 .barba-container[data-namespace="admin"]{
-    display: block;
-    max-width: 100%;
-    padding: 0;
     .vertical_align{
         margin-top: 6.5rem;
         height: calc(100% - 6.5rem);
-        display: block;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
         .container_admin{

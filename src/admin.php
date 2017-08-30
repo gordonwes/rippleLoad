@@ -22,7 +22,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
         <?php include_once 'fragments/header.php'; ?>
 
         <main id="barba-wrapper">
-            <div class="wrapper barba-container" data-namespace="<?= strtolower($pageTitle); ?>">
+            <div class="barba-container" data-namespace="<?= strtolower($pageTitle); ?>">
 
                 <section class="vertical_align">
                     <div class="container_admin wrapper clear">

@@ -1,5 +1,3 @@
-<footer></footer>
-
 <div id="informativa_cookie">
     <div class="wrapper">
         <div id="contenitore_testo_cookie">
