@@ -22,7 +22,7 @@ $pageDesc = '';
         <main id="barba-wrapper">
             <div class="barba-container" data-namespace="404">
 
-                <section class="vertical_align">
+                <section>
                     <div class="wrapper">
                         <div class="container_404">
                             <h1><span class="alert">404</span><br>Page not found</h1>

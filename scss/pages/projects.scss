@@ -3,12 +3,9 @@
 ////////////////////////////////////////////////////////////////////////////////*/
 
 .barba-container[data-namespace="projects"] {
-    .vertical_align{
-        .wrapper{
-            padding: 0;
-        }
+    .wrapper{
+        padding: 0 1.5rem;
         .container_fn_project{
-            padding: 0 1.5rem;
             position: relative;
             .filters{
                 padding: 0 1.5rem;

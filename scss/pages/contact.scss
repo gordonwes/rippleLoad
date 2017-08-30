@@ -3,35 +3,33 @@
 ////////////////////////////////////////////////////////////////////////////////*/
 
 .barba-container[data-namespace="contact"] {
-    .vertical_align{
-        .container_intro{
-            margin-top: 3rem;
-            max-width: 80rem;
-            h1{
-                line-height: 1.4;
-                span{
-                    color: rgba(255,255,255,0.55);
-                }
-                span, a {
-                    line-height: inherit;
-                }
-                a{
-                    &:hover{
-                        &:before{
-                            transform: scale3d(1,1,1);
-                            transform-origin: 50% 0%;
-                        }
+    .container_intro{
+        margin-top: 3rem;
+        max-width: 80rem;
+        h1{
+            line-height: 1.4;
+            span{
+                color: rgba(255,255,255,0.55);
+            }
+            span, a {
+                line-height: inherit;
+            }
+            a{
+                &:hover{
+                    &:before{
+                        transform: scale3d(1,1,1);
+                        transform-origin: 50% 0%;
                     }
                 }
             }
-            p{
-                font-size: 3rem;
-                margin-top: 2rem;
-            }
         }
-        .legal{
-            font-size: 1.4rem;
-            margin: 3rem 0;
+        p{
+            font-size: 3rem;
+            margin-top: 2rem;
         }
+    }
+    .legal{
+        font-size: 1.4rem;
+        margin: 3rem 0;
     }
 }

@@ -5,7 +5,7 @@ function initPages(page) {
     if (actualPage === 'projects') {
 
         var projectsContainer = page.querySelector('.container_projects');
-        var scrollArea = page.querySelector('.vertical_align');
+        var scrollArea = page;
         var projects = page.querySelectorAll('.project');
         var totalProject = projects.length;
         var filters = page.querySelectorAll('.filters button');

@@ -22,7 +22,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
         <main id="barba-wrapper">
             <div class="barba-container" data-namespace="<?= strtolower($pageTitle); ?>">
 
-                <section class="vertical_align">
+                <section>
                     <div class="wrapper">
                         <div class="container_fn_project">
                             <div class="filters">

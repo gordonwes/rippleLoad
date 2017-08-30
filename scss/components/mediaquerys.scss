@@ -22,16 +22,6 @@
 
 }
 
-@media screen and (max-width:1295px) {
-    .barba-container[data-namespace="projects"]{
-        .vertical_align {
-            .container_fn_project{
-                padding-left: 1.5rem;
-            }
-        }
-    }
-}
-
 @media screen and (max-width:1024px) {
     html{
         font-size: 9px;
@@ -40,7 +30,7 @@
 
 @media screen and (max-width:900px) {
     .barba-container[data-namespace="projects"]{
-        .vertical_align{
+        .wrapper{
             .container_fn_project{
                 .container_projects{
                     .project{
@@ -61,7 +51,7 @@
 
     .barba-container{
         &[data-namespace="projects"]{
-            .vertical_align{
+            .wrapper{
                 .container_fn_project{
                     .container_count{
                         display: none;
@@ -81,7 +71,7 @@
 
 @media screen and (max-width:400px) {
     .barba-container[data-namespace="projects"]{
-        .vertical_align{
+        .wrapper{
             .container_fn_project{
                 .container_projects{
                     .project{

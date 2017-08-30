@@ -24,7 +24,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
         <main id="barba-wrapper">
             <div class="barba-container" data-namespace="<?= strtolower($pageTitle); ?>">
 
-                <section class="vertical_align">
+                <section>
                     <div class="wrapper">
                         <div class="container_login <?php if (isset($max_attempts)) echo 'max_attempts'; if (isset($error)) echo 'incorrect_login' ?>">
 
