@@ -38,8 +38,14 @@ header{
                 }
             }
         }
-        a.link:before{
-            background: #999;
+        a.link{
+            &:before{
+                background: #999;
+            }
+            &::selection {
+                background: transparent;
+                color: $gray;
+            }
         }
     }
 }

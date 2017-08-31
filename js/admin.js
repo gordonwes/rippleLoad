@@ -75,7 +75,7 @@ domReady(function () {
                     request.send(file);
 
                 } else {
-                    document.querySelector('.file_big').style.visibility = 'visible';
+                    document.querySelector('.file_big').style.display = 'block';
                     if (formAll.classList.contains('on_load')) {
                         formAll.classList.remove('on_load');
                     }
@@ -91,7 +91,7 @@ domReady(function () {
             });
 
             inputFile.addEventListener('change', function() {
-                document.querySelector('.file_big').style.visibility = 'hidden';
+                document.querySelector('.file_big').style.display = 'none';
                 if (formAll.classList.contains('on_load')) {
                     formAll.classList.remove('on_load');
                 }

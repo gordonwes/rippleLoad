@@ -4,7 +4,7 @@
 
 .barba-container[data-namespace="contact"] {
     .container_intro{
-        margin-top: 3rem;
+        margin-top: 6rem;
         max-width: 80rem;
         h1{
             line-height: 1.4;
@@ -13,14 +13,6 @@
             }
             span, a {
                 line-height: inherit;
-            }
-            a{
-                &:hover{
-                    &:before{
-                        transform: scale3d(1,1,1);
-                        transform-origin: 50% 0%;
-                    }
-                }
             }
         }
         p{
@@ -32,4 +24,5 @@
         font-size: 1.4rem;
         margin: 3rem 0;
     }
+    
 }

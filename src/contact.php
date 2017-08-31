@@ -29,19 +29,16 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                             <h1>
 
                                 <span>Hi there! I'm </span>Alberto Gorgonio<span>, a </span>web developer <span>working at </span>
-                                <a class="link" href="http://atklab.com/" target="_blank" rel="noopener">Atk+Lab</a><span>. Check out some of my </span>
-                                <a class="project_link link" href="<?= $baseUrl ?>/projects">projects</a>.<br>
-                                <a href='mail&#116;o&#58;gorgo&#37;6Eioal&#98;&#37;65rt&#111;&#64;&#37;67&#37;6D&#97;&#105;&#37;6C&#46;&#37;&#54;3om' class="link">Get in touch</a>
+                                <a class="link keyword" href="http://atklab.com/" target="_blank" rel="noopener">Atk+Lab</a><span>. Check out some of my </span>
+                                <a class="project_link link keyword" href="<?= $baseUrl ?>/projects">projects</a>.<br>  <!-- Have a look through some of my projects -->
+                                <a href='mail&#116;o&#58;gorgo&#37;6Eioal&#98;&#37;65rt&#111;&#64;&#37;67&#37;6D&#97;&#105;&#37;6C&#46;&#37;&#54;3om' class="link keyword">Get in touch!</a>
 
                             </h1>
 
                             <p>
 
-                                I live in Treviso, Italy.<br>
-                                Front-end developer, with a graphic background.<br>
-                                Ability to create responsive sites, mobile-oriented, with progressive enhancement and accessible from all platforms.<br>
-                                I give a lot of importance to performance and compatibility of technologies in the several cross-browser environments.<br>
-                                I have the capacity to use correct heading, alt attributes, meta-tag and Schema markup for a good SEO optimization.
+                                Front-end dev with a graphic background<br> based in Treviso, Italy.<br>
+                                I make bespoke sites for every need.
 
                             </p>
 

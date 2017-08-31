@@ -77,6 +77,15 @@ module.exports = function (grunt) {
                 files: {
                     'css/dev.css': 'scss/dev.scss'
                 }
+            },
+            missing: {
+                options: {
+                    style: 'compressed',
+                    loadPath: ['scss/404.scss']
+                },
+                files: {
+                    'css/404.css': 'scss/404.scss'
+                }
             }
         },
         autoprefixer: {
@@ -98,6 +107,11 @@ module.exports = function (grunt) {
             other: {
                 files: {
                     'css/dev.css': 'css/dev.css'
+                }
+            },
+            missing: {
+                files: {
+                    'css/404.css': 'css/404.css'
                 }
             }
         },

@@ -71,10 +71,12 @@ function initPages(page) {
                 elem.addEventListener('click', function(e) {
 
                     var filterValue = elem.getAttribute('data-filter');
-                    elem.parentElement.querySelector('.is_checked').classList.remove('is_checked');
-                    elem.classList.add('is_checked');
 
-                    sortProjects(filterValue);
+                    if (!elem.classList.contains('is_checked')) {
+                        elem.parentElement.querySelector('.is_checked').classList.remove('is_checked');
+                        elem.classList.add('is_checked');
+                        sortProjects(filterValue);
+                    }
 
                 });
 

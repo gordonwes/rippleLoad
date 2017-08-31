@@ -57,7 +57,7 @@
             }
         }
     }
-    form{
+    form{      
         .container_file_upload{
             h3{
                 color: #fff;
@@ -90,5 +90,15 @@
                 transition: opacity 0.3s, visibility 0s;
             }
         }
+    }
+    section{
+        >form{
+            margin-bottom: 3rem;
+        }
+    }
+    p.file_big{
+        margin-top: -1rem;
+        margin-bottom: 3rem;
+        display: none;
     }
 }

@@ -67,7 +67,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                             <input type="submit" value="UPLOAD">
                         </form>
 
-                        <p class="file_big" style="visibility:hidden;">File too big! 100MB's the limit ;)</p>
+                        <p class="file_big">File too big! 100MB's the limit ;)</p>
 
                         <?php if (isset($file_too_big)) { ?>
                         <p class="file_big">File too big! 100MB's the limit ;)</p>

@@ -50,6 +50,11 @@
     }
 
     .barba-container{
+        &[data-namespace="contact"]{
+            .container_intro{
+                margin-top: 3rem;
+            }
+        }
         &[data-namespace="projects"]{
             .wrapper{
                 .container_fn_project{
@@ -82,5 +87,15 @@
             }
         }  
     } 
+
+}
+
+@media screen and (min-height:800px) {
+
+    .barba-container[data-namespace="contact"]{
+        .container_intro{
+            margin-top: 12vh;
+        }
+    }
 
 }

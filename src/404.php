@@ -13,6 +13,8 @@ $pageDesc = '';
 
         <?php include_once 'fragments/head.php'; ?>
 
+        <link href="<?= $baseUrl ?>/css/404<?php if ($isDev !== 'true') echo '.min' ?>.css" rel="stylesheet">
+
     </head>
 
     <body>
