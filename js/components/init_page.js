@@ -2,7 +2,7 @@ function initPages(page) {
 
     var actualPage = page.getAttribute('data-namespace');
 
-    if (actualPage === 'about') {
+    if (actualPage === 'about-me') {
 
         var scene = page.querySelector('#scene');
         

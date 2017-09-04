@@ -1,6 +1,6 @@
 <?php
 require '_var.php'; 
-$pageTitle = 'About';
+$pageTitle = 'About Me';
 $pageDesc = 'Lorem ipsum dolor sit amed';
 ?>
 
@@ -20,7 +20,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
         <?php include_once 'fragments/header.php'; ?>
 
         <main id="barba-wrapper">
-            <div class="barba-container" data-namespace="<?= strtolower($pageTitle); ?>">
+            <div class="barba-container" data-namespace="<?= str_replace(" ","-", strtolower($pageTitle)); ?>">
 
                 <section>
                     <div class="wrapper">
@@ -37,7 +37,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                             <p>
 
                                 Front-end dev with a graphic background,<br> 
-                                working <a class="link keyword" href="http://atklab.com/" target="_blank" rel="noopener">@ATK+LAB</a><br>
+                                working @<a class="link keyword" href="http://atklab.com/" target="_blank" rel="noopener">ATK+LAB</a><br>
                                 I make bespoke sites for every need.
 
                             </p>
