@@ -2,6 +2,14 @@ function initPages(page) {
 
     var actualPage = page.getAttribute('data-namespace');
 
+    if (actualPage === 'about') {
+
+        var scene = page.querySelector('#scene');
+        
+        var parallax = new Parallax(scene);
+
+    }
+
     if (actualPage === 'projects') {
 
         var projectsContainer = page.querySelector('.container_projects');

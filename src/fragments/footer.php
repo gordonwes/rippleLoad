@@ -1,11 +1,11 @@
 <div id="informativa_cookie">
     <div class="wrapper">
         <div id="contenitore_testo_cookie">
-            <p>Questo sito utilizza i cookies, continuando la navigazione acconsenti all'utilizzo degli stessi.</p>
+            <p><strong>This site uses cookies.</strong> By continuing to browse the site you are agreeing to their use.</p>
         </div>
-        <div id="contenitore_bottone_cookie">
+        <div id="contenitore_bottone_cookie"> 
             <a id="ok_cookie" href="#">OK</a>
-            <a href="https://it.wikipedia.org/wiki/Cookie" target="_blank" rel="noopener">Più informazioni</a>
+            <a href="https://en.wikipedia.org/wiki/HTTP_cookie" target="_blank" rel="noopener">More info</a>
         </div>
     </div>
 </div>

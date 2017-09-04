@@ -217,9 +217,9 @@ $container['renderer'] = function ($c) {
 
 // Define named route
 $app->get('/', function ($request, $response, $args) {
-    $response = $this->renderer->render($response, 'contact.php', $args);
+    $response = $this->renderer->render($response, 'about.php', $args);
     return $response;
-})->setName('contact');
+})->setName('about');
 
 $app->get('/projects', function ($request, $response, $args) {
     $response = $this->renderer->render($response, 'projects.php', array(

@@ -16,6 +16,7 @@ module.exports = function (grunt) {
                     //'node_modules/whatwg-fetch/fetch.js',
                     //'node_modules/masonry-layout/dist/masonry.pkgd.min.js',
                     'node_modules/imagesloaded/imagesloaded.pkgd.min.js',
+                    'node_modules/parallax-js/deploy/parallax.min.js',
                     //'node_modules/infinite-scroll/dist/infinite-scroll.pkgd.min.js',
                     //'node_modules/isotope-layout/dist/isotope.pkgd.min.js',
                     // 'node_modules/flickity/dist/flickity.pkgd.min.js',

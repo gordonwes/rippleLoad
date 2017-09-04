@@ -2,7 +2,7 @@
 
     <nav class="wrapper">
         <ul>
-            <li><a class="link" href="<?= $baseUrl ?>/">CONTACT</a></li>
+            <li><a class="link" href="<?= $baseUrl ?>/">ABOUT ME</a></li>
             <li><a class="link" href="<?= $baseUrl ?>/projects">PROJECTS</a></li>
         </ul>
 

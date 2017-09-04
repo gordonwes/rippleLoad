@@ -1,0 +1,42 @@
+/*////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////// ABOUT ME ///////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////*/
+
+.barba-container[data-namespace="about"] {
+    .container_intro{
+        margin-top: 6rem;
+        max-width: 70rem;
+        h1{
+            line-height: 1.4;
+            span{
+                color: rgba(255,255,255,0.55);
+            }
+            span, a {
+                line-height: inherit;
+            }
+        }
+        p{
+            font-size: 3rem;
+            margin-top: 2rem;
+            a{
+                padding-bottom: 0.4rem;
+            }
+        }
+    }
+    #scene{
+        position: absolute;
+        top: 6.5rem;
+        right: 0;
+        width: 40%;
+        height: calc(100vh - 13rem);
+        padding: 6rem;
+        .layer{
+            /*height: 100%;
+            width: 100%;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-image: url(https://images.vexels.com/media/users/3/142266/isolated/preview/6976fdcd1a445261ae4b5fd6e03f79db-halloween-gray-paintball-mask-illustration-by-vexels.png);*/
+        }
+    }
+}

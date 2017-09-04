@@ -1,6 +1,6 @@
 <?php
 require '_var.php'; 
-$pageTitle = 'Contact';
+$pageTitle = 'About';
 $pageDesc = 'Lorem ipsum dolor sit amed';
 ?>
 
@@ -28,8 +28,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 
                             <h1>
 
-                                <span>Hi there! I'm </span>Alberto Gorgonio<span>, a </span>web developer <span>working at </span>
-                                <a class="link keyword" href="http://atklab.com/" target="_blank" rel="noopener">Atk+Lab</a><span>. Check out some of my </span>
+                                <span>Hi there!<br> I'm </span>Alberto Gorgonio<span>, <br>a </span>web developer <span>based in Treviso, Italy.<br> Check out some of my </span>
                                 <a class="project_link link keyword" href="<?= $baseUrl ?>/projects">projects</a>.<br>  <!-- Have a look through some of my projects -->
                                 <a href='mail&#116;o&#58;gorgo&#37;6Eioal&#98;&#37;65rt&#111;&#64;&#37;67&#37;6D&#97;&#105;&#37;6C&#46;&#37;&#54;3om' class="link keyword">Get in touch!</a>
 
@@ -37,17 +36,23 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 
                             <p>
 
-                                Front-end dev with a graphic background<br> based in Treviso, Italy.<br>
+                                Front-end dev with a graphic background,<br> 
+                                working <a class="link keyword" href="http://atklab.com/" target="_blank" rel="noopener">@ATK+LAB</a><br>
                                 I make bespoke sites for every need.
 
                             </p>
 
                         </div>
 
-                        <p class="legal">© 2017 Alberto Gorgonio</p>
                     </div>
 
                 </section>
+
+                <ul id="scene">
+
+                    <li class="layer" data-depth="0.20"></li>
+
+                </ul>
 
             </div>
         </main>
