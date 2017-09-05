@@ -28,7 +28,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 
                             <h1>
 
-                                <span>Hi there!<br> I'm </span>Alberto Gorgonio<span>, <br>a </span>web developer <span>based in Treviso, Italy.<br> Check out some of my </span>
+                                <span>Hi there!</span> 👋 <br> <span>I'm </span>Alberto Gorgonio<span>, <br>a </span>web developer <span>based in Treviso, Italy. Check out some of my </span>
                                 <a class="project_link link keyword" href="<?= $baseUrl ?>/projects">projects</a>.<br>  <!-- Have a look through some of my projects -->
                                 <a href='mail&#116;o&#58;gorgo&#37;6Eioal&#98;&#37;65rt&#111;&#64;&#37;67&#37;6D&#97;&#105;&#37;6C&#46;&#37;&#54;3om' class="link keyword">Get in touch!</a>
 
@@ -50,7 +50,10 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
 
                 <ul id="scene">
 
-                    <li class="layer" data-depth="0.20"></li>
+                    <li class="layer" data-depth="0.20">
+
+
+                    </li>
 
                 </ul>
 

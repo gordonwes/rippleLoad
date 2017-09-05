@@ -57,28 +57,12 @@
 <link href="<?= $baseUrl ?>/css/style<?php if ($isDev !== 'true') echo '.min' ?>.css" rel="stylesheet">
 
 <style type="text/css">
-    <?php if (is_array($colorsBkg[0])) { ?>
-
     :root{
-        --bkg01: <?= $mainColor[0]; ?>;
-        --bkg02: <?= $mainColor[1]; ?>;
+        --bkg: <?= $mainColor ?>;
     }
-
-    header nav a:before{
-        background: linear-gradient(to left, var(--bkg01) 0%,var(--bkg02) 100%) !important;
-    }
-
-    <?php } else { ?>
-
-    :root{
-        --bkg: <?= $mainColor ?>
-    }
-
     header nav a:before{
         background: var(--bkg) !important;
     }
-
-    <?php } ?>
 </style>
 
 <script type="text/javascript">

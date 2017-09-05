@@ -12,9 +12,8 @@
 
 <script>
     var nameCookie = '<?= str_replace(' ', '_', strtolower($siteName)) ?>_cookie';
-    var colors = <?= json_encode($colorsBkg); ?>;
-    var firstColor = <?php if (is_array($colorsBkg[0])) {echo json_encode($mainColor);} else {echo '"' . $mainColor . '"';} ?>;
-    var isGradient = <?php if (is_array($colorsBkg[0])) {echo 'true';} else {echo 'false';} ?>;
+    var colors = <?= json_encode($colorsBkg) ?>;
+    var firstColor = '<?= $mainColor ?>';
     var baseUrl = '<?= $baseUrl ?>';
 </script>
 

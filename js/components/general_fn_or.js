@@ -124,12 +124,7 @@ window.addEventListener('popstate', function (e) {
         var linkNow = document.querySelector('[href="' + window.location.href + '"]');
         if (linkNow) {
             setMenuVoice(linkNow);
-            if (isGradient) {
-                document.documentElement.style.setProperty('--bkg01', nextColor[0]);
-                document.documentElement.style.setProperty('--bkg02', nextColor[1]);
-            } else {
-                document.documentElement.style.setProperty('--bkg', nextColor);
-            }
+            document.documentElement.style.setProperty('--bkg', nextColor);
         }
     }
 });

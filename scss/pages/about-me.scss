@@ -5,7 +5,7 @@
 .barba-container[data-namespace="about-me"] {
     .container_intro{
         margin: 3rem 0;
-        //max-width: 70rem;
+        max-width: 90rem;
         h1{
             line-height: 1.4;
             span{
@@ -31,12 +31,7 @@
         height: calc(100vh - 13rem);
         padding: 6rem;
         .layer{
-            /*height: 100%;
-            width: 100%;
-            background-position: center;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-image: url(https://images.vexels.com/media/users/3/142266/isolated/preview/6976fdcd1a445261ae4b5fd6e03f79db-halloween-gray-paintball-mask-illustration-by-vexels.png);*/
+
         }
     }
 }

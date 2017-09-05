@@ -5,7 +5,7 @@ function initPages(page) {
     if (actualPage === 'about-me') {
 
         var scene = page.querySelector('#scene');
-        
+
         var parallax = new Parallax(scene);
 
     }
