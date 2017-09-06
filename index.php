@@ -412,17 +412,20 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
                 $newfile->moveTo($path);
 
+                list($width, $height) = getimagesize($path);
+
                 if ($uploadFileType === 'image/jpeg') {
                     $im = imagecreatefromjpeg($path);
                     header('Content-Type: image/jpeg');
                 } elseif ($uploadFileType === 'image/png') {
                     $im = imagecreatefrompng($path);
                     header('Content-Type: image/png');
+                } elseif ($uploadFileType === 'image/gif') {
+                    $im = imagecreatefromgif($path);
+                    header('Content-Type: image/gif');
                 } else {
                     return false;
                 }
-
-                list($width, $height) = getimagesize($path);
 
                 $maxWidth = $this->get('settings')['cover']['max_width'];
                 $maxHeight = $this->get('settings')['cover']['max_height'];
@@ -443,6 +446,14 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
                 // Create final image with new dimensions.
                 $newImage = imagecreatetruecolor($newWidth, $newHeight);
+
+                if ($uploadFileType === 'image/png' || $uploadFileType === 'image/gif') {
+                    imagealphablending($newImage, false);
+                    imagesavealpha($newImage, true);
+                    $transparent = imagecolorallocatealpha($newImage, 255, 255, 255, 127);
+                    imagefilledrectangle($newImage, 0, 0, $newWidth, $newHeight, $transparent);
+                }
+
                 imagecopyresampled($newImage, $im, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 
                 if ($uploadFileType === 'image/jpeg') {
@@ -450,6 +461,8 @@ $app->post('/upload/project', function ($request, $response, $args) {
                     imagejpeg($newImage, $path, $jpgQuality);
                 } elseif ($uploadFileType === 'image/png') {
                     imagepng($newImage, $path, $pngQuality);
+                } elseif ($uploadFileType === 'image/gif') {
+                    imagegif($newImage, $path);
                 } else {
                     return false;
                 }
@@ -578,7 +591,7 @@ $app->post('/upload/dev', function ($request, $response, $args) {
 
             $uploadFileName = $newfile->getClientFilename();
             $uploadFileSize = $newfile->getSize() / 1024;
-            
+
             ini_set('memory_limit', '128M');
 
             if ($uploadFileSize < 100000) {

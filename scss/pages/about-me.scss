@@ -8,11 +8,14 @@
         max-width: 90rem;
         h1{
             line-height: 1.4;
-            span{
+            span:not(.move_it){
                 color: rgba(255,255,255,0.55);
             }
             span, a {
                 line-height: inherit;
+            }
+            .move_it{
+                display: inline-block;
             }
         }
         p{
@@ -21,17 +24,6 @@
             a{
                 padding-bottom: 0.4rem;
             }
-        }
-    }
-    #scene{
-        position: absolute;
-        top: 6.5rem;
-        right: 0;
-        width: 40%;
-        height: calc(100vh - 13rem);
-        padding: 6rem;
-        .layer{
-
         }
     }
 }

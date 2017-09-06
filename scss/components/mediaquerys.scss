@@ -58,3 +58,31 @@
     } 
 
 }
+
+@media screen and (min-height:750px) and (min-width:600px) {
+
+    .barba-container[data-namespace="about-me"]{
+        .container_intro{
+            margin-top: calc(((100vh - 6.5rem) - 58rem) / 2);
+        }  
+        /*&:before, &:after{
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: calc((100vh - 62rem) / 2);
+            z-index: 1;
+            background-color: var(--bkg);
+            -webkit-filter: drop-shadow(1px 1px 3px rgba(0,0,0,0.3)) brightness(105%);
+        }
+        &:before{
+            top: 6.5rem;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 60%);
+        }
+        &:after{
+            bottom: 0;
+            clip-path: polygon(0% 0%, 100% 60%, 100% 100%, 0% 100%);
+        }*/
+    } 
+
+}

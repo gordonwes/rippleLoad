@@ -55,6 +55,7 @@
                     float: left;
                     position: relative;
                     opacity: 0;
+                    overflow: hidden;
                     .container_img{
                         position: absolute;
                         top: 0;
@@ -64,6 +65,9 @@
                         background-size: cover;
                         background-repeat: no-repeat;
                         background-position: center;
+                        opacity: 0;
+                        transform: scale3d(1.1,1.1,1.1);
+                        transition: transform 0.3s, opacity 0.3s;
                     }
                     .container_txt{
                         position: absolute;
@@ -74,17 +78,16 @@
                         z-index: 2;
                         padding: 1.5rem;
                         background: rgba(0,0,0,0.4);
-                        background: -moz-linear-gradient(left, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.35) 100%);
-                        background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0,0,0,0.5)), color-stop(100%, rgba(0,0,0,0.35)));
-                        background: -webkit-linear-gradient(left, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.35) 100%);
-                        background: -o-linear-gradient(left, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.35) 100%);
-                        background: -ms-linear-gradient(left, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.35) 100%);
                         background: linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.35) 100%);
                         h2{
                             margin-bottom: 0.5rem;
                         }
                         p, a{
                             font-size: 1.6rem;
+                        }
+                        p{
+                            max-height: calc(100% - 9rem);
+                            overflow: hidden;
                         }
                         a{
                             display: inline-block;
@@ -146,6 +149,13 @@
                     }
                     &.is_hidden{
                         display: none;
+                    }
+                    &:hover{
+                        .container_img{
+                            opacity: 1;
+                            transform: none;
+                            transition: transform 0.5s, opacity 0.3s;
+                        }
                     }
                 }
             }

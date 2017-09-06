@@ -1,7 +1,7 @@
 <?php
 require '_var.php'; 
 $pageTitle = 'Admin';
-$pageDesc = 'Lorem ipsum dolor sit amed';
+$pageDesc = 'Manage projects and tags like a boss';
 ?>
 
 <!DOCTYPE html>

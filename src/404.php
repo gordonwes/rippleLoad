@@ -1,7 +1,7 @@
 <?php
 require '_var.php'; 
 $pageTitle = '404 | Page not found';
-$pageDesc = '';
+$pageDesc = 'Error 404, page not found, the link is wrong!';
 ?>
 
 <!DOCTYPE html>

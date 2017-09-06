@@ -1,7 +1,7 @@
 <?php
 require '_var.php'; 
 $pageTitle = 'Login';
-$pageDesc = 'Lorem ipsum dolor sit amed';
+$pageDesc = 'Login to admin area';
 ?>
 
 <!DOCTYPE html>

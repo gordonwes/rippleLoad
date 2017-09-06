@@ -1,7 +1,7 @@
 <?php
 require '_var.php'; 
 $pageTitle = 'Projects';
-$pageDesc = 'Lorem ipsum dolor sit amed';
+$pageDesc = 'A collection of all my projects, carefully crafted';
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +62,7 @@ $pageDesc = 'Lorem ipsum dolor sit amed';
                             if (count($project_block) !== 0) {
                             ?>
                             <div class="end_list">
-                                <p>You've reached the end. <a href="#" onclick="goTop('.vertical_align')">Go TOP.</a></p>
+                                <p>You've reached the end. <a href="#" onclick="goTop('section')">Go TOP.</a></p>
                             </div>
                             <?php } ?>
                         </div>

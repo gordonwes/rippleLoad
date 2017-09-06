@@ -1,7 +1,7 @@
 <?php
 require '_var.php'; 
 $pageTitle = 'Dev';
-$pageDesc = 'Lorem ipsum dolor sit amed';
+$pageDesc = 'Private server for small stuff';
 ?>
 
 <!DOCTYPE html>
