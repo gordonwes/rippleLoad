@@ -64,12 +64,8 @@ function initBarba() {
             setMenuVoice(HTMLElement);
         }
 
-        if (isGradient) {
-            document.documentElement.style.setProperty('--bkg01', nextColor[0]);
-            document.documentElement.style.setProperty('--bkg02', nextColor[1]);
-        } else {
-            document.documentElement.style.setProperty('--bkg', nextColor);
-        }
+        document.documentElement.style.setProperty('--bkg', nextColor);
+        document.querySelector('[name="theme-color"]').setAttribute('content', nextColor);
 
     });
 

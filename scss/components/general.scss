@@ -139,6 +139,7 @@ canvas{
 }
 
 input, textarea{
+    font-family: $font;
     &:not([type="file"]):not([type="checkbox"]){
         background-color: #fff !important;
         padding: 1rem 1.5rem;

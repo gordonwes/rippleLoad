@@ -1,24 +1,14 @@
 var colorChange = document.getElementById("color_change");
 var ctx = colorChange.getContext("2d");
-var gradient = ctx.createLinearGradient(0, 0, cW, cH);
-
-var cH;
-var cW;
+var cH, cW;
 var animations = [];
-var circles = [];
 var currentColor, nextColor, indexColor;
 
 var colorPicker = (function() {
 
     forEach(colors, function (index, elem) {
-        if (isGradient) {
-            if (JSON.stringify(elem) === JSON.stringify(firstColor)) {
-                indexColor = index;
-            }
-        } else {
-            if (elem === firstColor) {
-                indexColor = index;
-            }
+        if (elem === firstColor) {
+             indexColor = index;
         }
     });
 
@@ -29,7 +19,7 @@ var colorPicker = (function() {
     function current() {
         return colors[indexColor]
     }
-    return {  
+    return {
         next: next,
         current: current
     }
@@ -51,26 +41,19 @@ function handleEvent(e) {
         e.preventDefault();
         e = e.touches[0];
     }
-
     currentColor = colorPicker.current();
     nextColor = colorPicker.next();
-
     var targetR = calcPageFillRadius(e.pageX, e.pageY);
     var rippleSize = Math.min(200, (cW * .4));
     var minCoverDuration = 750;
-
-    if (isGradient) {
-        gradient.addColorStop(0, nextColor[0]);
-        gradient.addColorStop(1, nextColor[1]);
-    }
 
     var pageFill = new Circle({
         x: e.pageX,
         y: e.pageY,
         r: 0,
-        fill: isGradient ? gradient : nextColor
+        fill: nextColor
     });
-
+    
     var fillAnimation = anime({
         targets: pageFill,
         r: targetR,
@@ -99,7 +82,6 @@ var Circle = function(opts) {
 }
 
 Circle.prototype.draw = function() {
-
     ctx.globalAlpha = this.opacity || 1;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
@@ -111,15 +93,10 @@ Circle.prototype.draw = function() {
     ctx.globalAlpha = 1;
 }
 
-if (isGradient) {
-    gradient.addColorStop(0, firstColor[0]);
-    gradient.addColorStop(1, firstColor[1]);
-}
-
 var animate = anime({
     duration: Infinity,
     update: function() {
-        ctx.fillStyle = isGradient ? gradient : firstColor;
+        ctx.fillStyle = firstColor;
         ctx.fillRect(0, 0, cW, cH);
         animations.forEach(function(anim) {
             anim.animatables.forEach(function(animatable) {
