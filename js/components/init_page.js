@@ -5,7 +5,13 @@ function initPages(page) {
     if (actualPage === 'about-me') {
 
         var scene = page.querySelector('.move_it');
-        var parallax = new Parallax(scene);
+        var parallax = new Parallax(scene, {
+            calibrateX: true,
+            limitX: 20,
+            limitY: 20,
+            scalarX: 20,
+            scalarY: 20
+        });
 
     }
 
@@ -219,7 +225,7 @@ function initPages(page) {
 
                 elem.parentElement.addEventListener('mouseout', function (e) {
 
-                    let Circle = `circle(0px)`;
+                    var Circle = 'circle(0px)';
                     elem.style['-webkit-clip-path'] = Circle;
                     elem.style['clip-path'] = Circle;
 
