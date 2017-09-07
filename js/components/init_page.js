@@ -7,10 +7,12 @@ function initPages(page) {
         var scene = page.querySelector('.move_it');
         var parallax = new Parallax(scene, {
             calibrateX: true,
-            limitX: 20,
-            limitY: 20,
+            limitX: 6,
+            limitY: 2,
             scalarX: 20,
-            scalarY: 20
+            scalarY: 20,
+            invertX: false,
+            invertY: false
         });
 
     }

@@ -28,23 +28,23 @@ $pageDesc = 'Web developer based in Treviso, Italy';
 
                             <h1>
 
-                                <span>Hi there!</span> 
+                                <span>Hey there! Ciao</span> 
                                 <span class="move_it">
                                     <i data-depth="0.50">👋</i>
                                 </span>
-                                <br> 
-                                <span>I'm </span>Alberto Gorgonio<span>,
-                                <br>a </span>web developer <span>based in Treviso, Italy.
-                                Check out some of my </span>
-                                <a class="project_link link keyword" href="<?= $baseUrl ?>/projects">projects</a>.<br>  <!-- Have a look through some of my projects -->
+                                <br class="last_separator">
+                                <span>I'm </span>Alberto Gorgonio<span>,&nbsp;
+                                <br>a front-end </span>web developer <span><br>
+                                based in Treviso, Italy.&nbsp;<br>
+                                Take a look at some of my </span>
+                                <a class="project_link link keyword" href="<?= $baseUrl ?>/projects">projects</a>. <br class="last_separator">
                                 <a href='mail&#116;o&#58;gorgo&#37;6Eioal&#98;&#37;65rt&#111;&#64;&#37;67&#37;6D&#97;&#105;&#37;6C&#46;&#37;&#54;3om' class="link keyword">Get in touch!</a>
 
                             </h1>
 
                             <p>
 
-                                Front-end dev with a graphic background,<br> 
-                                working @<a class="link keyword" href="http://atklab.com/" target="_blank" rel="noopener">ATK+LAB</a><br>
+                                Currently working @<a class="link keyword" href="http://atklab.com/" target="_blank" rel="noopener">ATK+LAB</a><br>
                                 I make bespoke sites for every need.
 
                             </p>
