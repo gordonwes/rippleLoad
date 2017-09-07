@@ -56,6 +56,7 @@ function initBarba() {
     });
 
     Barba.Dispatcher.on('linkClicked', function(HTMLElement, MouseEvent) {
+        
         handleEvent(MouseEvent);
 
         if (HTMLElement.classList.contains('project_link')) {
