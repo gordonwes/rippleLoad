@@ -62,7 +62,7 @@ $pageDesc = 'A collection of all my projects, carefully crafted';
                             if (count($project_block) !== 0) {
                             ?>
                             <div class="end_list">
-                                <p>You've reached the end. <a href="#" onclick="goTop('section')">Go TOP.</a></p>
+                                <p>You've reached the end. <a href="#" onclick="goTop('.barba-container')">Go TOP.</a></p>
                             </div>
                             <?php } ?>
                         </div>

@@ -211,7 +211,7 @@ function initPages(page) {
                     var elPos = { X: pos.left , Y: pos.top };
                     var mPos  = { X: e.clientX - elPos.X, Y: e.clientY - elPos.Y };
 
-                    let finalCircle = `circle(${finalRadius}px at ${mPos.X}px ${mPos.Y}px)`;
+                    var finalCircle = 'circle(' + finalRadius + 'px at ' + mPos.X + 'px ' + mPos.Y + 'px)';
                     elem.style['-webkit-clip-path'] = finalCircle;
                     elem.style['clip-path'] = finalCircle;
 
@@ -243,9 +243,9 @@ function initPages(page) {
 
 
         function hoverProject() {
-            
-            
-            
+
+
+
         }
 
 

@@ -1,6 +1,5 @@
 var colorChange = document.getElementById("color_change");
 var ctx = colorChange.getContext("2d");
-var cH, cW;
 var animations = [];
 var currentColor, nextColor, indexColor;
 
@@ -8,7 +7,7 @@ var colorPicker = (function() {
 
     forEach(colors, function (index, elem) {
         if (elem === firstColor) {
-             indexColor = index;
+            indexColor = index;
         }
     });
 
@@ -31,8 +30,8 @@ function removeAnimation(animation) {
 }
 
 function calcPageFillRadius(x, y) {
-    var l = Math.max(x - 0, cW - x);
-    var h = Math.max(y - 0, cH - y);
+    var l = Math.max(x - 0, docWidth - x);
+    var h = Math.max(y - 0, docHeight - y);
     return Math.sqrt(Math.pow(l, 2) + Math.pow(h, 2));
 }
 
@@ -44,8 +43,10 @@ function handleEvent(e) {
     currentColor = colorPicker.current();
     nextColor = colorPicker.next();
     var targetR = calcPageFillRadius(e.pageX, e.pageY);
+
     var rippleSize = Math.min(200, (cW * .4));
     var minCoverDuration = 750;
+
 
     var pageFill = new Circle({
         x: e.pageX,
@@ -53,7 +54,7 @@ function handleEvent(e) {
         r: 0,
         fill: nextColor
     });
-    
+
     var fillAnimation = anime({
         targets: pageFill,
         r: targetR,
@@ -97,7 +98,7 @@ var animate = anime({
     duration: Infinity,
     update: function() {
         ctx.fillStyle = firstColor;
-        ctx.fillRect(0, 0, cW, cH);
+        ctx.fillRect(0, 0, docWidth, docHeight);
         animations.forEach(function(anim) {
             anim.animatables.forEach(function(animatable) {
                 animatable.target.draw();
@@ -107,10 +108,8 @@ var animate = anime({
 });
 
 var resizeCanvas = function() {
-    cW = docWidth;
-    cH = docHeight;
-    colorChange.width = cW * devicePixelRatio;
-    colorChange.height = cH * devicePixelRatio;
+    colorChange.width = docWidth * devicePixelRatio;
+    colorChange.height = docHeight * devicePixelRatio;
     ctx.scale(devicePixelRatio, devicePixelRatio);
 };
 

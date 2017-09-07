@@ -5,6 +5,11 @@ function initBarba() {
     Barba.Pjax.init();
     Barba.Prefetch.init();
 
+    var exitDuration = 150;
+    var introDuration = 400;
+    var delayIntro = 200;
+    var easing = 'easeInOutQuad';
+
     var MovePage = Barba.BaseTransition.extend({
         start: function() {
             Promise
@@ -14,12 +19,11 @@ function initBarba() {
 
         fadeOutPage: function() {
             var deferred = Barba.Utils.deferred();
-            var _this = this;
             var fadeOutPage = anime({
-                targets: _this.oldContainer,
+                targets: this.oldContainer,
                 opacity: ['1', '0'],
-                duration: 150,
-                easing: 'easeInOutQuad',
+                duration: exitDuration,
+                easing: easing,
                 complete: function() {
                     deferred.resolve();
                 }
@@ -29,15 +33,15 @@ function initBarba() {
 
         fadeInPage: function() {
             this.done();
-            this.newContainer.style.opacity = '0';
-            this.newContainer.style.visibility = 'visible';
-            var _this = this;
+            var newWrap = this.newContainer;
+            newWrap.style.opacity = '0';
+            newWrap.style.visibility = 'visible';
             var fadeInPage = anime({
                 targets: this.newContainer,
                 opacity: ['0', '1'],
-                delay: 200,
-                duration: 400,
-                easing: 'easeInOutQuad'
+                delay: delayIntro,
+                duration: introDuration,
+                easing: easing
             });
         }
 
