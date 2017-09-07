@@ -44,7 +44,7 @@ function handleEvent(e) {
     nextColor = colorPicker.next();
     var targetR = calcPageFillRadius(e.pageX, e.pageY);
 
-    var rippleSize = Math.min(200, (cW * .4));
+    var rippleSize = Math.min(200, (docWidth * .4));
     var minCoverDuration = 750;
 
 
