@@ -20,7 +20,3 @@ $line_height_header: 1.2;
 $gray: #5d5d5d;
 $selection: rgba(255,255,255,0.8);
 $selection_color: $gray;
-
-$linkFxTranform: scale3d(0,1,1);  // horizonatl -->  scale3d(1,0,1);
-$linkFxOriginInitial: top right;  // horizonatl -->  50% 100%;
-$linkFxOriginFinal: top left;  // horizonatl -->  50% 0%;

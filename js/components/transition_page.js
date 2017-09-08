@@ -31,32 +31,10 @@ function removeAnimation(animation) {
 
 function calcPageFillRadius(x, y) {
 
-    // var extraRadius = 0;
-
     var l = Math.max(x - 0, docWidth - x);
     var h = Math.max(y - 0, docHeight - y);
 
-    /*if (localStorage.getItem('radiusValue')) {
-
-        var oldWidth = localStorage.getItem('radiusValue');
-
-        if (oldWidth == docHeight) {
-
-            // orientation change
-            extraRadius = 200;
-            localStorage.setItem('radiusValue', docWidth);
-
-        }
-
-    } else {
-
-        localStorage.setItem('radiusValue', docWidth);
-
-    }*/
-
-    return Math.sqrt(Math.pow(l + extraRadius, 2) + Math.pow(h + extraRadius, 2));
-
-    //  return Math.sqrt(Math.pow(l, 2) + Math.pow(h, 2));
+    return Math.sqrt(Math.pow(l, 2) + Math.pow(h, 2));
 
 }
 

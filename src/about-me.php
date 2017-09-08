@@ -28,9 +28,9 @@ $pageDesc = 'Web developer based in Treviso, Italy';
 
                             <h1>
 
-                                <span>Hey there! Ciao</span> 
+                                <span>Hey there! Ciao </span>
                                 <span class="move_it">
-                                    <i data-depth="0.50">👋</i>
+                                    <i data-depth="0.50">👋🏻</i>
                                 </span>
                                 <br class="last_separator">
                                 <span>I'm </span>Alberto Gorgonio<span>,&nbsp;
@@ -38,7 +38,7 @@ $pageDesc = 'Web developer based in Treviso, Italy';
                                 based in Treviso, Italy.&nbsp;<br>
                                 Take a look at some of my </span>
                                 <a class="project_link link keyword" href="<?= $baseUrl ?>/projects">projects</a>. <br class="last_separator">
-                                <a href='mail&#116;o&#58;gorgo&#37;6Eioal&#98;&#37;65rt&#111;&#64;&#37;67&#37;6D&#97;&#105;&#37;6C&#46;&#37;&#54;3om' class="link keyword">Get in touch!</a>
+                                <a href='mail&#116;o&#58;gorgo&#37;6Eioal&#98;&#37;65rt&#111;&#64;&#37;67&#37;6D&#97;&#105;&#37;6C&#46;&#37;&#54;3om' class="link keyword mail">Get in touch!</a>
 
                             </h1>
 

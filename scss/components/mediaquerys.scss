@@ -21,7 +21,9 @@
                 .container_projects{
                     .project{
                         width: calc(50% - 1.5rem);
-                        height: 16rem;
+                        .container_img{
+                            height: 16rem;
+                        }
                     }
                 }   
             }
@@ -60,7 +62,6 @@
                 .container_projects{
                     .project{
                         width: calc(100% - 1.5rem);
-                        height: 16rem;
                     }
                 }   
             }

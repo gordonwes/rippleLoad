@@ -107,24 +107,18 @@ img, svg{
         left: -0.6rem;
         width: calc(100% + 1.2rem);
         opacity: 0.3;
-        transform: $linkFxTranform;
-        transform-origin: $linkFxOriginInitial;
+        transform: scale3d(0,1,1);
+        transform-origin: top right;
         background: #fff;
         transition: transform 0.3s;
         transition-timing-function: cubic-bezier(0.7,0,0.3,1);
         bottom: 0.4rem;
         height: 30%;
     }
-    &.is_active, &.is_checked{
+    &.is_active, &.is_checked, &.mail, &.keyword:hover{
         &:before{
             transform: scale3d(1,1,1);
-            transform-origin: $linkFxOriginFinal;
-        }
-    }
-    &.keyword:hover{
-        &:before{
-            transform: scale3d(1,1,1);
-            transform-origin: $linkFxOriginFinal;
+            transform-origin: top left;
         }
     }
 }
