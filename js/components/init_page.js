@@ -1,7 +1,7 @@
 function initPages(page) {
 
     var actualPage = page.getAttribute('data-namespace');
-
+    
     if (actualPage === 'about-me') {
 
         var introduction = page.querySelector('.initial_hi');
@@ -27,6 +27,21 @@ function initPages(page) {
             invertX: false,
             invertY: false
         });
+
+       /* if (!firstAchieved) {
+            var text = page.querySelector('.container_intro');
+            var introText = anime({
+                targets: text,
+                opacity: ['0', '1'],
+                duration: 500,
+                easing: 'easeInOutQuad',
+                complete: function() {
+                    firstAchieved = true;
+                }
+            });
+            
+            console.log('cccccc');
+        }*/
 
     }
 
