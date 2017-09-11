@@ -28,7 +28,14 @@ $pageDesc = 'Web developer based in Treviso, Italy';
 
                             <h1>
 
-                                <span>Hey there! Ciao </span>
+                                <?php 
+                                $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+                                if ($locale !== 'it_IT') {
+                                    echo '<span>Ciao! </span>';
+                                } else {
+                                    echo '<span class="initial_hi"></span>';
+                                }
+                                ?>
                                 <span class="move_it">
                                     <i data-depth="0.50">👋🏻</i>
                                 </span>

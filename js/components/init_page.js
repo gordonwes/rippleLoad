@@ -4,8 +4,21 @@ function initPages(page) {
 
     if (actualPage === 'about-me') {
 
-        var scene = page.querySelector('.move_it');
-        var parallax = new Parallax(scene, {
+        var introduction = page.querySelector('.initial_hi');
+
+        if (introduction) {
+            var actualTime = new Date().getHours();
+
+            if (actualTime >= 5 && actualTime < 18) {
+                introduction.textContent = 'Buongiorno! ';
+            } else {
+                introduction.textContent = 'Buonasera! ';
+            }
+
+        }
+
+        var emoji = page.querySelector('.move_it');
+        var parallax = new Parallax(emoji, {
             calibrateX: true,
             limitX: 6,
             limitY: 2,
