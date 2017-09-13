@@ -412,64 +412,65 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
                 $newfile->moveTo($path);
 
-                list($width, $height) = getimagesize($path);
+                if ($uploadFileType !== 'image/gif') {
 
-                if ($uploadFileType === 'image/jpeg') {
-                    $im = imagecreatefromjpeg($path);
-                    header('Content-Type: image/jpeg');
-                } elseif ($uploadFileType === 'image/png') {
-                    $im = imagecreatefrompng($path);
-                    header('Content-Type: image/png');
-                } elseif ($uploadFileType === 'image/gif') {
-                    $im = imagecreatefromgif($path);
-                    header('Content-Type: image/gif');
-                } else {
-                    return false;
+                    list($width, $height) = getimagesize($path);
+
+                    if ($uploadFileType === 'image/jpeg') {
+                        $im = imagecreatefromjpeg($path);
+                        header('Content-Type: image/jpeg');
+                    } elseif ($uploadFileType === 'image/png') {
+                        $im = imagecreatefrompng($path);
+                        header('Content-Type: image/png');
+                    } else {
+                        return false;
+                    }
+
+                    $maxWidth = $this->get('settings')['cover']['max_width'];
+                    $maxHeight = $this->get('settings')['cover']['max_height'];
+                    $jpgQuality = $this->get('settings')['cover']['optimization'];
+                    $pngQuality = ($jpgQuality - 100) / 11.111111;
+                    $pngQuality = round(abs($pngQuality));
+
+                    // Calculate ratio of desired maximum sizes and original sizes.
+                    $widthRatio = $maxWidth / $width;
+                    $heightRatio = $maxHeight / $height;
+
+                    // Ratio used for calculating new image dimensions.
+                    $ratio = min($widthRatio, $heightRatio);
+
+                    // Calculate new image dimensions.
+                    $newWidth  = (int)$width  * $ratio;
+                    $newHeight = (int)$height * $ratio;
+
+                    // Create final image with new dimensions.
+                    $newImage = imagecreatetruecolor($newWidth, $newHeight);
+
+                    if ($uploadFileType === 'image/png' || $uploadFileType === 'image/gif') {
+                        imagealphablending($newImage, false);
+                        imagesavealpha($newImage, true);
+                        $transparent = imagecolorallocatealpha($newImage, 255, 255, 255, 127);
+                        imagefilledrectangle($newImage, 0, 0, $newWidth, $newHeight, $transparent);
+                    }
+
+                    imagecopyresampled($newImage, $im, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                    if ($uploadFileType === 'image/jpeg') {
+                        imageinterlace($newImage, true);
+                        imagejpeg($newImage, $path, $jpgQuality);
+                    } elseif ($uploadFileType === 'image/png') {
+                        imagepng($newImage, $path, $pngQuality);
+                    } elseif ($uploadFileType === 'image/gif') {
+                        imagegif($newImage, $path);
+                    } else {
+                        return false;
+                    }
+
+                    // Free up the memory.
+                    imagedestroy($im);
+                    imagedestroy($newImage);
+
                 }
-
-                $maxWidth = $this->get('settings')['cover']['max_width'];
-                $maxHeight = $this->get('settings')['cover']['max_height'];
-                $jpgQuality = $this->get('settings')['cover']['optimization'];
-                $pngQuality = ($jpgQuality - 100) / 11.111111;
-                $pngQuality = round(abs($pngQuality));
-
-                // Calculate ratio of desired maximum sizes and original sizes.
-                $widthRatio = $maxWidth / $width;
-                $heightRatio = $maxHeight / $height;
-
-                // Ratio used for calculating new image dimensions.
-                $ratio = min($widthRatio, $heightRatio);
-
-                // Calculate new image dimensions.
-                $newWidth  = (int)$width  * $ratio;
-                $newHeight = (int)$height * $ratio;
-
-                // Create final image with new dimensions.
-                $newImage = imagecreatetruecolor($newWidth, $newHeight);
-
-                if ($uploadFileType === 'image/png' || $uploadFileType === 'image/gif') {
-                    imagealphablending($newImage, false);
-                    imagesavealpha($newImage, true);
-                    $transparent = imagecolorallocatealpha($newImage, 255, 255, 255, 127);
-                    imagefilledrectangle($newImage, 0, 0, $newWidth, $newHeight, $transparent);
-                }
-
-                imagecopyresampled($newImage, $im, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-
-                if ($uploadFileType === 'image/jpeg') {
-                    imageinterlace($newImage, true);
-                    imagejpeg($newImage, $path, $jpgQuality);
-                } elseif ($uploadFileType === 'image/png') {
-                    imagepng($newImage, $path, $pngQuality);
-                } elseif ($uploadFileType === 'image/gif') {
-                    imagegif($newImage, $path);
-                } else {
-                    return false;
-                }
-
-                // Free up the memory.
-                imagedestroy($im);
-                imagedestroy($newImage);
 
                 $coverName = $uploadFileName;
 
@@ -615,5 +616,36 @@ $app->post('/upload/dev', function ($request, $response, $args) {
     }
 
 });
+
+
+
+
+
+$app->get('/api/v1/{params}', function ($request, $response, $args) {
+
+    $params = explode('%2C', $args['params']);
+    $params = explode(',', $args['params']);
+
+    echo '<ul>';
+
+    foreach ($params as $par) {
+
+        $par_values = explode('=', $par);
+        $par_name = $par_values[0];
+        $par_value = $par_values[1];
+        echo '<li>' . $par_name . ' = ' . $par_value . '</li>';
+
+    }
+
+    echo '</ul>';
+
+})->setName('api');
+
+
+
+
+
+
+
 
 $app->run();

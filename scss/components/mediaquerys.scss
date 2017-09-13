@@ -20,10 +20,7 @@
             .container_fn_project{
                 .container_projects{
                     .project{
-                        width: calc(50% - 1.5rem);
-                        .container_img{
-                            height: 16rem;
-                        }
+                        width: calc(50% - 3rem);
                     }
                 }   
             }
@@ -43,6 +40,20 @@
     }
 }
 
+@media screen and (max-width:500px) {
+    .barba-container[data-namespace="projects"]{
+        .wrapper{
+            .container_fn_project{
+                .container_projects{
+                    .project{
+                        width: calc(100% - 3rem);
+                    }
+                }   
+            }
+        }  
+    } 
+}
+
 @media screen and (max-width:430px) {
     .barba-container[data-namespace="about-me"]{
         .container_intro{
@@ -52,20 +63,6 @@
                 }
             }
         }
-    } 
-}
-
-@media screen and (max-width:400px) {
-    .barba-container[data-namespace="projects"]{
-        .wrapper{
-            .container_fn_project{
-                .container_projects{
-                    .project{
-                        width: calc(100% - 1.5rem);
-                    }
-                }   
-            }
-        }  
     } 
 }
 

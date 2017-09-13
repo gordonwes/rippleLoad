@@ -1,7 +1,7 @@
 function initPages(page) {
 
     var actualPage = page.getAttribute('data-namespace');
-    
+
     if (actualPage === 'about-me') {
 
         var introduction = page.querySelector('.initial_hi');
@@ -27,21 +27,6 @@ function initPages(page) {
             invertX: false,
             invertY: false
         });
-
-       /* if (!firstAchieved) {
-            var text = page.querySelector('.container_intro');
-            var introText = anime({
-                targets: text,
-                opacity: ['0', '1'],
-                duration: 500,
-                easing: 'easeInOutQuad',
-                complete: function() {
-                    firstAchieved = true;
-                }
-            });
-            
-            console.log('cccccc');
-        }*/
 
     }
 
@@ -232,67 +217,9 @@ function initPages(page) {
 
         }
 
-        function clipHover() {
-
-            var coverImage = page.querySelectorAll('.container_img');
-
-            var finalRadius = coverImage[0].offsetWidth / 3;
-
-            forEach(coverImage, function (index, elem) {
-
-                elem.parentElement.addEventListener('mousemove', function (e) {
-
-                    var pos = elem.getBoundingClientRect();
-
-                    var elPos = { X: pos.left , Y: pos.top };
-                    var mPos  = { X: e.clientX - elPos.X, Y: e.clientY - elPos.Y };
-
-                    var finalCircle = 'circle(' + finalRadius + 'px at ' + mPos.X + 'px ' + mPos.Y + 'px)';
-                    elem.style['-webkit-clip-path'] = finalCircle;
-                    elem.style['clip-path'] = finalCircle;
-
-                });
-
-                elem.parentElement.addEventListener('mouseout', function (e) {
-
-                    var Circle = 'circle(0px)';
-                    elem.style['-webkit-clip-path'] = Circle;
-                    elem.style['clip-path'] = Circle;
-
-                });
-
-            });
-
-        }
-
         setTimeout(function() {
             initProjects(projects);
-            //clipHover();
-            hoverProject();
         }, 300);
-
-
-
-
-
-
-
-
-        function hoverProject() {
-
-
-
-        }
-
-
-
-
-
-
-
-
-
-
 
     }
 
