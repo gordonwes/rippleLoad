@@ -63,6 +63,7 @@
                         background-repeat: no-repeat;
                         background-position: center;
                         transition: transform 0.3s;
+                        box-shadow: inset 7px 7px 10px rgba(0,0,0,0.1);
                     }
                     .container_txt{
                         position: absolute;
@@ -71,7 +72,6 @@
                         padding: 1.5rem;
                         background-color: #fff;
                         width: 100%;
-                        border-radius: 0 0 3px 3px;
                         h2, p, a{
                             color: $gray !important;
                         }

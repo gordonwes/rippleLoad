@@ -1,7 +1,7 @@
 <!-- General Var -->
 <?php
 
-$baseUrl = 'http://localhost:8888/rippleLoad';
+$baseUrl = 'http://localhost:8888/rippleLoad'; 
 $siteName = 'Alberto Gorgonio';
 $colorsBkg = array(
     "#4A89DC", 

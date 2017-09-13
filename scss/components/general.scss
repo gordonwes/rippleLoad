@@ -115,7 +115,7 @@ img, svg{
         bottom: 0.4rem;
         height: 30%;
     }
-    &.is_active, &.is_checked, &.mail, &.keyword:hover{
+    &.is_active, &.is_checked, &.mail, &.hover:hover{
         &:before{
             transform: scale3d(1,1,1);
             transform-origin: top left;

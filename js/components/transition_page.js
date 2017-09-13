@@ -3,6 +3,9 @@ var ctx = colorChange.getContext("2d");
 var animations = [];
 var currentColor, nextColor, indexColor;
 
+
+///// remove animtions array
+
 var colorPicker = (function() {
 
     forEach(colors, function (index, elem) {
@@ -24,6 +27,8 @@ var colorPicker = (function() {
     }
 })();
 
+
+///// remove
 function removeAnimation(animation) {
     var index = animations.indexOf(animation);
     if (index > -1) animations.splice(index, 1);
@@ -63,7 +68,7 @@ function handleEvent(e) {
         easing: "easeOutQuart",
         complete: function(){
             firstColor = pageFill.fill;
-            removeAnimation(fillAnimation);
+            removeAnimation(fillAnimation);  ///// remove
         }
     });
 
@@ -98,9 +103,10 @@ Circle.prototype.draw = function() {
 var animate = anime({
     duration: Infinity,
     update: function() {
-        ctx.fillStyle = firstColor;
+        console.log('va');
+        ctx.fillStyle = firstColor;   //// serve veramente update? e in caso positivo mettere throttle
         ctx.fillRect(0, 0, docWidth, docHeight);
-        animations.forEach(function(anim) {
+        animations.forEach(function(anim) {   ///// ????
             anim.animatables.forEach(function(animatable) {
                 animatable.target.draw();
             });
