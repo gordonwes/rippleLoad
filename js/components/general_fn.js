@@ -3,7 +3,6 @@ var domReady = function (callback) {
 };
 
 var body = document.body;
-
 var docHeight, docWidth, html, fontSize, font;
 
 /////// prevent scroll on touch  //////////////////
@@ -88,7 +87,6 @@ function capitalizeFirst(string) {
 ////// set active menu voice //////////////
 
 function setMenuVoice(triggerEvent) {
-
     forEach(document.querySelectorAll('header nav a'), function (index, elem) {
         if (elem.classList.contains('is_active')) {
             elem.classList.remove('is_active');
@@ -104,6 +102,7 @@ function setMenuVoice(triggerEvent) {
         triggerEvent.classList.add('is_active');
     }
 }
+
 
 ////// scroll to top //////////////
 

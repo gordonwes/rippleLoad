@@ -15,6 +15,7 @@
     var colors = <?= json_encode($colorsBkg) ?>;
     var firstColor = '<?= $mainColor ?>';
     var baseUrl = '<?= $baseUrl ?>';
+    console.log('Made by Alberto Gorgonio @2017', 'font-weight: bold; color: <?= $mainColor ?>;');
 </script>
 
 <script src="<?= $baseUrl ?>/js/build/production<?php if ($isDev !== 'true') echo '.min' ?>.js"></script>

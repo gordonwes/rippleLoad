@@ -216,7 +216,7 @@ function initPages(page) {
             }
 
         }
-
+        
         setTimeout(function() {
             initProjects(projects);
         }, 300);

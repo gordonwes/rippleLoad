@@ -1,10 +1,8 @@
 var colorChange = document.getElementById("color_change");
 var ctx = colorChange.getContext("2d");
-var animations = [];
-var currentColor, nextColor, indexColor;
+var currentColor, nextColor, indexColor, fillAnimation;
 
-
-///// remove animtions array
+var minCoverDuration = 750;
 
 var colorPicker = (function() {
 
@@ -27,13 +25,6 @@ var colorPicker = (function() {
     }
 })();
 
-
-///// remove
-function removeAnimation(animation) {
-    var index = animations.indexOf(animation);
-    if (index > -1) animations.splice(index, 1);
-}
-
 function calcPageFillRadius(x, y) {
 
     var l = Math.max(x - 0, docWidth - x);
@@ -44,15 +35,16 @@ function calcPageFillRadius(x, y) {
 }
 
 function handleEvent(e) {
+
     if (e.touches) {
         e.preventDefault();
         e = e.touches[0];
     }
+
     currentColor = colorPicker.current();
     nextColor = colorPicker.next();
     var targetR = calcPageFillRadius(e.pageX, e.pageY);
-
-    var minCoverDuration = 750;
+    var animDuration = Math.max(targetR / 2 , minCoverDuration);
 
     var pageFill = new Circle({
         x: e.pageX,
@@ -61,18 +53,25 @@ function handleEvent(e) {
         fill: nextColor
     });
 
-    var fillAnimation = anime({
+    fillAnimation = anime({
         targets: pageFill,
         r: targetR,
-        duration:  Math.max(targetR / 2 , minCoverDuration),
+        duration: animDuration,
         easing: "easeOutQuart",
+        begin: function(){
+            animate.play();
+        },
+        run: function(){
+            if (animate.paused) {
+                animate.restart();
+            }
+        },
         complete: function(){
             firstColor = pageFill.fill;
-            removeAnimation(fillAnimation);  ///// remove
+            animate.pause();
         }
     });
 
-    animations.push(fillAnimation);
 }
 
 function extend(a, b){
@@ -102,19 +101,25 @@ Circle.prototype.draw = function() {
 
 var animate = anime({
     duration: Infinity,
-    update: function() {
-        console.log('va');
-        ctx.fillStyle = firstColor;   //// serve veramente update? e in caso positivo mettere throttle
+    update: function(anim) {
+        
+        ctx.fillStyle = firstColor;
         ctx.fillRect(0, 0, docWidth, docHeight);
-        animations.forEach(function(anim) {   ///// ????
-            anim.animatables.forEach(function(animatable) {
+
+        if (fillAnimation != null) {
+            fillAnimation.animatables.forEach(function(animatable) {
                 animatable.target.draw();
             });
-        });
+        }
+
     }
 });
 
 function resizeCanvas() {
+    animate.restart();
+    setTimeout(function() {
+        animate.pause();
+    }, 50);
     colorChange.width = docWidth * devicePixelRatio;
     colorChange.height = docHeight * devicePixelRatio;
     ctx.scale(devicePixelRatio, devicePixelRatio);
