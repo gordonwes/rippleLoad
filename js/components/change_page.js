@@ -5,10 +5,10 @@ function initBarba() {
     Barba.Pjax.init();
     Barba.Prefetch.init();
 
-    var exitDuration = 150;
-    var introDuration = 400;
-    var delayIntro = 200;
-    var easing = 'easeInOutQuad';
+    var exitDuration = 150,
+        introDuration = 400,
+        delayIntro = 200,
+        easing = 'easeInOutQuad';
 
     var MovePage = Barba.BaseTransition.extend({
         start: function() {
@@ -74,6 +74,14 @@ function initBarba() {
 
     });
 
-    setMenuVoice(document.querySelector('[href="' + window.location.href + '"]'));
+    var actualUrl = window.location.href, url;
+
+    if (actualUrl.substring(actualUrl.length - 1, actualUrl.length) === '#') {
+        url = actualUrl.substring(0, actualUrl.length - 1);
+    } else {
+        url = actualUrl;
+    }
+    
+    setMenuVoice(document.querySelector('[href="' + url + '"]'));
 
 }

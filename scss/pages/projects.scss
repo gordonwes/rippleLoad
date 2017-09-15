@@ -11,6 +11,8 @@
                 padding: 0 1.5rem;
                 padding-top: 2rem;
                 opacity: 0;
+                width: 100%;
+                z-index: 2;
                 button{
                     appearance: none;
                     -webkit-appearance: none;
@@ -41,6 +43,19 @@
                     display: inline-block;
                     &:last-of-type{
                         margin-right: 0;
+                    }
+                }
+                &.fixed{
+                    position: fixed;
+                    top: 6.5rem;
+                    left: 0;
+                    background-color: var(--bkg);
+                    padding: 2rem 3rem 1rem 3rem;
+                    transform: translate3d(0, -101%, 0);
+                    box-shadow: 0 0 6px rgba(0,0,0,0.3);
+                    &.show_it{
+                        transform: none;
+                        transition: transform 0.4s ease-in-out;
                     }
                 }
             }

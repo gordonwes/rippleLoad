@@ -2,8 +2,7 @@ var domReady = function (callback) {
     document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
 };
 
-var body = document.body;
-var docHeight, docWidth, html, fontSize, font;
+var body = document.body, docHeight, docWidth, html, fontSize, font;
 
 /////// prevent scroll on touch  //////////////////
 

@@ -1,6 +1,6 @@
-var colorChange = document.getElementById("color_change");
-var ctx = colorChange.getContext("2d");
-var currentColor, nextColor, indexColor, fillAnimation;
+var colorChange = document.getElementById("color_change"),
+    ctx = colorChange.getContext("2d"),
+    currentColor, nextColor, indexColor, fillAnimation;
 
 var minCoverDuration = 750;
 
@@ -102,7 +102,7 @@ Circle.prototype.draw = function() {
 var animate = anime({
     duration: Infinity,
     update: function(anim) {
-        
+
         ctx.fillStyle = firstColor;
         ctx.fillRect(0, 0, docWidth, docHeight);
 

@@ -32,12 +32,12 @@ function initPages(page) {
 
     if (actualPage === 'projects') {
 
-        var projectsContainer = page.querySelector('.container_projects');
-        var scrollArea = page;
-        var projects = page.querySelectorAll('.project');
-        var totalProject = projects.length;
-        var filters = page.querySelectorAll('.filters button');
-        var backTop = page.querySelector('.end_list a');
+        var projectsContainer = page.querySelector('.container_projects'),
+            projects = page.querySelectorAll('.project'),
+            totalProject = projects.length,
+            filter = page.querySelector('.filters'),
+            filters = page.querySelectorAll('.filters button'),
+            backTop = page.querySelector('.end_list a');
 
         function initProjects(elems) {
 
@@ -58,12 +58,13 @@ function initPages(page) {
 
         function showProjectOnScroll(elem) {
 
-            var hiddenProject = true;
+            var hiddenProject = true,
+                tickProject = false;
 
             function setAnimationElem() {
 
-                var projectTop = elem.getBoundingClientRect().top;
-                var heightProject = elem.offsetHeight;
+                var projectTop = elem.getBoundingClientRect().top,
+                    heightProject = elem.offsetHeight;
 
                 if (projectTop - docHeight < -(heightProject / 2) && hiddenProject) {
                     var animProject = anime({
@@ -79,14 +80,19 @@ function initPages(page) {
 
                 }
 
+                tickProject = false;
+
             }
 
-            function requestTick() {
-                requestAnimationFrame(setAnimationElem);
+            function requestTickProject() {
+                if (!tickProject) {
+                    requestAnimationFrame(setAnimationElem);
+                    tickProject = true;
+                }
             }
 
             setAnimationElem();
-            scrollArea.addEventListener('scroll', requestTick);
+            page.addEventListener('scroll', requestTickProject);
 
         }
 
@@ -103,6 +109,9 @@ function initPages(page) {
                     if (!elem.classList.contains('is_checked')) {
                         elem.parentElement.querySelector('.is_checked').classList.remove('is_checked');
                         elem.classList.add('is_checked');
+                        if (elem.parentElement.classList.contains('fixed')) {
+                            goTop('.barba-container');
+                        }
                         sortProjects(filterValue);
                     }
 
@@ -114,10 +123,9 @@ function initPages(page) {
 
         function setCountFilter(button) {
 
-            var filterValue = button.getAttribute('data-filter');
-            var filterCount = projectsContainer.querySelectorAll('[data-tag~="' + filterValue + '"]').length;
-
-            var countContainer = button.nextElementSibling;
+            var filterValue = button.getAttribute('data-filter'),
+                filterCount = projectsContainer.querySelectorAll('[data-tag~="' + filterValue + '"]').length,
+                countContainer = button.nextElementSibling;
 
             if (filterValue !== '*') {
                 countContainer.textContent = '( ' + filterCount + ' )';
@@ -216,9 +224,69 @@ function initPages(page) {
             }
 
         }
-        
+
+        function filtersMobile(elem) {
+
+            var tickFilter = false,
+                wScrollBefore = 0,
+                wScrollDiff = 0,
+                triggerDown = 0,
+                triggerUp = 0,
+                heightNavFilter = 6.2 * font,
+                container = page.querySelector('.container_fn_project');
+
+            function triggerFixedFilter() {
+
+                var scrollTop = page.scrollTop;
+                wScrollDiff = wScrollBefore - scrollTop;
+                
+                console.log(scrollTop);
+
+                if (scrollTop > heightNavFilter) {
+
+                    elem.classList.add('fixed');
+                    container.style.paddingTop = heightNavFilter + 'px';
+
+                    if (wScrollDiff > triggerUp) {
+
+                        elem.classList.add('show_it');
+
+                    } else if (wScrollDiff < triggerDown) {
+
+                        elem.classList.remove('show_it');
+
+                    }
+
+                } else if (scrollTop <= 0) {
+
+                    container.style.paddingTop = 0;
+                    elem.classList.remove('fixed');
+                    elem.classList.remove('show_it');
+
+                }
+
+                wScrollBefore = scrollTop;
+                tickFilter = false;
+
+            }
+
+            function requestTickFixedFilter() {
+                if (!tickFilter) {
+                    requestAnimationFrame(triggerFixedFilter);
+                    tickFilter = true;
+                }
+            }
+
+            if (docWidth <= 1024) {
+                triggerFixedFilter();
+                page.addEventListener('scroll', requestTickFixedFilter);
+            }
+
+        }
+
         setTimeout(function() {
             initProjects(projects);
+            filtersMobile(filter);
         }, 300);
 
     }
