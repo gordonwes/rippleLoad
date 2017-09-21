@@ -222,7 +222,7 @@ textarea{
 .no_js{
 
     #color_change{
-        background-color: #F6BB42;
+        background-color: var(--bkg);
     }
     .barba-container[data-namespace="projects"]{
         .wrapper{
@@ -238,6 +238,9 @@ textarea{
                 }
             }
         }
+    }
+    .barba-container[data-namespace="about-me"]{
+        opacity: 1;
     }
 
 }
