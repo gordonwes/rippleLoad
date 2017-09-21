@@ -621,12 +621,14 @@ $app->post('/upload/dev', function ($request, $response, $args) {
 
 
 
-$app->get('/api/v1/{params}', function ($request, $response, $args) {
+//$app->get('/api/v1/{params}', function ($request, $response, $args) {
 
-    $params = explode('%2C', $args['params']);
+$app->get('/api', function ($request, $response, $args) {
+
+    /*    $params = explode('%2C', $args['params']);
     $params = explode(',', $args['params']);
 
-    echo '<ul>';
+    echo '<ul>';    
 
     foreach ($params as $par) {
 
@@ -637,7 +639,43 @@ $app->get('/api/v1/{params}', function ($request, $response, $args) {
 
     }
 
-    echo '</ul>';
+    echo '</ul>';*/
+
+
+    $html = file_get_contents('http://www.mangahere.co/latest/');
+
+    $latest_list = new DOMDocument();
+
+    libxml_use_internal_errors(TRUE); //disable libxml errors
+
+    if(!empty($html)){ //if any html is actually returned
+
+        $latest_list->loadHTML($html);
+        libxml_clear_errors(); //remove errors for yucky html
+
+        $latest_path = new DOMXPath($latest_list);
+
+        //get all the h2's with an id
+        $latest_row = $latest_path->query('//dl');
+
+        $favorite = array("Vampire Sphere", "NT", "Irix", "Linux");
+        
+        echo $row->query('//dt//a')->nodeValue;
+
+        if($latest_row->length > 0){
+            echo '<ul>';
+            foreach($latest_row as $row){
+                if (in_array(ff, $favorite)) {
+                    echo '<li>';
+                    echo '<a href="' . $row->query('//dd//a')->getAttribute('href') . '">' . $row->query('//dd//a')->nodeValue . '</a>';
+                    echo '</li>';
+                }
+            }
+            echo '</ul>';
+        }
+    }
+
+
 
 })->setName('api');
 
