@@ -72,6 +72,7 @@
 <!--[if lte IE 7]>
 alert('This browser is outdated and some of the site's features may not work! Upgrade it or switch to another to improve the experience.);
 <![endif]-->
-<!--[if lt IE 9]>
+<!--[if lte IE 9]>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+<script src="<?= $baseUrl ?>/js/build/classList.min.js"></script>
 <![endif]-->

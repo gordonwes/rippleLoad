@@ -20,6 +20,7 @@
             .container_fn_project{
                 .container_projects{
                     .project{
+                        width: 44%;
                         width: calc(50% - 3rem);
                     }
                 }   
@@ -46,6 +47,7 @@
             .container_fn_project{
                 .container_projects{
                     .project{
+                        width: 93%;
                         width: calc(100% - 3rem);
                     }
                 }   
@@ -69,6 +71,7 @@
 @media screen and (min-height:750px) and (min-width:600px) {
     .barba-container[data-namespace="about-me"]{
         .container_intro{
+            margin-top: 15%;
             margin-top: calc(((100vh - 6.5rem) - 58rem) / 2);
         }  
     } 
