@@ -4,9 +4,11 @@ function initPages(page) {
 
     if (actualPage === 'about-me') {
 
-        var introduction = page.querySelector('.initial_hi');
+        var introduction = page.querySelector('.initial_hi'),
+            emoji = page.querySelector('.move_it');
 
         if (introduction) {
+
             var actualTime = new Date().getHours();
 
             if (actualTime >= 5 && actualTime < 18) {
@@ -17,7 +19,6 @@ function initPages(page) {
 
         }
 
-        var emoji = page.querySelector('.move_it');
         var parallax = new Parallax(emoji, {
             calibrateX: true,
             limitX: 6,
@@ -27,6 +28,17 @@ function initPages(page) {
             invertX: false,
             invertY: false
         });
+
+        if (!introCalled) {
+            var introAnim = anime({
+                targets: page,
+                opacity: ['0', '1'],
+                delay: 200,
+                duration: 400,
+                easing: 'easeInOutQuad'
+            });
+            introCalled = true;
+        }
 
     }
 
@@ -239,7 +251,7 @@ function initPages(page) {
 
                 var scrollTop = page.scrollTop;
                 wScrollDiff = wScrollBefore - scrollTop;
-                
+
                 console.log(scrollTop);
 
                 if (scrollTop > heightNavFilter) {
