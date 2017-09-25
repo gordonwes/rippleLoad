@@ -60,9 +60,9 @@ function initPages(page) {
         }
 
         function loadCover(cover) {
-            forEach(cover, function (index, elem) {
-                var imgLoad = imagesLoaded(elem, {background: '.container_img'});
-                imgLoad.on('always', function(instance) {
+            var imgLoad = imagesLoaded(cover, {background: '.container_img'});
+            imgLoad.on('always', function(instance) {
+                forEach(cover, function (index, elem) {
                     showProjectOnScroll(elem);
                 });
             });

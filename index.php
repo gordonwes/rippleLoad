@@ -617,67 +617,54 @@ $app->post('/upload/dev', function ($request, $response, $args) {
 
 });
 
-
-
-
-
-//$app->get('/api/v1/{params}', function ($request, $response, $args) {
-
 $app->get('/api', function ($request, $response, $args) {
 
-    /*    $params = explode('%2C', $args['params']);
-    $params = explode(',', $args['params']);
-
-    echo '<ul>';    
-
-    foreach ($params as $par) {
-
-        $par_values = explode('=', $par);
-        $par_name = $par_values[0];
-        $par_value = $par_values[1];
-        echo '<li>' . $par_name . ' = ' . $par_value . '</li>';
-
-    }
-
-    echo '</ul>';*/
-
-
-    $html = file_get_contents('http://www.mangahere.co/latest/');
-
-    $latest_list = new DOMDocument();
-
-    libxml_use_internal_errors(TRUE); //disable libxml errors
-
-    if(!empty($html)){ //if any html is actually returned
-
-        $latest_list->loadHTML($html);
-        libxml_clear_errors(); //remove errors for yucky html
-
-        $latest_path = new DOMXPath($latest_list);
-
-        //get all the h2's with an id
-        $latest_row = $latest_path->query('//dl');
-
-        $favorite = array("Vampire Sphere", "NT", "Irix", "Linux");
+    function get_web_page($url) {
         
-        echo $row->query('//dt//a')->nodeValue;
+        $user_agent='Mozilla/5.0 (Windows NT 6.1; rv:8.0) Gecko/20100101 Firefox/8.0';
 
-        if($latest_row->length > 0){
-            echo '<ul>';
-            foreach($latest_row as $row){
-                if (in_array(ff, $favorite)) {
-                    echo '<li>';
-                    echo '<a href="' . $row->query('//dd//a')->getAttribute('href') . '">' . $row->query('//dd//a')->nodeValue . '</a>';
-                    echo '</li>';
-                }
-            }
-            echo '</ul>';
-        }
+        $options = array(
+
+            CURLOPT_CUSTOMREQUEST  =>"GET",        //set request type post or get
+            CURLOPT_POST           =>false,        //set to GET
+            CURLOPT_USERAGENT      => $user_agent, //set user agent
+            CURLOPT_COOKIEFILE     =>"cookie.txt", //set cookie file
+            CURLOPT_COOKIEJAR      =>"cookie.txt", //set cookie jar
+            CURLOPT_RETURNTRANSFER => true,     // return web page
+            CURLOPT_HEADER         => false,    // don't return headers
+            CURLOPT_FOLLOWLOCATION => true,     // follow redirects
+            CURLOPT_ENCODING       => "",       // handle all encodings
+            CURLOPT_AUTOREFERER    => true,     // set referer on redirect
+            CURLOPT_CONNECTTIMEOUT => 120,      // timeout on connect
+            CURLOPT_TIMEOUT        => 120,      // timeout on response
+            CURLOPT_MAXREDIRS      => 10,       // stop after 10 redirects
+        );
+
+        $ch      = curl_init( $url );
+        curl_setopt_array( $ch, $options );
+        $content = curl_exec( $ch );
+        $err     = curl_errno( $ch );
+        $errmsg  = curl_error( $ch );
+        $header  = curl_getinfo( $ch );
+        curl_close( $ch );
+
+        $header['errno']   = $err;
+        $header['errmsg']  = $errmsg;
+        $header['content'] = $content;
+        return $header;
     }
 
-
+    return get_web_page('http://www.mangahere.co/latest/');
 
 })->setName('api');
+
+
+
+
+
+
+
+
 
 
 
