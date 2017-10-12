@@ -619,42 +619,110 @@ $app->post('/upload/dev', function ($request, $response, $args) {
 
 $app->get('/api', function ($request, $response, $args) {
 
-    function get_web_page($url) {
-        
-        $user_agent='Mozilla/5.0 (Windows NT 6.1; rv:8.0) Gecko/20100101 Firefox/8.0';
+    $urlRetrieve = "http://www.mangahere.co/latest/";
+    $proxyRetrieve = "proxy2:8080";
+    $containerManga = '//dl';
+    $titleManga = 'dt/a';
+    $urlManga = 'dt/a';
 
-        $options = array(
+    function getPage($url, $proxy) {
 
-            CURLOPT_CUSTOMREQUEST  =>"GET",        //set request type post or get
-            CURLOPT_POST           =>false,        //set to GET
-            CURLOPT_USERAGENT      => $user_agent, //set user agent
-            CURLOPT_COOKIEFILE     =>"cookie.txt", //set cookie file
-            CURLOPT_COOKIEJAR      =>"cookie.txt", //set cookie jar
-            CURLOPT_RETURNTRANSFER => true,     // return web page
-            CURLOPT_HEADER         => false,    // don't return headers
-            CURLOPT_FOLLOWLOCATION => true,     // follow redirects
-            CURLOPT_ENCODING       => "",       // handle all encodings
-            CURLOPT_AUTOREFERER    => true,     // set referer on redirect
-            CURLOPT_CONNECTTIMEOUT => 120,      // timeout on connect
-            CURLOPT_TIMEOUT        => 120,      // timeout on response
-            CURLOPT_MAXREDIRS      => 10,       // stop after 10 redirects
-        );
+        if (!empty($proxy)) {
+            $confConnection = array(
+                'http' => array(
+                    'proxy' => 'tcp://' . $proxy,
+                    'request_fulluri' => true,
+                ),
+            );
 
-        $ch      = curl_init( $url );
-        curl_setopt_array( $ch, $options );
-        $content = curl_exec( $ch );
-        $err     = curl_errno( $ch );
-        $errmsg  = curl_error( $ch );
-        $header  = curl_getinfo( $ch );
-        curl_close( $ch );
+            $connContext = stream_context_create($confConnection);
 
-        $header['errno']   = $err;
-        $header['errmsg']  = $errmsg;
-        $header['content'] = $content;
-        return $header;
+            $mainContent = file_get_contents($url, False, $connContext);
+
+        } else {
+
+            $mainContent = file_get_contents($url);
+
+        }
+
+        return utf8_encode($mainContent);
+
     }
 
-    return get_web_page('http://www.mangahere.co/latest/');
+    $indexMangaRaw = getPage($urlRetrieve, $proxyRetrieve);
+
+    $indexManga = new DOMDocument;
+
+    libxml_use_internal_errors(true);
+
+    $indexManga->preserveWhiteSpace = false;
+    $indexManga->strictErrorChecking = false;
+    $indexManga->recover = true;
+
+    if (!empty($indexMangaRaw)) {
+
+        $indexManga->loadHTML($indexMangaRaw);
+
+        $nodePath = new DOMXPath($indexManga);
+
+        $selectRow = $nodePath->query($containerManga);
+
+        echo '<ul>';
+
+        foreach($selectRow as $row) {
+
+            $elTitle = $nodePath->query($titleManga, $row)->item(0)->nodeValue;
+            $elUrl = $nodePath->query($urlManga, $row)->item(0)->getAttribute('href');
+
+            $singleMangaRaw = getPage($elUrl, $proxyRetrieve);
+
+            $singleManga = new DOMDocument;
+
+            libxml_use_internal_errors(true);
+
+            $singleManga->preserveWhiteSpace = false;
+            $singleManga->strictErrorChecking = false;
+            $singleManga->recover = true;
+
+            echo '<li>';
+
+            if (!empty($elUrl)) {
+
+                $singleManga->loadHTML($singleMangaRaw);
+
+                $singleNodePath = new DOMXPath($singleManga);
+
+                $containerRank = '//ul//li'; // [@class="detail_topText"]
+
+                $singleSelectRow = $singleNodePath->query($containerRank);
+                                
+                $singleManga->saveHTML();
+                                
+                foreach($singleSelectRow as $elem) {
+                    
+                    echo '1';
+                    echo $elem->item(0)->nodeValue;
+                    
+                }
+
+                $elRank = $singleSelectRow->item(0)->nodeValue;
+
+                echo '<span>' . $elRank . '</span>';
+
+            }
+
+            echo '<a href="' . $elUrl . '">' . $elTitle . '</a>';
+            echo '</li>';
+            
+            $indexManga->saveHTML();
+
+        }
+
+        echo '</ul>';
+
+    }
+
+    libxml_clear_errors();
 
 })->setName('api');
 

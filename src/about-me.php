@@ -23,7 +23,9 @@ $pageDesc = 'Web developer based in Treviso, Italy';
             <div class="barba-container" data-namespace="<?= str_replace(" ","-", strtolower($pageTitle)); ?>">
 
                 <section>
+
                     <div class="wrapper">
+
                         <div class="container_intro">
 
                             <h1>
@@ -52,7 +54,8 @@ $pageDesc = 'Web developer based in Treviso, Italy';
                             <p>
 
                                 Currently working @<a class="link hover" href="http://atklab.com/" target="_blank" rel="noopener">ATK+LAB</a><br>
-                                I make bespoke sites for every need.
+                                <span>I make bespoke sites for every need. </span><br>
+                                <a class="link hover" href="https://www.linkedin.com/in/alberto-gorgonio-04988757/" target="_blank">Linkedin ></a>
 
                             </p>
 
