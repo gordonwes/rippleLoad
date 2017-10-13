@@ -4,8 +4,13 @@ function initPages(page) {
 
     if (actualPage === 'about-me') {
 
-        var introduction = page.querySelector('.initial_hi'),
-            emoji = page.querySelector('.move_it');
+        var containerIntro = page.querySelector('.container_intro'),
+            introduction = page.querySelector('.initial_hi'),
+            emoji = page.querySelector('.move_it'),
+            moreButton = page.querySelector('a.more'),
+            moreContent = page.querySelector('span.more_content'),
+            moreOpen = false,
+            runningMore = false;
 
         if (introduction) {
 
@@ -39,6 +44,49 @@ function initPages(page) {
             });
             introCalled = true;
         }
+
+        moreButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (!runningMore) {
+                if (!moreOpen) {
+                    moreButton.textContent = 'LESS -';
+                    containerIntro.classList.add('detail_active');
+                    var introMore = anime({
+                        targets: moreContent,
+                        opacity: ['0', '1'],
+                        translateY: ['1.5rem', '0'],
+                        duration: 400,
+                        easing: 'easeInOutQuad',
+                        begin: function() {
+                            moreContent.style.display = 'block';
+                            runningMore = true;
+                        },
+                        complete: function() {
+                            moreOpen = true;
+                            runningMore = false;
+                        }
+                    });
+                } else {
+                    moreButton.textContent = 'MORE +';
+                    containerIntro.classList.remove('detail_active');
+                    var exitMore = anime({
+                        targets: moreContent,
+                        opacity: ['1', '0'],
+                        translateY: ['0', '1.5rem'],
+                        duration: 300,
+                        easing: 'easeInOutQuad',
+                        begin: function() {
+                            runningMore = true;
+                        },
+                        complete: function() {
+                            moreOpen = false;
+                            moreContent.style.display = 'none';
+                            runningMore = false;
+                        }
+                    });                 
+                }
+            }
+        });
 
     }
 

@@ -24,9 +24,26 @@
             margin-top: 2rem;
             a{
                 padding-bottom: 0.4rem;
+                &.more{
+                    margin-top: 1rem;
+                    display: inline-block;
+                }
             }
             span{
                 font-style: italic;
+                &.more_content{
+                    opacity: 0;
+                    display: none;
+                }
+            }
+        }
+        &.detail_active{
+            p{
+                a{
+                    &.more{
+                        color: rgba(255,255,255,0.55) !important;
+                    }
+                }
             }
         }
     }

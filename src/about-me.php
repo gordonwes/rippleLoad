@@ -55,7 +55,13 @@ $pageDesc = 'Web developer based in Treviso, Italy';
 
                                 Currently working @<a class="link hover" href="http://atklab.com/" target="_blank" rel="noopener">ATK+LAB</a><br>
                                 <span>I make bespoke sites for every need. </span><br>
-                                <a class="link hover" href="https://www.linkedin.com/in/alberto-gorgonio-04988757/" target="_blank">Linkedin ></a>
+                                <a class="link hover more" href="#">MORE +</a>
+
+                                <span class="more_content">
+                                    Lorem ipsum dolor sit amed, <br/>
+                                    Ciao lorem dolor rr itaca <br/>
+                                    Provetto in photoshop e esperto illustratore
+                                </span>
 
                             </p>
 
