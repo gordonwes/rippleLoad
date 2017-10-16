@@ -241,6 +241,19 @@ textarea{
     }
     .barba-container[data-namespace="about-me"]{
         opacity: 1;
+        .wrapper{
+            .container_intro{
+                margin-top: 10%;
+                margin-top: calc(((100vh - 6.5rem) - 74rem) / 2);
+                a.more{
+                    display: none;
+                }
+                span.more_content{
+                    display: block;
+                    opacity: 1;
+                }
+            }
+        }
     }
 
 }

@@ -35,7 +35,7 @@ $pageDesc = 'Web developer based in Treviso, Italy';
                                 if ($locale !== 'it_IT') {
                                     echo '<span>Ciao! </span>';
                                 } else {
-                                    echo '<span class="initial_hi"></span>';
+                                    echo '<span class="initial_hi">Ciao! </span>';
                                 }
                                 ?>
                                 <span class="move_it">
