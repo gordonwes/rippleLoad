@@ -46,7 +46,7 @@ $pageDesc = 'Private server for small stuff';
                             }
 
                             if ($real_dev == 0) {
-                                echo '<p class="empyt_list">No file yet!</p>';
+                                echo '<p class="empty_list">No file yet!</p>';
                             }
 
                             ?>

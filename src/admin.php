@@ -48,7 +48,7 @@ $pageDesc = 'Manage projects and tags like a boss';
                                 }
 
                                 if (count($project_list) == 0) {
-                                    echo '<p class="empyt_list">No projects yet!</p>';
+                                    echo '<p class="empty_list">No projects yet!</p>';
                                 }
 
                                 ?>
@@ -85,7 +85,7 @@ $pageDesc = 'Manage projects and tags like a boss';
         echo '</span></label>';
     }
                                       if (count($tags_list) == 0) {
-                                          echo '<p class="empyt_list">No tags yet!</p>';
+                                          echo '<p class="empty_list">No tags yet!</p>';
                                       }
 
                                         ?>

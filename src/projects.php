@@ -47,7 +47,7 @@ $pageDesc = 'A collection of all my projects, carefully crafted';
                                 <?php
 
                                 if (count($project_block) == 0) {
-                                    echo '<p class="empyt_list">No projects yet!</p>';
+                                    echo '<p class="empty_list">No projects yet!</p>';
                                 }
 
                                 foreach ($project_block as $project) {
