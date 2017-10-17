@@ -68,9 +68,13 @@ function initPages(page) {
                     });
                 } else {
                     moreButton.textContent = 'MORE +';
+                    if (page.scrollTop > 10) {
+                        goTop('.barba-container');
+                    }
                     containerIntro.classList.remove('detail_active');
                     var exitMore = anime({
                         targets: moreContent,
+                        delay: page.scrollTop > 10 ? 300 : 0,
                         opacity: ['1', '0'],
                         translateY: ['0', '1.5rem'],
                         duration: 300,
@@ -300,11 +304,14 @@ function initPages(page) {
                 var scrollTop = page.scrollTop;
                 wScrollDiff = wScrollBefore - scrollTop;
 
-                console.log(scrollTop);
-
                 if (scrollTop > heightNavFilter) {
 
                     elem.classList.add('fixed');
+                    
+                    setTimeout(function() {
+                       elem.classList.add('hide_it'); 
+                    }, 20);
+                    
                     container.style.paddingTop = heightNavFilter + 'px';
 
                     if (wScrollDiff > triggerUp) {
@@ -322,6 +329,7 @@ function initPages(page) {
                     container.style.paddingTop = 0;
                     elem.classList.remove('fixed');
                     elem.classList.remove('show_it');
+                    elem.classList.remove('hide_it');
 
                 }
 

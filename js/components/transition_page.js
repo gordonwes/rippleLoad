@@ -52,7 +52,7 @@ function handleEvent(e) {
         r: 0,
         fill: nextColor
     });
-
+    
     fillAnimation = anime({
         targets: pageFill,
         r: targetR,
