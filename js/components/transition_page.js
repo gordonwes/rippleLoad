@@ -60,6 +60,7 @@ function handleEvent(e) {
         easing: "easeOutQuart",
         begin: function(){
             animate.play();
+            rippleRunning = true;
         },
         run: function(){
             if (animate.paused) {
@@ -69,6 +70,7 @@ function handleEvent(e) {
         complete: function(){
             firstColor = pageFill.fill;
             animate.pause();
+            rippleRunning = false;
         }
     });
 

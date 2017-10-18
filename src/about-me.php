@@ -58,8 +58,7 @@ $pageDesc = 'Web developer based in Treviso, Italy';
                                 <a class="link hover more" href="#">MORE +</a>
 
                                 <span class="more_content">
-                                    Front-end developer, with a graphic background.
-                                    Excellent knowledge of Windows OS (latest version included) and MacOS (from 10.5 to 10.12) with their main applications.
+                                    Front-end developer, with a graphic background.<br>
                                     Ability to create responsive sites, mobile-oriented, with progressive enhancement and accessible from all platforms.
                                     I give a lot of importance to performance and compatibility of technologies in the several cross-browser environments.
                                     I have the ability to use correct heading, alt attributes, meta-tag and Schema markup for a good SEO optimization.

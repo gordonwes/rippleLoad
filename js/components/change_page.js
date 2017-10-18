@@ -55,22 +55,45 @@ function initBarba() {
         initPages(HTMLElementContainer);
     });
 
-    Barba.Dispatcher.on('linkClicked', function(HTMLElement, MouseEvent) {
+    Barba.Pjax.originalPreventCheck = Barba.Pjax.preventCheck;
 
-        handleEvent(MouseEvent);
-
-        if (HTMLElement.classList.contains('project_link')) {
-            var projectsVoice = document.querySelector('[href="' + baseUrl + '/projects"]');
-            setMenuVoice(projectsVoice);
-        } else if (HTMLElement.classList.contains('home_link')) {
-            var homeVoice = document.querySelector('[href="' + baseUrl + '/"]');
-            setMenuVoice(homeVoice);
-        } else {            
-            setMenuVoice(HTMLElement);
+    Barba.Pjax.preventCheck = function(evt, element) {
+        if (!Barba.Pjax.originalPreventCheck(evt, element)) {
+            return false;
         }
 
-        document.documentElement.style.setProperty('--bkg', nextColor);
-        document.querySelector('[name="theme-color"]').setAttribute('content', nextColor);
+        if (rippleRunning) {
+            forEach(document.querySelectorAll('a.link'), function (index, elem) {
+                elem.addEventListener('click', function(e) {
+                    e.preventDefault();
+                });
+            });
+            return false;
+        }
+
+        return true;
+    };
+
+    Barba.Dispatcher.on('linkClicked', function(HTMLElement, MouseEvent) {
+
+        if (!rippleRunning) {
+
+            handleEvent(MouseEvent);
+
+            if (HTMLElement.classList.contains('project_link')) {
+                var projectsVoice = document.querySelector('[href="' + baseUrl + '/projects"]');
+                setMenuVoice(projectsVoice);
+            } else if (HTMLElement.classList.contains('home_link')) {
+                var homeVoice = document.querySelector('[href="' + baseUrl + '/"]');
+                setMenuVoice(homeVoice);
+            } else {
+                setMenuVoice(HTMLElement);
+            }
+
+            document.documentElement.style.setProperty('--bkg', nextColor);
+            document.querySelector('[name="theme-color"]').setAttribute('content', nextColor);
+
+        }
 
     });
 
@@ -81,7 +104,7 @@ function initBarba() {
     } else {
         url = actualUrl;
     }
-    
+
     setMenuVoice(document.querySelector('[href="' + url + '"]'));
 
 }
