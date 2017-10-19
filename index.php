@@ -51,18 +51,8 @@ $container['db'] = function ($c) {
 };
 
 $container['tagsBlock'] = function ($c) {
-
-    $servername = $c->get('settings')['db']['servername'];
-    $username = $c->get('settings')['db']['username'];
-    $password = $c->get('settings')['db']['password'];
-    $dbname = $c->get('settings')['db']['dbname'];
-
-    try {
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch(PDOException $e) {
-        echo $sql . "<br>" . $e->getMessage();
-    }
+    
+    $conn = $c->db;
 
     $main_query = "SELECT * FROM tags ORDER BY value DESC";
     $main_query_init = $conn->prepare($main_query);
@@ -85,17 +75,7 @@ $container['tagsBlock'] = function ($c) {
 
 $container['projectBlock'] = function ($c) {
 
-    $servername = $c->get('settings')['db']['servername'];
-    $username = $c->get('settings')['db']['username'];
-    $password = $c->get('settings')['db']['password'];
-    $dbname = $c->get('settings')['db']['dbname'];
-
-    try {
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch(PDOException $e) {
-        echo $sql . "<br>" . $e->getMessage();
-    }
+    $conn = $c->db;
 
     $main_query = "SELECT * FROM projects ORDER BY timestamp DESC";
     $main_query_init = $conn->prepare($main_query);
@@ -153,17 +133,7 @@ $container['projectBlock'] = function ($c) {
 
 $container['projectList'] = function ($c) {
 
-    $servername = $c->get('settings')['db']['servername'];
-    $username = $c->get('settings')['db']['username'];
-    $password = $c->get('settings')['db']['password'];
-    $dbname = $c->get('settings')['db']['dbname'];
-
-    try {
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch(PDOException $e) {
-        echo $sql . "<br>" . $e->getMessage();
-    }
+    $conn = $c->db;
 
     $main_query = "SELECT * FROM projects ORDER BY timestamp ASC";
     $main_query_init = $conn->prepare($main_query);
@@ -725,20 +695,5 @@ $app->get('/api', function ($request, $response, $args) {
     libxml_clear_errors();
 
 })->setName('api');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 $app->run();

@@ -63,7 +63,7 @@ function initBarba() {
         }
 
         if (rippleRunning) {
-            forEach(document.querySelectorAll('a.link'), function (index, elem) {
+            forEach(document.querySelectorAll('a.project_link, header ul a'), function (index, elem) {
                 elem.addEventListener('click', function(e) {
                     e.preventDefault();
                 });

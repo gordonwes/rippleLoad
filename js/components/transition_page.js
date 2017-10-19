@@ -52,7 +52,7 @@ function handleEvent(e) {
         r: 0,
         fill: nextColor
     });
-    
+
     fillAnimation = anime({
         targets: pageFill,
         r: targetR,
@@ -118,10 +118,15 @@ var animate = anime({
 });
 
 function resizeCanvas() {
+
     animate.restart();
     setTimeout(function() {
         animate.pause();
     }, 50);
+
+    docWidth = document.documentElement.clientWidth;
+    docHeight = document.documentElement.clientHeight;
+
     colorChange.width = docWidth * devicePixelRatio;
     colorChange.height = docHeight * devicePixelRatio;
     ctx.scale(devicePixelRatio, devicePixelRatio);
