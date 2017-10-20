@@ -13,13 +13,8 @@ module.exports = function (grunt) {
                     'node_modules/animejs/anime.min.js',
                     'node_modules/js-cookie/src/js.cookie.js',
                     'node_modules/pace-js/pace.min.js',
-                    //'node_modules/whatwg-fetch/fetch.js',
-                    //'node_modules/masonry-layout/dist/masonry.pkgd.min.js',
                     'node_modules/imagesloaded/imagesloaded.pkgd.min.js',
                     'node_modules/parallax-js/dist/parallax.min.js',
-                    //'node_modules/infinite-scroll/dist/infinite-scroll.pkgd.min.js',
-                    //'node_modules/isotope-layout/dist/isotope.pkgd.min.js',
-                    // 'node_modules/flickity/dist/flickity.pkgd.min.js',
                     'js/components/*.js',
                     'js/app.js'
                 ],

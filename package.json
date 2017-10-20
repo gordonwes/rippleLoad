@@ -19,13 +19,8 @@
     "dependencies": {
         "animejs": "latest",
         "js-cookie": "latest",
-        "flickity": "latest",
         "imagesloaded": "latest",
-        "whatwg-fetch": "latest",
-        "infinite-scroll": "latest",
         "parallax-js": "latest",
-        "masonry-layout": "latest",
-        "isotope-layout": "latest",
         "barba.js": "latest",
         "pace-js": "latest"
     },
