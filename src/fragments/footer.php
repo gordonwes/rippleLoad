@@ -5,7 +5,11 @@
         </div>
         <div id="contenitore_bottone_cookie"> 
             <a id="ok_cookie" href="#">OK</a>
-            <a href="https://en.wikipedia.org/wiki/HTTP_cookie" target="_blank" rel="noopener">More info</a>
+            <?php if ($locale !== 'it'){
+    echo '<a href="https://en.wikipedia.org/wiki/HTTP_cookie" target="_blank" rel="noopener">More info</a>';
+} else {
+    echo '<a href="https://it.wikipedia.org/wiki/Cookie" target="_blank" rel="noopener">More info</a>';
+} ?>
         </div>
     </div>
 </div>

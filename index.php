@@ -16,9 +16,9 @@ $app = new Slim\App([
         ],
         'db' => [
             'servername' => 'localhost',
-            'username' => 'root',
-            'password' => 'root',
-            'dbname' => 'ag'
+            'username' => 'root', // workspacestage
+            'password' => 'root', //
+            'dbname' => 'ag' // my_workspacestage
         ],
         'idleTime' => [
             'time' => 600
@@ -51,7 +51,7 @@ $container['db'] = function ($c) {
 };
 
 $container['tagsBlock'] = function ($c) {
-    
+
     $conn = $c->db;
 
     $main_query = "SELECT * FROM tags ORDER BY value DESC";
@@ -227,6 +227,7 @@ $app->get('/login', function ($request, $response, $args) {
 })->setName('login');
 
 $app->get('/admin', function ($request, $response, $args) {
+
     if (isset($_SESSION["admin"])) {
 
         $this->get("timeIdle");
@@ -464,7 +465,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
                 "description" => $projectDescription,
                 "url" => $projectUrl,
                 "tags" => json_encode($projectTags),
-                "timestamp" => date("Y.m.d.h.i.sa")
+                "timestamp" => date("Y-m-d H:i:s")
             ));
 
             $conn = null;
@@ -665,14 +666,14 @@ $app->get('/api', function ($request, $response, $args) {
                 $containerRank = '//ul//li'; // [@class="detail_topText"]
 
                 $singleSelectRow = $singleNodePath->query($containerRank);
-                                
+
                 $singleManga->saveHTML();
-                                
+
                 foreach($singleSelectRow as $elem) {
-                    
+
                     echo '1';
                     echo $elem->item(0)->nodeValue;
-                    
+
                 }
 
                 $elRank = $singleSelectRow->item(0)->nodeValue;
@@ -683,7 +684,7 @@ $app->get('/api', function ($request, $response, $args) {
 
             echo '<a href="' . $elUrl . '">' . $elTitle . '</a>';
             echo '</li>';
-            
+
             $indexManga->saveHTML();
 
         }

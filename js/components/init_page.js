@@ -299,6 +299,8 @@ function initPages(page) {
                 heightNavFilter = 6.2 * font,
                 container = page.querySelector('.container_fn_project');
 
+            elem.style.backgroundColor = nextColor;
+            
             function triggerFixedFilter() {
 
                 var scrollTop = page.scrollTop;
@@ -307,11 +309,11 @@ function initPages(page) {
                 if (scrollTop > heightNavFilter) {
 
                     elem.classList.add('fixed');
-                    
+
                     setTimeout(function() {
-                       elem.classList.add('hide_it'); 
+                        elem.classList.add('hide_it'); 
                     }, 20);
-                    
+
                     container.style.paddingTop = heightNavFilter + 'px';
 
                     if (wScrollDiff > triggerUp) {

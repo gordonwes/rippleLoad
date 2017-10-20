@@ -5,6 +5,10 @@
 <link rel="dns-prefetch" href="//fonts.googleapis.com">
 <meta name="author" content="<?= $author ?>">
 
+<?php if ($isDev == 'true') { ?>
+<meta name="robots" content="noindex,nofollow">
+<?php } ?>
+
 <!-- Favicon -->
 <!-- For IE 11, Chrome, Firefox, Safari, Opera -->
 <link rel="icon" type="image/png" href="<?= $baseUrl ?>/images/favicon/favicon-196x196.png" sizes="196x196" />
@@ -62,6 +66,9 @@
     }
     header nav a:before{
         background: var(--bkg) !important;
+    }
+    canvas, .container_fn_project .filters{
+        background-color: <?= $mainColor ?>;
     }
 </style>
 

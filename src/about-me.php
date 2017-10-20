@@ -31,15 +31,14 @@ $pageDesc = 'Web developer based in Treviso, Italy';
                             <h1>
 
                                 <?php 
-                                $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
-                                if ($locale !== 'it_IT') {
+                                if ($locale !== 'it') {
                                     echo '<span>Ciao! </span>';
                                 } else {
                                     echo '<span class="initial_hi">Ciao! </span>';
                                 }
                                 ?>
                                 <span class="move_it">
-                                    <i data-depth="0.50">👋🏻</i>
+                                    <img src="<?= $baseUrl ?>/images/icons/waving-hand.png" data-depth="0.50">
                                 </span>
                                 <br class="last_separator">
                                 <span>I'm </span>Alberto Gorgonio<span>,&nbsp;

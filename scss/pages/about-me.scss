@@ -17,6 +17,10 @@
             }
             .move_it{
                 display: inline-block;
+                vertical-align: text-top;
+                img{
+                    width: 5rem;
+                }
             }
         }
         p{
