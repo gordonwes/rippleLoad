@@ -148,7 +148,7 @@ input, textarea{
         resize: none;
         appearance: none;
         outline: none;
-        -webkit-appearance: none;
+        border-radius: 0;
         &::selection {
             background: rgba(0,0,0,0.3);
         }

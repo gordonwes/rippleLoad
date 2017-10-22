@@ -1,6 +1,8 @@
 # rippleLoad
 ## TODO:
-
+• min time for pace.js (trigger on hover);
+• increment x axis for mobile parallax.js;
+• icon hand hidpi for retina (or unicode with fallback);
 ## Setup:
 Install Dependencies:
 ```shell
