@@ -26,8 +26,8 @@ function initPages(page) {
 
         var parallax = new Parallax(emoji, {
             calibrateX: true,
-            limitX: 6,
-            limitY: 2,
+            limitX: docWidth <= 1024 ? 16 : 6,
+            limitY: docWidth <= 1024 ? 4 : 2,
             scalarX: 20,
             scalarY: 20,
             invertX: false,

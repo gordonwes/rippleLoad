@@ -20,6 +20,9 @@
     var firstColor = '<?= $mainColor ?>';
     var baseUrl = '<?= $baseUrl ?>';
     console.info('%cMade by ' + '%cAlberto Gorgonio' + ' %c@2017', 'font-weight: bold; color: #999;','font-weight: bold; color: <?= $mainColor ?>;', 'color: #999;');
+    paceOptions = {
+        restartOnRequestAfter: false
+    }
 </script>
 
 <script src="<?= $baseUrl ?>/js/build/production<?php if ($isDev !== 'true') echo '.min' ?>.js"></script>
