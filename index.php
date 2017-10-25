@@ -17,7 +17,7 @@ $app = new Slim\App([
         'db' => [
             'servername' => 'localhost',
             'username' => 'root', // workspacestage
-            'password' => 'root', //
+            'password' => 'root', // 
             'dbname' => 'ag' // my_workspacestage
         ],
         'idleTime' => [
@@ -26,6 +26,7 @@ $app = new Slim\App([
         'cover' => [
             'max_width' => 450,
             'max_height' => 450,
+            'max_weight' => 4000,
             'optimization' => 80
         ]
     ]
@@ -377,7 +378,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
             $uploadFileType = $newfile->getClientMediaType();
             $uploadFileSize = $newfile->getSize() / 1024;
 
-            if ($uploadFileSize < 2000) {
+            if ($uploadFileSize < $this->get('settings')['cover']['max_weight']) {
 
                 $path = __DIR__ . "/images/upload/$uploadFileName";
 
