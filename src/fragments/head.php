@@ -70,6 +70,13 @@
     canvas, .container_fn_project .filters{
         background-color: <?= $mainColor ?>;
     }
+    .container_more_scroll .scroll_sx{
+        background: linear-gradient(to right, <?= $mainColor ?> 55%, rgba(255,255,255,0) 100%);
+    }
+    .container_more_scroll .scroll_dx{
+        background: linear-gradient(to left, <?= $mainColor ?> 55%, rgba(255,255,255,0) 100%);
+    }
+
 </style>
 
 <script type="text/javascript">

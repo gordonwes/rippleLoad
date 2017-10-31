@@ -297,29 +297,51 @@ function initPages(page) {
                 triggerDown = 0,
                 triggerUp = 0,
                 heightNavFilter = 6.2 * font,
-                container = page.querySelector('.container_fn_project');
+                container = page.querySelector('.container_fn_project'),
+                containerMoreScroll = page.querySelector('.container_more_scroll'),
+                moreScrollDx = page.querySelector('.container_more_scroll .scroll_dx'),
+                moreScrollSx = page.querySelector('.container_more_scroll .scroll_sx');
 
-            elem.style.backgroundColor = nextColor;
-
-            function setMoreFilterInit() {
-                if (elem.scrollWidth > docWidth - (3 * font) && elem.scrollLeft <= 0) {
-                    elem.classList.add('more');
-                } else {
-                    elem.classList.remove('more');
-                }
+            if (nextColor !== 'undefined') {
+                elem.style.backgroundColor = nextColor;
+                moreScrollSx.style.backgroundImage = 'linear-gradient(to right, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
+                moreScrollDx.style.backgroundImage = 'linear-gradient(to left, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
+                moreScrollSx.style.backgroundImage = '-webkit-linear-gradient(right, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
+                moreScrollDx.style.backgroundImage = '-webkit-linear-gradient(left, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
+                moreScrollSx.style.backgroundImage = '-moz-linear-gradient(to right, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
+                moreScrollDx.style.backgroundImage = '-moz-linear-gradient(to left, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
             }
 
-            function setMoreFilterScroll() {
-                if (elem.scrollLeft > 0) {
-                    elem.classList.remove('more');
+            function setMoreFilterInit() {
+
+                if (elem.scrollWidth > docWidth - (1.5 * font)) {
+
+                    containerMoreScroll.classList.add('active');
+                    containerMoreScroll.style.left = elem.scrollLeft + 'px';
+
+                    var isFixedMenu = page.scrollTop > heightNavFilter;
+                    var varFixed = isFixedMenu ? '0' : (3 * font);
+
+                    if (elem.scrollLeft > 0) {
+                        moreScrollSx.classList.add('active');
+                    } else {
+                        moreScrollSx.classList.remove('active');
+                    }
+                    if (elem.scrollLeft + docWidth - varFixed >= elem.scrollWidth) {
+                        moreScrollDx.classList.remove('active');
+                    } else {
+                        moreScrollDx.classList.add('active');
+                    }
+
                 } else {
-                    elem.classList.add('more');
+                    containerMoreScroll.classList.remove('active');
                 }
+
             }
 
             setMoreFilterInit();
             window.addEventListener('resize', setMoreFilterInit);
-            elem.addEventListener('scroll', setMoreFilterScroll);
+            elem.addEventListener('scroll', setMoreFilterInit);
 
             function triggerFixedFilter() {
 

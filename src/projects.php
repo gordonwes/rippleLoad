@@ -40,6 +40,11 @@ $pageDesc = 'A collection of all my projects, carefully crafted';
                                 }
                                 ?>
 
+                                <div class="container_more_scroll">
+                                    <div class="scroll_sx"></div>
+                                    <div class="scroll_dx"></div>
+                                </div>
+
                             </div>
 
                             <div class="container_projects clear">
