@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Creato il: Ago 23, 2017 alle 12:45
+-- Creato il: Nov 10, 2017 alle 18:29
 -- Versione del server: 5.6.35
 -- Versione PHP: 7.0.15
 
@@ -37,7 +37,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`) VALUES
-(1, '', '');
+(1, 'gordonwes', '$2y$10$fu7H7.nQCLtm9Ri8LCxCROJeSvaPmhP6L8lgg/9qYysaGuO7y4dni');
 
 -- --------------------------------------------------------
 
@@ -78,6 +78,19 @@ CREATE TABLE `tags` (
   `value` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `visitors`
+--
+
+CREATE TABLE `visitors` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `ip` varchar(255) DEFAULT NULL,
+  `lang` varchar(255) DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Indici per le tabelle scaricate
 --
@@ -107,6 +120,12 @@ ALTER TABLE `tags`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indici per le tabelle `visitors`
+--
+ALTER TABLE `visitors`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT per le tabelle scaricate
 --
 
@@ -119,17 +138,22 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT per la tabella `ip`
 --
 ALTER TABLE `ip`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT per la tabella `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT per la tabella `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT per la tabella `visitors`
+--
+ALTER TABLE `visitors`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

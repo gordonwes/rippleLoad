@@ -112,12 +112,14 @@ function initPages(page) {
         }
 
         function loadCover(cover) {
+
             var imgLoad = imagesLoaded(cover, {background: '.container_img'});
             imgLoad.on('always', function(instance) {
                 forEach(cover, function (index, elem) {
                     showProjectOnScroll(elem);
                 });
             });
+
         }
 
         function showProjectOnScroll(elem) {
@@ -191,14 +193,10 @@ function initPages(page) {
                 filterCount = projectsContainer.querySelectorAll('[data-tag~="' + filterValue + '"]').length,
                 countContainer = button.nextElementSibling;
 
-            if (filterValue !== '*') {
-                countContainer.textContent = '( ' + filterCount + ' )';
-            } else {
-                countContainer.textContent = '( ' + totalProject + ' )';
-            }
+            countContainer.textContent = '( ' + (filterValue !== '*' ? filterCount : totalProject) + ' )';
 
             var animCount = anime({
-                targets: button.parentElement,
+                targets: button.parentElement.parentElement,
                 opacity: ['0', '1'],
                 duration: 200,
                 easing: 'easeInOutQuad'
@@ -299,6 +297,7 @@ function initPages(page) {
                 heightNavFilter = 6.2 * font,
                 container = page.querySelector('.container_fn_project'),
                 containerMoreScroll = page.querySelector('.container_more_scroll'),
+                containerScrollFilter = elem.querySelector('.container_filters'),
                 moreScrollDx = page.querySelector('.container_more_scroll .scroll_dx'),
                 moreScrollSx = page.querySelector('.container_more_scroll .scroll_sx');
 
@@ -314,20 +313,20 @@ function initPages(page) {
 
             function setMoreFilterInit() {
 
-                if (elem.scrollWidth > docWidth - (1.5 * font)) {
+                if (containerScrollFilter.scrollWidth > docWidth - (1.5 * font)) {
 
                     containerMoreScroll.classList.add('active');
-                    containerMoreScroll.style.left = elem.scrollLeft + 'px';
+                    //containerMoreScroll.style.left = elem.scrollLeft + 'px';
 
                     var isFixedMenu = page.scrollTop > heightNavFilter;
                     var varFixed = isFixedMenu ? '0' : (3 * font);
 
-                    if (elem.scrollLeft > 0) {
+                    if (containerScrollFilter.scrollLeft > 0) {
                         moreScrollSx.classList.add('active');
                     } else {
                         moreScrollSx.classList.remove('active');
                     }
-                    if (elem.scrollLeft + docWidth - varFixed >= elem.scrollWidth) {
+                    if (containerScrollFilter.scrollLeft + docWidth - varFixed >= containerScrollFilter.scrollWidth) {
                         moreScrollDx.classList.remove('active');
                     } else {
                         moreScrollDx.classList.add('active');
@@ -341,7 +340,7 @@ function initPages(page) {
 
             setMoreFilterInit();
             window.addEventListener('resize', setMoreFilterInit);
-            elem.addEventListener('scroll', setMoreFilterInit);
+            containerScrollFilter.addEventListener('scroll', setMoreFilterInit);
 
             function triggerFixedFilter() {
 

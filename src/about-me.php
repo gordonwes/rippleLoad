@@ -8,7 +8,7 @@ $pageDesc = 'Web developer based in Treviso, Italy';
 <html class="no_js" lang="en">
     <head>
 
-        <title><?= $pageTitle . ' | ' . $siteName ?></title>
+        <title><?= $pageTitle , ' | ' , $siteName ?></title>
         <meta name="description" content="<?= $pageDesc ?>">
 
         <?php include_once 'fragments/head.php'; ?>
@@ -38,7 +38,7 @@ $pageDesc = 'Web developer based in Treviso, Italy';
                                 }
                                 ?>
                                 <span class="move_it">
-                                    <img src="<?= $baseUrl ?>/images/icons/waving-hand.png" data-depth="0.50">
+                                    <img src="<?= $baseUrl ?>/images/icons/waving-hand.png" data-depth="0.50" alt="Hi Folks!">
                                 </span>
                                 <br class="last_separator">
                                 <span>I'm </span>Alberto Gorgonio<span>,&nbsp;

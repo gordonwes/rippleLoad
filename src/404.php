@@ -8,7 +8,7 @@ $pageDesc = 'Error 404, page not found, the link is wrong!';
 <html class="no_js" lang="en">
     <head>
 
-        <title><?= $pageTitle . ' | ' . $siteName ?></title>
+        <title><?= $pageTitle , ' | ' , $siteName ?></title>
         <meta name="description" content="<?= $pageDesc ?>">
 
         <?php include_once 'fragments/head.php'; ?>

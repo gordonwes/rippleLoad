@@ -11,17 +11,57 @@
                 padding: 0 1.5rem;
                 padding-top: 2rem;
                 opacity: 0;
-                width: 100%;
                 z-index: 2;
+                width: 100%;
                 background-color: transparent !important;
-                white-space: nowrap;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
                 position: relative;
-                &::-webkit-scrollbar {
-                    display: none; 
-                    background-color: transparent;
-                    height: 0;
+                overflow-x: hidden;
+                .container_filters{
+                    width: 100%;
+                    white-space: nowrap;
+                    overflow-x: auto;
+                    background-color: transparent !important;
+                    -webkit-overflow-scrolling: touch;
+                    &::-webkit-scrollbar {
+                        display: none; 
+                        background-color: transparent;
+                        height: 0;
+                    }
+                    button{
+                        appearance: none;
+                        -webkit-appearance: none;
+                        background-color: transparent;
+                        color: #fff;
+                        border: none;
+                        padding: 0;
+                        padding-bottom: 0.4rem;
+                        font-size: 1.6rem;
+                        text-transform: uppercase;
+                        margin: 1rem 0;
+                        margin-right: 5px;
+                        font-weight: 500;
+                        cursor: pointer;
+                        outline: none;
+                        font-family: $font;
+                        &:selection{
+                            color: #fff;                        
+                            background: transparent;
+                        }
+                        &:before{
+                            z-index: 0;
+                        }
+                    }
+                    span{
+                        color: rgba(255,255,255,0.6);
+                        margin-right: 2.5rem;
+                        cursor: default;
+                        font-size: 1.2rem;
+                        transform: translate(0, -2px);
+                        display: inline-block;
+                        &:last-of-type{
+                            margin-right: 0;
+                        }
+                    }
                 }
                 .container_more_scroll{
                     display: none;
@@ -31,8 +71,8 @@
                     left: 0;
                     height: 0;
                     .scroll_sx, .scroll_dx{
-                        width: 4.5rem;
-                        height: 6.5rem;
+                        width: 4rem;
+                        height: 6rem;
                         visibility: hidden;
                         opacity: 0;
                         transition: visibility 0.2s 0s, opacity 0.2s;
@@ -77,41 +117,6 @@
                         clear: both;
                     }
                 }
-                button{
-                    appearance: none;
-                    -webkit-appearance: none;
-                    background-color: transparent;
-                    color: #fff;
-                    border: none;
-                    padding: 0;
-                    padding-bottom: 0.4rem;
-                    font-size: 1.6rem;
-                    text-transform: uppercase;
-                    margin: 1rem 0;
-                    margin-right: 5px;
-                    font-weight: 500;
-                    cursor: pointer;
-                    outline: none;
-                    font-family: $font;
-                    &:selection{
-                        color: #fff;                        
-                        background: transparent;
-                    }
-                    &:before{
-                        z-index: 0;
-                    }
-                }
-                span{
-                    color: rgba(255,255,255,0.6);
-                    margin-right: 2.5rem;
-                    cursor: default;
-                    font-size: 1.2rem;
-                    transform: translate(0, -2px);
-                    display: inline-block;
-                    &:last-of-type{
-                        margin-right: 0;
-                    }
-                }
                 &.fixed{
                     position: fixed;
                     top: 6.5rem;
@@ -120,23 +125,20 @@
                     padding: 2rem 3rem 1rem 3rem;
                     background-color: var(--bkg) !important;
                     box-shadow: 0 0 6px rgba(0,0,0,0.3);
+                    .container_more_scroll{
+                        .scroll_sx{
+                            margin-left: 1.5rem;
+                        }
+                        .scroll_dx{
+                            margin-right: 1.5rem;
+                        }
+                    }
                     &.show_it{
                         transform: none;
                         transition: transform 0.4s ease-in-out;
                     }
                     &.hide_it{
                         transition: transform 0.3s ease-in-out;
-                    }
-                    .container_more_scroll{
-                        .scroll_sx, .scroll_dx{
-                            width: 6rem;
-                        }
-                        .scroll_sx{
-                            padding-left: 1.5rem;
-                        } 
-                        .scroll_dx{
-                            padding-right: 1.5rem;
-                        }
                     }
                 }
             }

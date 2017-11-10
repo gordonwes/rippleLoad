@@ -16,7 +16,7 @@ $app = new Slim\App([
         ],
         'db' => [
             'servername' => 'localhost',
-            'username' => 'root', // workspacestage
+            'username' => 'root', // workspacestage 
             'password' => 'root', // 
             'dbname' => 'ag' // my_workspacestage
         ],
@@ -166,6 +166,50 @@ $container['devProjects'] = function ($c) {
 
 };
 
+$container['visitorTracker'] = function ($c) {
+
+    $conn = $c->db;
+
+    $main_query = "SELECT * FROM visitors ORDER BY timestamp ASC";
+    $main_query_init = $conn->prepare($main_query);
+    $main_query_init->execute();
+    $content_fetch = $main_query_init->fetchAll();
+
+    $conn = null;
+
+    $list_visitors = array();
+
+    foreach ($content_fetch as $visitor) {
+
+        $list_visitors[] = $visitor;
+
+    }
+
+    return $list_visitors;
+
+};
+
+$container['registerVisitor'] = function ($c) {
+
+    $conn = $c->db;
+
+    $visitor_ip = $_SERVER["REMOTE_ADDR"];
+    $visitor_ua = $_SERVER["HTTP_USER_AGENT"];
+    $visitor_lang = $_SERVER["HTTP_ACCEPT_LANGUAGE"];
+
+    $add_visitor = $conn->prepare("INSERT INTO visitors(ip, lang, timestamp)
+        VALUES(:ip, :lang, :timestamp)");
+
+    $add_visitor->execute(array(
+        "ip" => $visitor_ip,
+        "lang" => $visitor_lang,
+        "timestamp" => date("Y-m-d H:i:s")
+    ));
+
+    $conn = null;
+
+};
+
 $container['timeIdle'] = function ($c) {
 
     $idleTime = $c->get('settings')['idleTime']['time'];
@@ -189,6 +233,7 @@ $container['renderer'] = function ($c) {
 // Define named route
 $app->get('/', function ($request, $response, $args) {
     $response = $this->renderer->render($response, 'about-me.php', $args);
+    $this->get("registerVisitor");
     return $response;
 })->setName('about-me');
 
@@ -197,6 +242,7 @@ $app->get('/projects', function ($request, $response, $args) {
         'project_tags' => $this->get("tagsBlock"),
         'project_block' => $this->get("projectBlock")
     ));
+    $this->get("registerVisitor");
     return $response;
 })->setName('projects');
 
@@ -235,7 +281,8 @@ $app->get('/admin', function ($request, $response, $args) {
 
         $response = $this->renderer->render($response, 'admin.php', array(
             'project_list' => $this->get("projectList"),
-            'tags_list' => $this->get("tagsBlock")
+            'tags_list' => $this->get("tagsBlock"),
+            'visitor_list' => $this->get("visitorTracker")
         ));
         return $response;
     } else {

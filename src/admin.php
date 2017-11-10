@@ -8,7 +8,7 @@ $pageDesc = 'Manage projects and tags like a boss';
 <html class="no_js" lang="en">
     <head>
 
-        <title><?= $pageTitle . ' | ' . $siteName ?></title>
+        <title><?= $pageTitle , ' | ' , $siteName ?></title>
         <meta name="description" content="<?= $pageDesc ?>">
 
         <?php include_once 'fragments/head.php'; ?>
@@ -38,10 +38,7 @@ $pageDesc = 'Manage projects and tags like a boss';
 
                                 foreach ($project_list as $prj) {
 
-                                    echo '<div class="single_prj"><form role="form" method="POST" enctype="multipart/form-data" action="' . $baseUrl . '/delete/project">
-                                        <input type="num" value="' . $prj[0] . '" name="timestamp_project" required>
-                                        <input type="submit" name="submit" value="">
-                                        </form><span>( ' . $i . ' )</span> ' . $prj[1] . '</div>';
+                                    echo '<div class="single_prj"><form role="form" method="POST" enctype="multipart/form-data" action="' , $baseUrl , '/delete/project"><input type="num" value="' , $prj[0] , '" name="timestamp_project" required><input type="submit" name="submit" value=""></form><span>( ' , $i , ' )</span> ' , $prj[1] , '</div>';
 
                                     $i++;
 
@@ -78,11 +75,7 @@ $pageDesc = 'Manage projects and tags like a boss';
                                         <?php
 
     foreach ($tags_list as $tag) {
-        echo '<label><input type="checkbox" name="projecttags[]" value="';
-        echo $tag;
-        echo '"><i></i><span>';
-        echo $tag;
-        echo '</span></label>';
+        echo '<label><input type="checkbox" name="projecttags[]" value="' , $tag , '"><i></i><span>' , $tag , '</span></label>';
     }
                                       if (count($tags_list) == 0) {
                                           echo '<p class="empty_list">No tags yet!</p>';
@@ -109,6 +102,43 @@ $pageDesc = 'Manage projects and tags like a boss';
                                 <?php }  ?>
 
                             </div>
+
+
+                            <p>Last 3 months:</p>
+                            <ul>
+                                <?php
+
+                                $ita_view = array();
+                                $other_view = array();
+
+                                foreach ($visitor_list as $visitor) {
+
+                                    $lang = substr($visitor[2], 0, 5);
+                                    $timestamp = $visitor[3];
+                                    $month = substr($timestamp, 5, 2);
+                                    $year = substr($timestamp, 0, 4);
+
+                                    if (date("Y") == $year && $month >= date("m") - 3) {
+
+                                        if ($lang == 'it-IT') {
+
+                                            $ita_view[] = $lang;
+
+                                        } else {
+
+                                            $other_view[] = $lang;
+
+                                        }
+
+                                    }
+
+                                }
+
+                                echo '<li>Visitatori italiani: ' , count($ita_view) , '</li>';
+                                echo '<li>Visitatori stranieri: ' , count($other_view) , '</li>';
+
+                                ?>  
+                            </ul>
 
                         </div>
                     </div>

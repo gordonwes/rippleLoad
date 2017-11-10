@@ -8,7 +8,7 @@ $pageDesc = 'Private server for small stuff';
 <html class="no_js" lang="en">
     <head>
 
-        <title><?= $pageTitle . ' | ' . $siteName ?></title>
+        <title><?= $pageTitle , ' | ' , $siteName ?></title>
         <meta name="description" content="<?= $pageDesc ?>">
 
         <?php include_once 'fragments/head.php'; ?>
@@ -33,13 +33,8 @@ $pageDesc = 'Private server for small stuff';
                             foreach ($dev_projects as $dev) {
 
                                 if (substr($dev, 0, 1 ) !== ".") {
-                                    echo '<li><form role="form" method="POST" enctype="multipart/form-data" action="' . $baseUrl . '/delete/dev">
-                                        <input type="text" value="' . $dev . '" name="name_dev" required>
-                                        <input type="submit" name="submit" value="">
-                                    </form>';
-                                    echo '<a href="' . $baseUrl . '/development/' . $dev . '" target="_blank">';
-                                    echo $dev;
-                                    echo '</a></li>';
+                                    echo '<li><form role="form" method="POST" enctype="multipart/form-data" action="', $baseUrl, '/delete/dev"><input type="text" value="' , $dev , '" name="name_dev" required><input type="submit" name="submit" value=""></form><a href="' , $baseUrl , '/development/' , $dev , '" target="_blank">', $dev, '</a></li>';
+
                                     $real_dev++; 
                                 }
 

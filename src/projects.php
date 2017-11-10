@@ -8,7 +8,7 @@ $pageDesc = 'A collection of all my projects, carefully crafted';
 <html class="no_js" lang="en">
     <head>
 
-        <title><?= $pageTitle . ' | ' . $siteName ?></title>
+        <title><?= $pageTitle , ' | ' , $siteName ?></title>
         <meta name="description" content="<?= $pageDesc ?>">
 
         <?php include_once 'fragments/head.php'; ?>
@@ -26,19 +26,18 @@ $pageDesc = 'A collection of all my projects, carefully crafted';
                     <div class="wrapper">
                         <div class="container_fn_project">
                             <div class="filters">
+                                <div class="container_filters">
+                                    <button class="button is_checked link" data-filter="*">all</button><span></span>
 
-                                <button class="button is_checked link" data-filter="*">all</button><span></span>
+                                    <?php
 
-                                <?php
+                                    foreach ($project_tags as $tag) {
+                                        echo '<button class="link" data-filter="' , $tag, '">' , $tag, '</button><span></span>';
+                                    }
+                                    
+                                    ?>
 
-                                foreach ($project_tags as $tag) {
-                                    echo '<button class="link" data-filter="';
-                                    echo $tag;
-                                    echo '">';
-                                    echo $tag;
-                                    echo '</button><span></span>';
-                                }
-                                ?>
+                                </div>
 
                                 <div class="container_more_scroll">
                                     <div class="scroll_sx"></div>
@@ -58,6 +57,7 @@ $pageDesc = 'A collection of all my projects, carefully crafted';
                                 foreach ($project_block as $project) {
                                     echo $project;
                                 }
+                                
                                 ?>
 
                             </div>

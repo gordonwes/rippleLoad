@@ -1,7 +1,9 @@
 <!-- General Var -->
 <?php
 
-$baseUrl = 'http://localhost:8888/rippleLoad'; //'http://workspacestage.altervista.org';
+$baseUrl = 'http://localhost:8888/rippleLoad';
+//$baseUrl = 'http://workspacestage.altervista.org';
+
 $siteName = 'Alberto Gorgonio';
 $colorsBkg = array(
     "#4A89DC", 
