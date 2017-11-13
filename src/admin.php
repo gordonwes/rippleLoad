@@ -98,7 +98,6 @@ $pageDesc = 'Manage projects and tags like a boss';
                                 </form>
 
                                 <?php if (isset($img_too_big)) { ?>
-                                <p class="file_big">Img too big! 4MB's the limit ;)</p>
                                 <p class="file_big">Img too big! <?= $img_too_big ?>MB's the limit ;)</p>
                                 <?php }  ?>
 
