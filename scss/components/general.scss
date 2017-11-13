@@ -75,6 +75,13 @@ p{
     &.file_big{
         margin-top: 2rem;
     }
+    &.unic_user{
+        display: inline-block;
+        font-size: 2rem;
+        padding-bottom: 3rem;
+        border-top: 2px solid #fff;
+        padding-top: 1.5rem;
+    }
 }
 
 h1{
