@@ -1,8 +1,6 @@
 <?php
-
 session_start();
 
-// Require
 require __DIR__ . '/vendor/autoload.php';
 
 // New Slim app instance
@@ -17,7 +15,7 @@ $app = new Slim\App([
         'db' => [
             'servername' => 'localhost',
             'username' => 'root', // workspacestage 
-            'password' => 'root', // 
+            'password' => 'root',
             'dbname' => 'ag' // my_workspacestage
         ],
         'idleTime' => [
@@ -26,7 +24,7 @@ $app = new Slim\App([
         'cover' => [
             'max_width' => 450,
             'max_height' => 450,
-            'max_weight' => 4000,
+            'max_weight' => 4,
             'optimization' => 80
         ]
     ]
@@ -170,7 +168,7 @@ $container['visitorTracker'] = function ($c) {
 
     $conn = $c->db;
 
-    $main_query = "SELECT * FROM visitors ORDER BY timestamp ASC";
+    $main_query = "SELECT * FROM visitors";
     $main_query_init = $conn->prepare($main_query);
     $main_query_init->execute();
     $content_fetch = $main_query_init->fetchAll();
@@ -194,16 +192,12 @@ $container['registerVisitor'] = function ($c) {
     $conn = $c->db;
 
     $visitor_ip = $_SERVER["REMOTE_ADDR"];
-    $visitor_ua = $_SERVER["HTTP_USER_AGENT"];
     $visitor_lang = $_SERVER["HTTP_ACCEPT_LANGUAGE"];
 
-    $add_visitor = $conn->prepare("INSERT INTO visitors(ip, lang, timestamp)
-        VALUES(:ip, :lang, :timestamp)");
+    $add_visitor = $conn->prepare("INSERT IGNORE INTO visitors(ip) VALUES(:ip)");
 
     $add_visitor->execute(array(
-        "ip" => $visitor_ip,
-        "lang" => $visitor_lang,
-        "timestamp" => date("Y-m-d H:i:s")
+        "ip" => $visitor_ip
     ));
 
     $conn = null;
@@ -425,7 +419,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
             $uploadFileType = $newfile->getClientMediaType();
             $uploadFileSize = $newfile->getSize() / 1024;
 
-            if ($uploadFileSize < $this->get('settings')['cover']['max_weight']) {
+            if ($uploadFileSize < $this->get('settings')['cover']['max_weight'] * 1000) {
 
                 $path = __DIR__ . "/images/upload/$uploadFileName";
 
@@ -496,7 +490,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
             } else {
 
                 $response = $this->renderer->render($response, 'admin.php', array(
-                    'img_too_big' => 'true',
+                    'img_too_big' => $this->get('settings')['cover']['max_weight'],
                     'project_list' => $this->get("projectList"),
                     'tags_list' => $this->get("tagsBlock")
                 ));

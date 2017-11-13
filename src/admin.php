@@ -98,49 +98,15 @@ $pageDesc = 'Manage projects and tags like a boss';
                                 </form>
 
                                 <?php if (isset($img_too_big)) { ?>
-                                <p class="file_big">Img too big! 2MB's the limit ;)</p>
+                                <p class="file_big">Img too big! <?= $img_too_big ?>MB's the limit ;)</p>
                                 <?php }  ?>
 
-                            </div>
-
-
-                            <p>Last 3 months:</p>
-                            <ul>
-                                <?php
-
-                                $ita_view = array();
-                                $other_view = array();
-
-                                foreach ($visitor_list as $visitor) {
-
-                                    $lang = substr($visitor[2], 0, 5);
-                                    $timestamp = $visitor[3];
-                                    $month = substr($timestamp, 5, 2);
-                                    $year = substr($timestamp, 0, 4);
-
-                                    if (date("Y") == $year && $month >= date("m") - 3) {
-
-                                        if ($lang == 'it-IT') {
-
-                                            $ita_view[] = $lang;
-
-                                        } else {
-
-                                            $other_view[] = $lang;
-
-                                        }
-
-                                    }
-
-                                }
-
-                                echo '<li>Visitatori italiani: ' , count($ita_view) , '</li>';
-                                echo '<li>Visitatori stranieri: ' , count($other_view) , '</li>';
-
-                                ?>  
-                            </ul>
+                            </div> 
 
                         </div>
+                        <?php
+                        echo '<p class="unic_user">Visitatori unici: ' , count($visitor_list) , '</p>';
+                        ?> 
                     </div>
                 </section>
 
