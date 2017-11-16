@@ -38,7 +38,7 @@ $pageDesc = 'Web developer based in Treviso, Italy';
                                 }
                                 ?>
                                 <span class="move_it">
-                                    <img src="<?= $baseUrl ?>/images/icons/waving-hand.png" data-depth="0.50" alt="Hi Folks!">
+                                    <img src="<?= $baseUrl ?>/images/icons/waving-hand.png" data-depth="0.50" alt="Hi Folks!" aria-hidden="true">
                                 </span>
                                 <br class="last_separator">
                                 <span>I'm </span>Alberto Gorgonio<span>,&nbsp;

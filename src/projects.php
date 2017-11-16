@@ -13,7 +13,7 @@ $pageDesc = 'A collection of all my projects, carefully crafted';
 
         <?php include_once 'fragments/head.php'; ?>
 
-    </head>
+    </head>  
 
     <body>
 
@@ -34,7 +34,7 @@ $pageDesc = 'A collection of all my projects, carefully crafted';
                                     foreach ($project_tags as $tag) {
                                         echo '<button class="link" data-filter="' , $tag, '">' , $tag, '</button><span></span>';
                                     }
-                                    
+
                                     ?>
 
                                 </div>
@@ -57,7 +57,7 @@ $pageDesc = 'A collection of all my projects, carefully crafted';
                                 foreach ($project_block as $project) {
                                     echo $project;
                                 }
-                                
+
                                 ?>
 
                             </div>
