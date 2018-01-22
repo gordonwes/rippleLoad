@@ -164,46 +164,6 @@ $container['devProjects'] = function ($c) {
 
 };
 
-$container['visitorTracker'] = function ($c) {
-
-    $conn = $c->db;
-
-    $main_query = "SELECT * FROM visitors";
-    $main_query_init = $conn->prepare($main_query);
-    $main_query_init->execute();
-    $content_fetch = $main_query_init->fetchAll();
-
-    $conn = null;
-
-    $list_visitors = array();
-
-    foreach ($content_fetch as $visitor) {
-
-        $list_visitors[] = $visitor;
-
-    }
-
-    return $list_visitors;
-
-};
-
-$container['registerVisitor'] = function ($c) {
-
-    $conn = $c->db;
-
-    $visitor_ip = $_SERVER["REMOTE_ADDR"];
-    $visitor_lang = $_SERVER["HTTP_ACCEPT_LANGUAGE"];
-
-    $add_visitor = $conn->prepare("INSERT IGNORE INTO visitors(ip) VALUES(:ip)");
-
-    $add_visitor->execute(array(
-        "ip" => $visitor_ip
-    ));
-
-    $conn = null;
-
-};
-
 $container['timeIdle'] = function ($c) {
 
     $idleTime = $c->get('settings')['idleTime']['time'];
@@ -227,7 +187,6 @@ $container['renderer'] = function ($c) {
 // Define named route
 $app->get('/', function ($request, $response, $args) {
     $response = $this->renderer->render($response, 'about-me.php', $args);
-    $this->get("registerVisitor");
     return $response;
 })->setName('about-me');
 
@@ -236,7 +195,6 @@ $app->get('/projects', function ($request, $response, $args) {
         'project_tags' => $this->get("tagsBlock"),
         'project_block' => $this->get("projectBlock")
     ));
-    $this->get("registerVisitor");
     return $response;
 })->setName('projects');
 
@@ -275,8 +233,7 @@ $app->get('/admin', function ($request, $response, $args) {
 
         $response = $this->renderer->render($response, 'admin.php', array(
             'project_list' => $this->get("projectList"),
-            'tags_list' => $this->get("tagsBlock"),
-            'visitor_list' => $this->get("visitorTracker")
+            'tags_list' => $this->get("tagsBlock")
         ));
         return $response;
     } else {
@@ -629,114 +586,5 @@ $app->post('/upload/dev', function ($request, $response, $args) {
     }
 
 });
-
-$app->get('/api', function ($request, $response, $args) {
-
-    $urlRetrieve = "http://www.mangahere.co/latest/";
-    $proxyRetrieve = "proxy2:8080";
-    $containerManga = '//dl';
-    $titleManga = 'dt/a';
-    $urlManga = 'dt/a';
-
-    function getPage($url, $proxy) {
-
-        if (!empty($proxy)) {
-            $confConnection = array(
-                'http' => array(
-                    'proxy' => 'tcp://' . $proxy,
-                    'request_fulluri' => true,
-                ),
-            );
-
-            $connContext = stream_context_create($confConnection);
-
-            $mainContent = file_get_contents($url, False, $connContext);
-
-        } else {
-
-            $mainContent = file_get_contents($url);
-
-        }
-
-        return utf8_encode($mainContent);
-
-    }
-
-    $indexMangaRaw = getPage($urlRetrieve, $proxyRetrieve);
-
-    $indexManga = new DOMDocument;
-
-    libxml_use_internal_errors(true);
-
-    $indexManga->preserveWhiteSpace = false;
-    $indexManga->strictErrorChecking = false;
-    $indexManga->recover = true;
-
-    if (!empty($indexMangaRaw)) {
-
-        $indexManga->loadHTML($indexMangaRaw);
-
-        $nodePath = new DOMXPath($indexManga);
-
-        $selectRow = $nodePath->query($containerManga);
-
-        echo '<ul>';
-
-        foreach($selectRow as $row) {
-
-            $elTitle = $nodePath->query($titleManga, $row)->item(0)->nodeValue;
-            $elUrl = $nodePath->query($urlManga, $row)->item(0)->getAttribute('href');
-
-            $singleMangaRaw = getPage($elUrl, $proxyRetrieve);
-
-            $singleManga = new DOMDocument;
-
-            libxml_use_internal_errors(true);
-
-            $singleManga->preserveWhiteSpace = false;
-            $singleManga->strictErrorChecking = false;
-            $singleManga->recover = true;
-
-            echo '<li>';
-
-            if (!empty($elUrl)) {
-
-                $singleManga->loadHTML($singleMangaRaw);
-
-                $singleNodePath = new DOMXPath($singleManga);
-
-                $containerRank = '//ul//li'; // [@class="detail_topText"]
-
-                $singleSelectRow = $singleNodePath->query($containerRank);
-
-                $singleManga->saveHTML();
-
-                foreach($singleSelectRow as $elem) {
-
-                    echo '1';
-                    echo $elem->item(0)->nodeValue;
-
-                }
-
-                $elRank = $singleSelectRow->item(0)->nodeValue;
-
-                echo '<span>' . $elRank . '</span>';
-
-            }
-
-            echo '<a href="' . $elUrl . '">' . $elTitle . '</a>';
-            echo '</li>';
-
-            $indexManga->saveHTML();
-
-        }
-
-        echo '</ul>';
-
-    }
-
-    libxml_clear_errors();
-
-})->setName('api');
 
 $app->run();

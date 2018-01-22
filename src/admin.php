@@ -104,9 +104,7 @@ $pageDesc = 'Manage projects and tags like a boss';
                             </div> 
 
                         </div>
-                        <?php
-                        echo '<p class="unic_user">Visitatori unici: ' , count($visitor_list) , '</p>';
-                        ?> 
+                        
                     </div>
                 </section>
 

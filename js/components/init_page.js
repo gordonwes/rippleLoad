@@ -92,6 +92,27 @@ function initPages(page) {
             }
         });
 
+        function followCursorAnim() {
+
+            var animFollow = page.querySelector('.anim_follow');
+
+            function calcCursorMove(e) {
+                var xAxis = e.clientX,
+                    yAxis = e.clientY;
+
+                animFollow.style.top = yAxis + 'px';
+                animFollow.style.left = xAxis + 'px';
+
+            }
+
+            page.addEventListener('mousemove', function(e) {
+                calcCursorMove(e);  
+            });
+
+        }
+
+        //followCursorAnim();
+
     }
 
     if (actualPage === 'projects') {
