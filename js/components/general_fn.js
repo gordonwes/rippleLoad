@@ -102,6 +102,13 @@ function setMenuVoice(triggerEvent) {
     }
 }
 
+////// load analytics //////////////
+
+function loadAnalytics() {
+    var analyticsScript = document.createElement("script");
+    analyticsScript.src = baseUrl + '/js/build/analytics' + (isDev ? '.js' : '.min.js');
+    document.body.appendChild(analyticsScript);
+}
 
 ////// scroll to top //////////////
 

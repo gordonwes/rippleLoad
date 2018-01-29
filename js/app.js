@@ -14,4 +14,6 @@ domReady(function () {
 
     initPages(mainContainer);
     
+    window.addEventListener("load", loadAnalytics, false);
+    
 });

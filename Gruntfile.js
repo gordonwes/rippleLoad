@@ -21,10 +21,12 @@ module.exports = function (grunt) {
                 dest: 'js/build/production.js'
             },
             admin: {
-                src: [
-                    'js/admin.js'
-                ],
+                src: 'js/admin.js',
                 dest: 'js/build/admin.js'
+            },
+            analytics: {
+                src: 'js/analytics.js',
+                dest: 'js/build/analytics.js'
             }
         },
         uglify: {
@@ -35,6 +37,10 @@ module.exports = function (grunt) {
             admin: {
                 src: 'js/build/admin.js',
                 dest: 'js/build/admin.min.js'
+            },
+            analytics: {
+                src: 'js/build/analytics.js',
+                dest: 'js/build/analytics.min.js'
             }
         },
         sass: {

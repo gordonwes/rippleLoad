@@ -16,6 +16,7 @@
 
 <script>
     var nameCookie = '<?= str_replace(' ', '_', strtolower($siteName)) ?>_cookie';
+    var isDev = <?= $isDev ?>;
     var colors = <?= json_encode($colorsBkg) ?>;
     var firstColor = '<?= $mainColor ?>';
     var baseUrl = '<?= $baseUrl ?>';
