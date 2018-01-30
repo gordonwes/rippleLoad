@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Creato il: Nov 13, 2017 alle 16:50
+-- Creato il: Gen 30, 2018 alle 12:57
 -- Versione del server: 5.6.35
 -- Versione PHP: 7.1.8
 
@@ -31,6 +31,13 @@ CREATE TABLE `admin` (
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dump dei dati per la tabella `admin`
+--
+
+INSERT INTO `admin` (`id`, `username`, `password`) VALUES
+(1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -78,7 +85,16 @@ CREATE TABLE `tags` (
 --
 
 CREATE TABLE `visitors` (
-  `ip` varchar(255) DEFAULT NULL
+  `id` int(11) UNSIGNED NOT NULL,
+  `ip` varchar(255) DEFAULT NULL,
+  `device` varchar(255) DEFAULT NULL,
+  `browser` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `visitedYear` year(4) DEFAULT NULL,
+  `visitedMonth` varchar(255) DEFAULT NULL,
+  `visitedDay` varchar(255) DEFAULT NULL,
+  `visitedHour` varchar(255) DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -113,7 +129,7 @@ ALTER TABLE `tags`
 -- Indici per le tabelle `visitors`
 --
 ALTER TABLE `visitors`
-  ADD UNIQUE KEY `ip` (`ip`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT per le tabelle scaricate
@@ -123,22 +139,27 @@ ALTER TABLE `visitors`
 -- AUTO_INCREMENT per la tabella `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT per la tabella `ip`
 --
 ALTER TABLE `ip`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT per la tabella `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT per la tabella `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+--
+-- AUTO_INCREMENT per la tabella `visitors`
+--
+ALTER TABLE `visitors`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

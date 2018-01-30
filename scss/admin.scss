@@ -140,18 +140,81 @@
                 }
             }
         }
+        .list_visited_user{
+            display: block;
+            float: left;
+            width: 100%;
+            .total_count{
+                font-size: 1.6rem;
+                margin-top: 3rem;
+                margin-bottom: 2rem;
+                border-top: 2px solid #fff;
+                padding-top: 3rem;
+            }
+            table{
+                width: 100%;
+                th, td{
+                    padding: 1rem 1.5rem;
+                    vertical-align: middle;
+                    line-height: 1.2;
+                }
+                th{
+                    font-size: 1.6rem;
+                    text-align: left;
+                }
+                td{
+                    font-size: 1.4rem;
+                }
+                tbody{
+                    tr{
+                        border-bottom: 1px solid rgba(255,255,255,0.3);
+                        &:last-of-type{
+                            border-bottom: 0;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
 @media screen and (max-width:767px) {
     .barba-container[data-namespace="admin"]{
         .container_admin{
-            .list_projects, .container_forms{
+            .list_projects, .container_forms, .list_visited_user{
                 width: 100%;
                 float: none;
             }
             .list_projects{
                 margin-bottom: 3rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:500px) {
+    .barba-container[data-namespace="admin"]{
+        .container_admin{
+            .list_visited_user{
+                table{
+                    th, td{
+                        padding: 0.8rem 1rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:400px) {
+    .barba-container[data-namespace="admin"]{
+        .container_admin{
+            .list_visited_user{
+                table{
+                    th, td{
+                        padding: 0.8rem 0.5rem;
+                    }
+                }
             }
         }
     }

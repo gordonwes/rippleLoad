@@ -13,7 +13,5 @@ domReady(function () {
     initBarba();
 
     initPages(mainContainer);
-    
-    window.addEventListener("load", loadAnalytics, false);
-    
+        
 });

@@ -103,8 +103,40 @@ $pageDesc = 'Manage projects and tags like a boss';
 
                             </div> 
 
+                            <?php if (count($visited_user_list) !== 0) { $index_visitor = 0; ?>
+                            <div class="list_visited_user">
+
+                                <p class="total_count">Unique visitors: <?= count($visited_user_list); ?></p>
+
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Used device</th>
+                                            <th>Browser</th>
+                                            <th>Country</th>
+                                            <th>Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($visited_user_list as $visited_user) { 
+    $index_visitor++; ?>
+                                        <tr>
+                                            <td><?= $index_visitor; ?></td>
+                                            <td><?= $visited_user['device']; ?></td>
+                                            <td><?= $visited_user['browser']; ?></td>
+                                            <td><?= $visited_user['country']; ?></td>
+                                            <td><?= $visited_user['visitedHour'] , 'h on ' , $visited_user['visitedDay'] , '/' , $visited_user['visitedMonth'] , ', ' , $visited_user['visitedYear']; ?></td>
+                                        </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <?php } ?>
+
                         </div>
-                        
+
                     </div>
                 </section>
 

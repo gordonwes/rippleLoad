@@ -79,6 +79,25 @@
 
 </style>
 
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "IT"
+  },
+  "email": "mailto:gorgonioalberto@gmail.com",
+  "jobTitle": "Front End Web Developer",
+  "name": "<?= $author; ?>",
+  "url": "<?= $baseUrl; ?>",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Atk+Lab"
+  }  
+}
+</script>
+
 <script type="text/javascript">
     document.documentElement.classList.remove('no_js');
 </script>

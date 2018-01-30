@@ -2,28 +2,20 @@
 //@@@@@@@@@@@@@@@@@@@@@    ANALYTICS    @@@@@@@@@@@@@@@@@@@@@@@@//
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@//
 
-var htmlStyle = document.documentElement.style;
-
-var isMobile = docWidth <= 1024;
-
-var isWebkit = 'WebkitAppearance' in htmlStyle;
-
-var isChromium = !!window.chrome;
-var isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-var isEdge = !!(window.CSS && window.CSS.supports('-ms-user-select', 'none')),
+var htmlStyle = document.documentElement.style,
+    isMobile = docWidth <= 1024,
+    isWebkit = 'WebkitAppearance' in htmlStyle,
+    isChromium = !!window.chrome,
+    isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream,
+    isEdge = !!(window.CSS && window.CSS.supports('-ms-user-select', 'none')),
     isIEOld = ('msScrollLimit' in htmlStyle || 'behavior' in htmlStyle) && !isEdge,
-    isIE9 = isIEOld && !'msUserSelect' in htmlStyle;
-
-var isChrome = !!window.chrome && !!window.chrome.webstore;
-
-var isFF = 'MozAppearance' in htmlStyle;
-
-var isOpera = !!window.opera || /opera|opr/i.test(navigator.userAgent);
-
-var isSafari = isWebkit && !isChrome && !isOpera;
-
-var device, browser;
+    isIE9 = isIEOld && !'msUserSelect' in htmlStyle,
+    isChrome = !!window.chrome && !!window.chrome.webstore,
+    isFF = 'MozAppearance' in htmlStyle,
+    isOpera = !!window.opera || /opera|opr/i.test(navigator.userAgent),
+    isSafari = isWebkit && !isChrome && !isOpera,
+    analyticsInit = true,
+    device, browser;
 
 if (isChromium && !isChrome && !isOpera && !isSafari && isMobile) {
     device = 'Android';
@@ -51,29 +43,22 @@ if (isEdge) {
     browser = 'unknown';
 }
 
-var time = new Date(),
-    visitedYear = time.getFullYear(),
-    visitedMonth = time.getMonth(),
-    visitedDay = time.getDate(),
-    visitedHour = time.getHours();
+var userLang = navigator.language || navigator.userLanguage; 
 
 var deviceType = {
     'device': device,
     'browser': browser,
-    'dateY': visitedYear,
-    'dateM': visitedMonth,
-    'dateD': visitedDay,
-    'dateH': visitedHour
+    'lang': userLang
 }
 
 var analyticsRequest = new XMLHttpRequest();
 
 analyticsRequest.addEventListener("error", function() {
-    console.log('error');
+    console.log('error analytics');
 }, false);
 
 analyticsRequest.addEventListener("abort", function() {
-    console.log('abort');
+    console.log('abort analytics');
 }, false);
 
 analyticsRequest.open('POST', baseUrl + '/track', true);

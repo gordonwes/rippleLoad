@@ -72,6 +72,29 @@ $container['tagsBlock'] = function ($c) {
 
 };
 
+$container['visitedUser'] = function ($c) {
+
+    $conn = $c->db;
+
+    $main_query = "SELECT * FROM visitors ORDER BY timestamp DESC";
+    $main_query_init = $conn->prepare($main_query);
+    $main_query_init->execute();
+    $visited_user_fetch = $main_query_init->fetchAll();
+
+    $conn = null;
+
+    $list_visited_user = array();
+
+    foreach ($visited_user_fetch as $visited_user) {
+
+        $list_visited_user[] =  $visited_user;
+
+    }
+
+    return $list_visited_user;
+
+};
+
 $container['projectBlock'] = function ($c) {
 
     $conn = $c->db;
@@ -233,7 +256,8 @@ $app->get('/admin', function ($request, $response, $args) {
 
         $response = $this->renderer->render($response, 'admin.php', array(
             'project_list' => $this->get("projectList"),
-            'tags_list' => $this->get("tagsBlock")
+            'tags_list' => $this->get("tagsBlock"),
+            'visited_user_list' => $this->get("visitedUser")
         ));
         return $response;
     } else {
@@ -591,88 +615,48 @@ $app->post('/track', function ($request, $response, $args) {
 
     $conn = $this->get("db");
 
-    $userDetail = $request->getParsedBody();
+    $userDetails = $request->getParsedBody();
+
     $ip = $_SERVER["REMOTE_ADDR"];
 
-    function ipInfo($ip = NULL, $purpose = "location", $deep_detect = TRUE) {
-        $output = NULL;
-        if (filter_var($ip, FILTER_VALIDATE_IP) === FALSE) {
-            $ip = $_SERVER["REMOTE_ADDR"];
-            if ($deep_detect) {
-                if (filter_var(@$_SERVER['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP))
-                    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-                if (filter_var(@$_SERVER['HTTP_CLIENT_IP'], FILTER_VALIDATE_IP))
-                    $ip = $_SERVER['HTTP_CLIENT_IP'];
-            }
+    $query_ip = $conn->query("SELECT ip FROM visitors");
+
+    $fetch_ip = $query_ip->fetch();
+    $registered_ip = $fetch_ip["ip"];
+
+    $black_list_ip = array('127.0.0.1', '::1');
+
+    if ($registered_ip !== $ip && !in_array($ip, $black_list_ip)) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "http://www.geoplugin.net/json.gp?ip=" . $ip);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        $ip_data_in = curl_exec($ch);
+        curl_close($ch);
+
+        $ipdat = json_decode($ip_data_in, true);
+
+        if (strlen(trim($ipdat->geoplugin_countryCode)) >= 2) {
+            $country = $ipdat->geoplugin_countryName;
+        } else {
+            $country = htmlspecialchars($userDetails['lang']);
         }
-        $purpose    = str_replace(array("name", "\n", "\t", " ", "-", "_"), NULL, strtolower(trim($purpose)));
-        $support    = array("country", "countrycode", "state", "region", "city", "location", "address");
-        $continents = array(
-            "AF" => "Africa",
-            "AN" => "Antarctica",
-            "AS" => "Asia",
-            "EU" => "Europe",
-            "OC" => "Australia (Oceania)",
-            "NA" => "North America",
-            "SA" => "South America"
-        );
-        if (filter_var($ip, FILTER_VALIDATE_IP) && in_array($purpose, $support)) {
-            $ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
-            if (@strlen(trim($ipdat->geoplugin_countryCode)) == 2) {
-                switch ($purpose) {
-                    case "location":
-                        $output = array(
-                            "city"           => @$ipdat->geoplugin_city,
-                            "state"          => @$ipdat->geoplugin_regionName,
-                            "country"        => @$ipdat->geoplugin_countryName,
-                            "country_code"   => @$ipdat->geoplugin_countryCode,
-                            "continent"      => @$continents[strtoupper($ipdat->geoplugin_continentCode)],
-                            "continent_code" => @$ipdat->geoplugin_continentCode
-                        );
-                        break;
-                    case "address":
-                        $address = array($ipdat->geoplugin_countryName);
-                        if (@strlen($ipdat->geoplugin_regionName) >= 1)
-                            $address[] = $ipdat->geoplugin_regionName;
-                        if (@strlen($ipdat->geoplugin_city) >= 1)
-                            $address[] = $ipdat->geoplugin_city;
-                        $output = implode(", ", array_reverse($address));
-                        break;
-                    case "city":
-                        $output = @$ipdat->geoplugin_city;
-                        break;
-                    case "state":
-                        $output = @$ipdat->geoplugin_regionName;
-                        break;
-                    case "region":
-                        $output = @$ipdat->geoplugin_regionName;
-                        break;
-                    case "country":
-                        $output = @$ipdat->geoplugin_countryName;
-                        break;
-                    case "countrycode":
-                        $output = @$ipdat->geoplugin_countryCode;
-                        break;
-                }
-            }
-        }
-        return $output;
+
+        $add_user = $conn->prepare("INSERT INTO visitors(ip, device, browser, country, visitedYear, visitedMonth, visitedDay, visitedHour, timestamp)
+        VALUES(:ip, :device, :browser, :country, :visitedYear, :visitedMonth, :visitedDay, :visitedHour, :timestamp)");
+
+        $add_user->execute(array(
+            "ip" => $ip,
+            "device" => htmlspecialchars($userDetails['device']),
+            "browser" => htmlspecialchars($userDetails['browser']),
+            "country" => $country,
+            "visitedYear" => date("Y"),
+            "visitedMonth" => date("m"),
+            "visitedDay" => date("d"),
+            "visitedHour" => date("H"),
+            "timestamp" => date("Y-m-d H:i:s")
+        ));
     }
-
-    $add_user = $conn->prepare("INSERT INTO visitors(ip, device, browser, country, date_y, date_m, date_d, date_h, timestamp)
-        VALUES(:ip, :device, :browser, :date_y, :date_m, :date_d, date_h:, timestamp:)");
-
-    $add_user->execute(array(
-        "ip" => $ip,
-        "device" =>  $userDetail,
-        "browser" => $userDetail,
-        "country" => ipInfo("Visitor", "Country"),
-        "date_y" => 'ciao',
-        "date_m" => 'ciao',
-        "date_d" => 'ciao',
-        "date_h" => 'ciao',
-        "timestamp" => date("Y-m-d H:i:s")
-    ));
 
     $conn = null;
 
