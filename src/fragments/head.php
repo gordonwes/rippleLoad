@@ -87,13 +87,14 @@
     "@type": "PostalAddress",
     "addressCountry": "IT"
   },
-  "email": "mailto:gorgonioalberto@gmail.com",
+  "email": "mailto:<?= $email; ?>",
   "jobTitle": "Front End Web Developer",
   "name": "<?= $author; ?>",
   "url": "<?= $baseUrl; ?>",
   "worksFor": {
     "@type": "Organization",
-    "name": "Atk+Lab"
+    "name": "<?= $workplaceName; ?>",
+    "url": "<?= $workplaceUrl; ?>"
   }  
 }
 </script>

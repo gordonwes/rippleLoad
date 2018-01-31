@@ -17,5 +17,11 @@ $mainColor = $colorsBkg[array_rand($colorsBkg, 1)];
 
 $locale = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 $author = 'Alberto Gorgonio';
+$email = 'gorgonioalberto@gmail.com';
+for ($i=0; $i<strlen($email); $i++){
+    $obfuscatedEmail .= "&#" . ord($email[$i]) . ";";
+}
+$workplaceName = 'ATK+LAB';
+$workplaceUrl = 'http://atklab.com';
 $telephoneDetect = 'no';
 $isDev = 'true';
