@@ -401,7 +401,7 @@ function initPages(page) {
         }, 300);
 
     }
-    
+
     if ((actualPage === 'about-me' || actualPage === 'projects') && !analyticsInit) {
         window.addEventListener("load", loadAnalytics, false);
     }
