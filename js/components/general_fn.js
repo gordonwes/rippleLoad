@@ -63,6 +63,8 @@ window.addEventListener('resize', function() {
     requestAnimationFrame(calcSizeViewport);
 }, false);
 
+var isMobile = docWidth <= 1024;
+
 /////// rapid function //////////////////
 
 var forEach = function (array, callback, scope) {
@@ -112,11 +114,11 @@ function loadAnalytics() {
 
 ////// scroll to top //////////////
 
-function goTop(elemScroll) {
+function goTop(elemScroll, duration) {
     anime({
         targets: document.querySelector(elemScroll),
         scrollTop: 0,
-        duration: 600,
+        duration: duration,
         easing: 'easeInOutQuad'
     });
 }

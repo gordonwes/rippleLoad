@@ -26,8 +26,8 @@ function initPages(page) {
 
         var parallax = new Parallax(emoji, {
             calibrateX: true,
-            limitX: docWidth <= 1024 ? 16 : 6,
-            limitY: docWidth <= 1024 ? 4 : 2,
+            limitX: isMobile ? 16 : 6,
+            limitY: isMobile <= 1024 ? 4 : 2,
             scalarX: 20,
             scalarY: 20,
             invertX: false,
@@ -68,13 +68,14 @@ function initPages(page) {
                     });
                 } else {
                     moreButton.textContent = 'MORE +';
-                    if (page.scrollTop > 10) {
-                        goTop('.barba-container');
+                    var pageScroll = page.scrollTop;
+                    if (pageScroll > 10) {
+                        goTop('.barba-container', 600);
                     }
                     containerIntro.classList.remove('detail_active');
                     var exitMore = anime({
                         targets: moreContent,
-                        delay: page.scrollTop > 10 ? 300 : 0,
+                        delay: pageScroll > 10 ? 300 : 0,
                         opacity: ['1', '0'],
                         translateY: ['0', '1.5rem'],
                         duration: 300,
@@ -114,10 +115,9 @@ function initPages(page) {
         function loadCover(cover) {
 
             var imgLoad = imagesLoaded(cover, {background: '.container_img'});
-            imgLoad.on('always', function(instance) {
-                forEach(cover, function (index, elem) {
-                    showProjectOnScroll(elem);
-                });
+
+            imgLoad.on('progress', function(instance, image) {
+                showProjectOnScroll(image.element.parentElement);
             });
 
         }
@@ -135,10 +135,16 @@ function initPages(page) {
                 if (projectTop - docHeight < -(heightProject / 2) && hiddenProject) {
                     var animProject = anime({
                         targets: elem,
-                        opacity: ['0', '1'],
-                        translateY: ['1.5rem', '0'],
-                        duration: 500,
-                        easing: 'easeInOutQuad',
+                        opacity: {
+                            value: ['0', '1'],
+                            duration: 350,
+                            easing: 'linear'
+                        },
+                        translateY: { 
+                            value: ['1.5rem', '0'],
+                            duration: 500,
+                            easing: 'easeInOutQuad'
+                        },
                         begin: function(anim) {
                             hiddenProject = false;
                         }
@@ -173,10 +179,15 @@ function initPages(page) {
                     var filterValue = elem.getAttribute('data-filter');
 
                     if (!elem.classList.contains('is_checked')) {
-                        elem.parentElement.querySelector('.is_checked').classList.remove('is_checked');
+                        var parentElem = elem.parentElement.parentElement,
+                            parentFixed = parentElem.classList.contains('fixed');
+                        parentElem.querySelector('.is_checked').classList.remove('is_checked');
                         elem.classList.add('is_checked');
-                        if (elem.parentElement.classList.contains('fixed')) {
-                            goTop('.barba-container');
+                        if (parentFixed) {
+                            goTop('.barba-container', 600);
+                        }
+                        if (!parentFixed && page.scrollTop > 5) {
+                            goTop('.barba-container', 80);
                         }
                         sortProjects(filterValue);
                     }
@@ -190,7 +201,7 @@ function initPages(page) {
         function setCountFilter(button) {
 
             var filterValue = button.getAttribute('data-filter'),
-                filterCount = projectsContainer.querySelectorAll('[data-tag~="' + filterValue + '"]').length,
+                filterCount = projectsContainer.querySelectorAll('[data-tag*="' + filterValue + '"]').length,
                 countContainer = button.nextElementSibling;
 
             countContainer.textContent = '( ' + (filterValue !== '*' ? filterCount : totalProject) + ' )';
@@ -227,7 +238,7 @@ function initPages(page) {
                     elem.style.opacity = '0';
 
                     if (filterValue !== '*') {
-                        if (elem.querySelector('[data-tag~="' + filterValue + '"]')) {
+                        if (elem.querySelector('[data-tag*="' + filterValue + '"]')) {
                             elem.classList.remove('is_hidden');
                         }
                     } else {
@@ -395,7 +406,7 @@ function initPages(page) {
 
         setTimeout(function() {
             initProjects(projects);
-            if (docWidth <= 1024) {
+            if (isMobile) {
                 filtersMobile(filter);
             }
         }, 300);

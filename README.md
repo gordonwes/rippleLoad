@@ -1,6 +1,6 @@
 # rippleLoad
 ## TODO:
-• icon hand hidpi for retina (or unicode with fallback);
+• edit stored project
 ## Setup:
 Install Dependencies:
 ```shell

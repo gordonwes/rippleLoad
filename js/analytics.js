@@ -3,7 +3,6 @@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@//
 
 var htmlStyle = document.documentElement.style,
-    isMobile = docWidth <= 1024,
     isWebkit = 'WebkitAppearance' in htmlStyle,
     isChromium = !!window.chrome,
     isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream,

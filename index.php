@@ -25,7 +25,7 @@ $app = new Slim\App([
             'max_width' => 450,
             'max_height' => 450,
             'max_weight' => 4,
-            'optimization' => 80
+            'optimization' => 95
         ]
     ]
 ]);
@@ -117,14 +117,14 @@ $container['projectBlock'] = function ($c) {
         $tags = $project['tags'];
         $ref_tags = json_decode($tags);
 
-        $projectsBlock = '<article class="project">
+        $projectsBlock = '<article class="project" itemscope itemtype="http://schema.org/WebSite">
                                 <div class="container_img" style="background-image:url(' . $cover . ');"></div>
                                 <div class="container_txt">
-                                <h2>' . $title . '</h2>';
+                                <h2 itemprop="name">' . $title . '</h2>';
         if (isset($desc) && !empty($desc)) {
-            $projectsBlock .= '<div class="description"><p>' . $desc . '</p></div>';
+            $projectsBlock .= '<div class="description" itemprop="description"><p>' . $desc . '</p></div>';
         }
-        $projectsBlock .= '<a href="' . $url . '" target="_blank" rel="noopener">Visit Site</a>
+        $projectsBlock .= '<a href="' . $url . '" target="_blank" itemprop="url" rel="noopener">Visit Site</a>
                                 <div class="project_tag">
                                 <span data-tag="';
 
