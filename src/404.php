@@ -28,6 +28,7 @@ $pageDesc = 'Error 404, page not found, the link is wrong!';
                     <div class="wrapper">
                         <div class="container_404">
                             <h1><span class="alert">404</span><br>Page not found</h1>
+
                             <a class="home_link" href='<?= $baseUrl ?>/'>return home</a>
                         </div>
                     </div>
