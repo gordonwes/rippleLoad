@@ -68,14 +68,14 @@ function initPages(page) {
                     });
                 } else {
                     moreButton.textContent = 'MORE +';
-                    var pageScroll = page.scrollTop;
-                    if (pageScroll > 10) {
+                    var pageScrollGap = page.scrollTop > 10;
+                    if (pageScrollGap) {
                         goTop('.barba-container', 600);
                     }
                     containerIntro.classList.remove('detail_active');
                     var exitMore = anime({
                         targets: moreContent,
-                        delay: pageScroll > 10 ? 300 : 0,
+                        delay: pageScrollGap ? 300 : 0,
                         opacity: ['1', '0'],
                         translateY: ['0', '1.5rem'],
                         duration: 300,
