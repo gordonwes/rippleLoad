@@ -32,6 +32,19 @@
                 &:last-of-type{
                     margin-bottom: 0;
                 }
+                .edit_project{
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin-right: 0.8rem;
+                    height: 1.7rem;
+                    width: 1.7rem;
+                    margin-top: -4px;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-image: url(../images/icons/settings.svg);
+                    cursor: pointer;
+                }
                 form{
                     display: inline-block;
                     input[type="num"] {

@@ -35,7 +35,7 @@ $pageDesc = 'Manage projects and tags like a boss';
                                 <?php $i = 0;
                                 foreach ($project_list as $prj) {
 
-                                    echo '<div class="single_prj"><form role="form" method="POST" enctype="multipart/form-data" action="' , $baseUrl , '/delete/project"><input type="num" value="' , $prj[0] , '" name="timestamp_project" required><input type="submit" name="submit" value=""></form><span>( ' , $i , ' )</span> ' , $prj[1] , '</div>';
+                                    echo '<div class="single_prj"><form role="form" method="POST" enctype="multipart/form-data" action="' , $baseUrl , '/delete/project"><input type="num" value="' , $prj[0] , '" name="timestamp_project" required><input type="submit" name="submit" value=""></form><div class="edit_project"></div><span>( ' , $i , ' )</span> ' , $prj[1] , '</div>';
 
                                     $i++;
 

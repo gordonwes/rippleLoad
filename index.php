@@ -280,6 +280,37 @@ $app->get('/dev', function ($request, $response, $args) {
     }
 })->setName('dev');
 
+$app->get('/edit/project', function ($request, $response, $args) {
+
+    $conn = $this->get("db");
+
+    $main_query = "SELECT * FROM projects";
+    $main_query_init = $conn->prepare($main_query);
+    $main_query_init->execute();
+    $content_fetch = $main_query_init->fetchAll();
+
+    $conn = null;
+
+    $existing_projects = array();
+
+    foreach ($content_fetch as $project) {
+
+        $cover = $project['cover'];
+        $title = $project['title'];
+        $desc = $project['description'];
+        $url = $project['url'];
+        $tags = $project['tags'];
+        $size = $project['size'];
+        $ref_tags = json_decode($tags);
+                
+        $existing_projects[] = ; /// TODO
+
+    }
+    
+    return $existing_projects;
+
+});
+
 //Override the default Not Found Handler
 $container['notFoundHandler'] = function ($c) {
     return function ($request, $response) use ($c) {

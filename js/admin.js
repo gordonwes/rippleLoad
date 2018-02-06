@@ -26,15 +26,14 @@ domReady(function () {
 
         }
 
-
         var uploadAll = document.querySelector('.container_file_upload');
 
         if (uploadAll) {
 
-            var formAll = uploadAll.parentElement;
-            var url = formAll.getAttribute('action');
-            var progressBar = document.getElementById('progressBar');
-            var progressCount = document.getElementById('progressCount');
+            var formAll = uploadAll.parentElement,
+                url = formAll.getAttribute('action'),
+                progressBar = document.getElementById('progressBar'),
+                progressCount = document.getElementById('progressCount');
 
             function sendFile(file) {
 
@@ -50,7 +49,7 @@ domReady(function () {
                             progressBar.value = evt.loaded;
                             progressCount.textContent = percentComplete;
                         }
-                        
+
                     }, false);
 
                     request.addEventListener("load", function() {
@@ -95,6 +94,40 @@ domReady(function () {
                 if (formAll.classList.contains('on_load')) {
                     formAll.classList.remove('on_load');
                 }
+            });
+
+        }
+
+        var listedProject = document.querySelector('.list_projects .single_prj');
+
+        if (listedProject) {
+            
+            /// TODO
+
+            var triggerEditProject = listedProject.querySelector('.edit_project');
+
+            function editProject(e) {
+                e.preventDefault();
+                var timestampProject = triggerEditProject.parentElement.querySelector('[name="timestamp_project"]').value;
+
+                var request = new XMLHttpRequest();
+
+                request.addEventListener("error", function() {
+                    console.log('error edit project');
+                }, false);
+
+                request.addEventListener("abort", function() {
+                    console.log('abort edit project');
+                }, false);
+
+                request.open('GET', baseUrl + '/edit/project', true);
+
+                request.send();
+
+            }
+
+            triggerEditProject.addEventListener('click', function(e) {
+                editProject(e);
             });
 
         }
