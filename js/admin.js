@@ -101,14 +101,14 @@ domReady(function () {
         var listedProject = document.querySelector('.list_projects .single_prj');
 
         if (listedProject) {
-            
-            /// TODO
 
             var triggerEditProject = listedProject.querySelector('.edit_project');
 
             function editProject(e) {
                 e.preventDefault();
-                var timestampProject = triggerEditProject.parentElement.querySelector('[name="timestamp_project"]').value;
+                var timestampProject = encodeURI(triggerEditProject.parentElement.querySelector('[name="timestamp_project"]').value);
+
+                console.log(timestampProject);
 
                 var request = new XMLHttpRequest();
 
@@ -120,7 +120,13 @@ domReady(function () {
                     console.log('abort edit project');
                 }, false);
 
-                request.open('GET', baseUrl + '/edit/project', true);
+                request.onreadystatechange = function() {
+                    if (request.readyState === 4) {
+                        console.log(request.response);
+                    }
+                }
+
+                request.open('GET', baseUrl + '/edit/project/' + timestampProject, true);
 
                 request.send();
 

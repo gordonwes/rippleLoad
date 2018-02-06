@@ -158,7 +158,7 @@ $container['projectList'] = function ($c) {
 
     $conn = $c->db;
 
-    $main_query = "SELECT * FROM projects ORDER BY timestamp ASC";
+    $main_query = "SELECT * FROM projects ORDER BY timestamp DESC";
     $main_query_init = $conn->prepare($main_query);
     $main_query_init->execute();
     $content_fetch = $main_query_init->fetchAll();
@@ -280,34 +280,19 @@ $app->get('/dev', function ($request, $response, $args) {
     }
 })->setName('dev');
 
-$app->get('/edit/project', function ($request, $response, $args) {
+$app->get('/edit/project/{timestamp}', function ($request, $response, $args) {
 
+    $actual_timestamp = urldecode($args['timestamp']);
     $conn = $this->get("db");
 
-    $main_query = "SELECT * FROM projects";
+    $main_query = "SELECT * FROM projects WHERE timestamp='$actual_timestamp'";
     $main_query_init = $conn->prepare($main_query);
     $main_query_init->execute();
     $content_fetch = $main_query_init->fetchAll();
 
     $conn = null;
 
-    $existing_projects = array();
-
-    foreach ($content_fetch as $project) {
-
-        $cover = $project['cover'];
-        $title = $project['title'];
-        $desc = $project['description'];
-        $url = $project['url'];
-        $tags = $project['tags'];
-        $size = $project['size'];
-        $ref_tags = json_decode($tags);
-                
-        $existing_projects[] = ; /// TODO
-
-    }
-    
-    return $existing_projects;
+    return $content_fetch;
 
 });
 

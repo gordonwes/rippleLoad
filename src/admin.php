@@ -79,7 +79,7 @@ $pageDesc = 'Manage projects and tags like a boss';
                                     <div class="container_size">
                                         <h3>Block Size</h3>
                                         <div class="container_select">
-                                            <select name="projectsize" required>
+                                            <select name="projectsize">
                                                 <option selected>Select Size Block (Normal) *</option>
                                                 <option value="h2">Double Height</option>
                                                 <option value="w2">Double Width</option>
