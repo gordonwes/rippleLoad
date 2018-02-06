@@ -12,40 +12,43 @@ function initPages(page) {
             moreOpen = false,
             runningMore = false;
 
-        if (introduction) {
-
-            var actualTime = new Date().getHours();
-
-            if (actualTime >= 5 && actualTime < 18) {
-                introduction.textContent = 'Buongiorno! ';
-            } else {
-                introduction.textContent = 'Buonasera! ';
+        function setInitialMessage() {
+            if (introduction) {
+                var actualTime = new Date().getHours();
+                if (actualTime >= 5 && actualTime < 18) {
+                    introduction.textContent = 'Buongiorno! ';
+                } else {
+                    introduction.textContent = 'Buonasera! ';
+                }
             }
-
         }
 
-        var parallax = new Parallax(emoji, {
-            calibrateX: true,
-            limitX: isMobile ? 16 : 6,
-            limitY: isMobile ? 4 : 2,
-            scalarX: 20,
-            scalarY: 20,
-            invertX: false,
-            invertY: false
-        });
-
-        if (!introCalled) {
-            var introAnim = anime({
-                targets: page,
-                opacity: ['0', '1'],
-                delay: 200,
-                duration: 400,
-                easing: 'easeInOutQuad'
-            });
-            introCalled = true;
+        function initMovingHand() {
+            var parallax = new Parallax(emoji, {
+                calibrateX: true,
+                limitX: isMobile ? 16 : 6,
+                limitY: isMobile ? 4 : 2,
+                scalarX: 20,
+                scalarY: 20,
+                invertX: false,
+                invertY: false
+            });   
         }
 
-        moreButton.addEventListener('click', function(e) {
+        function fadeInAbout() {
+            if (!introCalled) {
+                var introAnim = anime({
+                    targets: page,
+                    opacity: ['0', '1'],
+                    delay: 200,
+                    duration: 400,
+                    easing: 'easeInOutQuad'
+                });
+                introCalled = true;
+            }
+        }
+
+        function showMoreContent(e) {
             e.preventDefault();
             if (!runningMore) {
                 if (!moreOpen) {
@@ -91,7 +94,18 @@ function initPages(page) {
                     });                 
                 }
             }
-        });
+        }
+
+        function initAbout() {
+            setInitialMessage();
+            initMovingHand();
+            fadeInAbout();
+            moreButton.addEventListener('click', function(e) {
+                showMoreContent(e);
+            });
+        }
+
+        initAbout();
 
     }
 
@@ -102,9 +116,18 @@ function initPages(page) {
             totalProject = projects.length,
             filter = page.querySelector('.filters'),
             filters = page.querySelectorAll('.filters button'),
-            backTop = page.querySelector('.end_list a');
+            backTop = page.querySelector('.end_list a'),
+            istancePackery;
 
         function initProjects(elems) {
+
+            istancePackery = new Packery(projectsContainer, {
+                itemSelector: '.project',
+                percentPosition: true,
+                transitionDuration: 0
+            });
+            
+            istancePackery.layout();
 
             loadCover(elems);
             initFilter();
@@ -127,6 +150,8 @@ function initPages(page) {
             var hiddenProject = true,
                 tickProject = false;
 
+            istancePackery.layout();
+
             function setAnimationElem() {
 
                 var projectTop = elem.getBoundingClientRect().top,
@@ -138,7 +163,7 @@ function initPages(page) {
                         opacity: {
                             value: ['0', '1'],
                             duration: 350,
-                            easing: 'linear'
+                            easing: 'easeInOutQuad'
                         },
                         translateY: { 
                             value: ['1.5rem', '0'],

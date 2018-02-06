@@ -22,7 +22,8 @@
         "imagesloaded": "latest",
         "parallax-js": "latest",
         "barba.js": "latest",
-        "pace-js": "latest"
+        "pace-js": "latest",
+        "packery": "latest"
     },
     "scripts": {
         "start": "npm install && php composer.phar install && php composer.phar update && grunt"

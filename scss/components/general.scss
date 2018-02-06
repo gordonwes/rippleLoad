@@ -151,10 +151,11 @@ input, textarea{
         font-size: 1.6rem;
         border: none;
         width: 100%;
+        outline: none;
         display: block;
         resize: none;
+        -webkit-appearance: none;
         appearance: none;
-        outline: none;
         border-radius: 0;
         &::selection {
             background: rgba(0,0,0,0.3);

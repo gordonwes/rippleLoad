@@ -115,9 +115,10 @@ $container['projectBlock'] = function ($c) {
         $desc = $project['description'];
         $url = $project['url'];
         $tags = $project['tags'];
+        $size = $project['size'];
         $ref_tags = json_decode($tags);
 
-        $projectsBlock = '<article class="project" itemscope itemtype="http://schema.org/WebSite">
+        $projectsBlock = '<article class="project ' . $size . '" itemscope itemtype="http://schema.org/WebSite">
                                 <div class="container_img" style="background-image:url(' . $cover . ');"></div>
                                 <div class="container_txt">
                                 <h2 itemprop="name">' . $title . '</h2>';
@@ -388,6 +389,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
     $projectUrl = $request->getParam('projecturl');
     $projectTags = $request->getParam('projecttags');
     $projectDescription = $request->getParam('projectdesc');
+    $projectSize = $request->getParam('projectsize');
     $projectCover = $request->getUploadedFiles();
 
     if (!empty($projectCover['newfile'])) {
@@ -479,8 +481,8 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
             }
 
-            $add_value = $conn->prepare("INSERT INTO projects(cover, title, description, url, tags, timestamp)
-        VALUES(:cover, :title, :description, :url, :tags, :timestamp)");
+            $add_value = $conn->prepare("INSERT INTO projects(cover, title, description, url, tags, size, timestamp)
+        VALUES(:cover, :title, :description, :url, :tags, :size, :timestamp)");
 
             $add_value->execute(array(
                 "cover" => "images/upload/" . $coverName,
@@ -488,6 +490,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
                 "description" => $projectDescription,
                 "url" => $projectUrl,
                 "tags" => json_encode($projectTags),
+                "size" => $projectSize,
                 "timestamp" => date("Y-m-d H:i:s")
             ));
 

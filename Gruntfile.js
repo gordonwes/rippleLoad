@@ -15,6 +15,7 @@ module.exports = function (grunt) {
                     'node_modules/pace-js/pace.min.js',
                     'node_modules/imagesloaded/imagesloaded.pkgd.min.js',
                     'node_modules/parallax-js/dist/parallax.min.js',
+                    'node_modules/packery/dist/packery.pkgd.min.js',
                     'js/components/*.js',
                     'js/app.js'
                 ],

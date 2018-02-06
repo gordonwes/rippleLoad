@@ -22,6 +22,10 @@
                     .project{
                         width: 44%;
                         width: calc(50% - 3rem);
+                        &.w2{
+                            width: 93%;
+                            width: calc(100% - 3rem);
+                        }
                     }
                 }   
             }
@@ -54,6 +58,17 @@
                     .project{
                         width: 93%;
                         width: calc(100% - 3rem);
+                        &.h2{
+                            .container_img{
+                                height: $height_project;
+                            }
+                            .container_txt{
+                                .description{
+                                    height: calc(#{$height_project} - 100%);
+                                    top: calc(-#{$height_project} + 100%);
+                                }
+                            }
+                        }
                     }
                 }   
             }

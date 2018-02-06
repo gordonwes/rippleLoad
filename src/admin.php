@@ -32,10 +32,7 @@ $pageDesc = 'Manage projects and tags like a boss';
 
                                 <h3>Projects List</h3>
 
-                                <?php
-
-                                $i = 0;
-
+                                <?php $i = 0;
                                 foreach ($project_list as $prj) {
 
                                     echo '<div class="single_prj"><form role="form" method="POST" enctype="multipart/form-data" action="' , $baseUrl , '/delete/project"><input type="num" value="' , $prj[0] , '" name="timestamp_project" required><input type="submit" name="submit" value=""></form><span>( ' , $i , ' )</span> ' , $prj[1] , '</div>';
@@ -46,9 +43,7 @@ $pageDesc = 'Manage projects and tags like a boss';
 
                                 if (count($project_list) == 0) {
                                     echo '<p class="empty_list">No projects yet!</p>';
-                                }
-
-                                ?>
+                                } ?>
 
                             </div>
 
@@ -72,17 +67,25 @@ $pageDesc = 'Manage projects and tags like a boss';
 
                                         <h3>Tags</h3>
 
-                                        <?php
-
-    foreach ($tags_list as $tag) {
-        echo '<label><input type="checkbox" name="projecttags[]" value="' , $tag , '"><i></i><span>' , $tag , '</span></label>';
-    }
+                                        <?php foreach ($tags_list as $tag) {
+    echo '<label><input type="checkbox" name="projecttags[]" value="' , $tag , '"><i></i><span>' , $tag , '</span></label>';
+}
                                       if (count($tags_list) == 0) {
                                           echo '<p class="empty_list">No tags yet!</p>';
-                                      }
+                                      } ?>
 
-                                        ?>
+                                    </div>
 
+                                    <div class="container_size">
+                                        <h3>Block Size</h3>
+                                        <div class="container_select">
+                                            <select name="projectsize" required>
+                                                <option selected>Select Size Block (Normal) *</option>
+                                                <option value="h2">Double Height</option>
+                                                <option value="w2">Double Width</option>
+                                                <option value="w2 h2">Double Width/Height</option>
+                                            </select>
+                                        </div>
                                     </div>
 
                                     <div class="container_image_upload">
