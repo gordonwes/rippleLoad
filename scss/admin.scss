@@ -140,6 +140,7 @@
             }
         }
         .container_forms{
+            margin-top: 4.5rem;
             float: left;
             width: 50%;
             form{
@@ -309,9 +310,14 @@
                 width: 100%;
                 float: none;
             }
+            .container_forms{
+                margin-top: 0;
+            }
             .list_projects{
                 margin-bottom: 3rem;
                 padding-right: 0;
+                padding-bottom: 3rem;
+                border-bottom: 2px solid #fff;
             }
         }
     }

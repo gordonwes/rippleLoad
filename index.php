@@ -555,6 +555,11 @@ $app->post('/edit/project/{timestamp}', function ($request, $response, $args) {
     } else {
         $path = "images/upload/big/$projectCoverName";
     }
+    
+    if (!empty($file['newfile'])) {
+        $newfile = $file['newfile'];
+        $newfile->moveTo($path);
+    }
 
     $update_value = "UPDATE projects SET orderid='$projectOrder', cover='$path', title='$projectName', description='$projectDescription', url='$projectUrl', tags='$new_tags', size='$projectSize' WHERE timestamp='$actual_timestamp'";
     $update_value_init = $conn->prepare($update_value);
