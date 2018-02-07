@@ -24,6 +24,8 @@ $app = new Slim\App([
         'cover' => [
             'max_width' => 450,
             'max_height' => 450,
+            'max_width_x2' => 900,
+            'max_height_x2' => 900,
             'max_weight' => 4,
             'optimization' => 95
         ]
@@ -99,7 +101,7 @@ $container['projectBlock'] = function ($c) {
 
     $conn = $c->db;
 
-    $main_query = "SELECT * FROM projects ORDER BY timestamp DESC";
+    $main_query = "SELECT * FROM projects ORDER BY orderid ASC";
     $main_query_init = $conn->prepare($main_query);
     $main_query_init->execute();
     $content_fetch = $main_query_init->fetchAll();
@@ -158,7 +160,7 @@ $container['projectList'] = function ($c) {
 
     $conn = $c->db;
 
-    $main_query = "SELECT * FROM projects ORDER BY timestamp DESC";
+    $main_query = "SELECT * FROM projects ORDER BY orderid ASC";
     $main_query_init = $conn->prepare($main_query);
     $main_query_init->execute();
     $content_fetch = $main_query_init->fetchAll();
@@ -280,7 +282,7 @@ $app->get('/dev', function ($request, $response, $args) {
     }
 })->setName('dev');
 
-$app->get('/edit/project/{timestamp}', function ($request, $response, $args) {
+$app->get('/get/project/{timestamp}', function ($request, $response, $args) {
 
     $actual_timestamp = urldecode($args['timestamp']);
     $conn = $this->get("db");
@@ -292,7 +294,7 @@ $app->get('/edit/project/{timestamp}', function ($request, $response, $args) {
 
     $conn = null;
 
-    return $content_fetch;
+    return json_encode($content_fetch[0]);
 
 });
 
@@ -401,6 +403,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
     $conn = $this->get("db");
 
+    $projectOrder = $request->getParam('projectorder');
     $projectName = $request->getParam('projectname');
     $projectUrl = $request->getParam('projecturl');
     $projectTags = $request->getParam('projecttags');
@@ -420,7 +423,11 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
             if ($uploadFileSize < $this->get('settings')['cover']['max_weight'] * 1000) {
 
-                $path = __DIR__ . "/images/upload/$uploadFileName";
+                if ($projectSize == 'normal') {
+                    $path = __DIR__ . "/images/upload/$uploadFileName";
+                } else {
+                    $path = __DIR__ . "/images/upload/big/$uploadFileName";
+                }
 
                 $newfile->moveTo($path);
 
@@ -438,8 +445,14 @@ $app->post('/upload/project', function ($request, $response, $args) {
                         return false;
                     }
 
-                    $maxWidth = $this->get('settings')['cover']['max_width'];
-                    $maxHeight = $this->get('settings')['cover']['max_height'];
+                    if ($projectSize == 'normal') {
+                        $maxWidth = $this->get('settings')['cover']['max_width'];
+                        $maxHeight = $this->get('settings')['cover']['max_height'];
+                    } else {
+                        $maxWidth = $this->get('settings')['cover']['max_width_x2'];
+                        $maxHeight = $this->get('settings')['cover']['max_height_x2'];
+                    }
+
                     $jpgQuality = $this->get('settings')['cover']['optimization'];
                     $pngQuality = ($jpgQuality - 100) / 11.111111;
                     $pngQuality = round(abs($pngQuality));
@@ -497,10 +510,11 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
             }
 
-            $add_value = $conn->prepare("INSERT INTO projects(cover, title, description, url, tags, size, timestamp)
-        VALUES(:cover, :title, :description, :url, :tags, :size, :timestamp)");
+            $add_value = $conn->prepare("INSERT INTO projects(orderid, cover, title, description, url, tags, size, timestamp)
+        VALUES(:orderid, :cover, :title, :description, :url, :tags, :size, :timestamp)");
 
             $add_value->execute(array(
+                "orderid" => $projectOrder,
                 "cover" => "images/upload/" . $coverName,
                 "title" => $projectName,
                 "description" => $projectDescription,
@@ -517,6 +531,57 @@ $app->post('/upload/project', function ($request, $response, $args) {
         }
 
     }
+
+});
+
+$app->post('/edit/project/{timestamp}', function ($request, $response, $args) {
+
+    $actual_timestamp = urldecode($args['timestamp']);
+    $conn = $this->get("db");
+
+    $projectName = $request->getParam('projectname');
+    $projectUrl = $request->getParam('projecturl');
+    $projectTags = $request->getParam('projecttags');
+    $projectDescription = $request->getParam('projectdesc');
+    $projectSize = $request->getParam('projectsize');
+    $projectOrder = $request->getParam('projectorder');
+    $projectCover = $request->getUploadedFiles();
+    $new_tags = json_encode($projectTags);
+
+    $projectCoverName = $projectCover['newfile']->getClientFilename();
+
+    if ($projectSize == 'normal') {
+        $path = "images/upload/$projectCoverName";
+    } else {
+        $path = "images/upload/big/$projectCoverName";
+    }
+
+    $update_value = "UPDATE projects SET orderid='$projectOrder', cover='$path', title='$projectName', description='$projectDescription', url='$projectUrl', tags='$new_tags', size='$projectSize' WHERE timestamp='$actual_timestamp'";
+    $update_value_init = $conn->prepare($update_value);
+    $update_value_init->execute();
+
+    $conn = null;
+
+    return $response->withRedirect('../../admin');
+
+});
+
+$app->post('/update/project', function ($request, $response, $args) {
+
+    $conn = $this->get("db");
+
+    $projectData = $request->getParsedBody();
+
+    $project_new_order = $projectData['orderid'];
+    $actual_timestamp = $projectData['timestamp'];
+
+    $update_value = "UPDATE projects SET orderid='$project_new_order' WHERE timestamp='$actual_timestamp'";
+    $update_value_init = $conn->prepare($update_value);
+    $update_value_init->execute();
+
+    $conn = null;
+
+    return $response->withRedirect('../admin');
 
 });
 

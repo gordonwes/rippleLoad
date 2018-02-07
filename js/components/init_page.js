@@ -121,13 +121,15 @@ function initPages(page) {
 
         function initProjects(elems) {
 
-            istancePackery = new Packery(projectsContainer, {
-                itemSelector: '.project',
-                percentPosition: true,
-                transitionDuration: 0
-            });
-            
-            istancePackery.layout();
+            if (docWidth > 500) {
+                istancePackery = new Packery(projectsContainer, {
+                    itemSelector: '.project',
+                    percentPosition: true,
+                    transitionDuration: 0
+                });
+
+                istancePackery.layout();
+            }
 
             loadCover(elems);
             initFilter();
@@ -150,14 +152,16 @@ function initPages(page) {
             var hiddenProject = true,
                 tickProject = false;
 
-            istancePackery.layout();
+            if (docWidth > 500) {
+                istancePackery.layout();
+            }
 
             function setAnimationElem() {
 
                 var projectTop = elem.getBoundingClientRect().top,
                     heightProject = elem.offsetHeight;
 
-                if (projectTop - docHeight < -(heightProject / 2) && hiddenProject) {
+                if (projectTop - docHeight < -(heightProject * 0.33) && hiddenProject) {
                     var animProject = anime({
                         targets: elem,
                         opacity: {

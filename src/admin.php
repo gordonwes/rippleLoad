@@ -37,7 +37,7 @@ $pageDesc = 'Manage projects and tags like a boss';
                                     <?php $i = 0;
                                     foreach ($project_list as $prj) {
 
-                                        echo '<div class="single_prj"><form role="form" method="POST" enctype="multipart/form-data" action="' , $baseUrl , '/delete/project"><input type="num" value="' , $prj[0] , '" name="timestamp_project" required><input type="submit" name="submit" value=""></form><div class="edit_project"></div><span>( ' , $i , ' )</span> ' , $prj[1] , '</div>';
+                                        echo '<div class="single_prj" data-id="' , $i , '"><form role="form" method="POST" enctype="multipart/form-data" action="' , $baseUrl , '/delete/project"><input type="num" value="' , $prj[0] , '" name="timestamp_project" required><input type="submit" name="submit" value=""></form><div class="edit_project"></div>' , $prj[1] , '</div>';
 
                                         $i++;
 
@@ -48,6 +48,8 @@ $pageDesc = 'Manage projects and tags like a boss';
                                     } ?>
 
                                 </div>
+                                
+                                <a href="#" class="trigger_change_order">UPDATE ORDER</a>
 
                             </div>
 
@@ -55,17 +57,25 @@ $pageDesc = 'Manage projects and tags like a boss';
 
                                 <form role="form" method="POST" enctype="multipart/form-data" action="<?= $baseUrl ?>/manager/tags">
 
-                                    <input type="text" name="tagname" placeholder="Tag Name *" required>
+                                    <input type="text" list="tags_suggestion" name="tagname" placeholder="Tag Name *" required>
                                     <input type="submit" name="submit" value="Add New Tag">
                                     <input type="submit" name="remove" value="Remove Tag">
 
+                                    <datalist id="tags_suggestion">
+                                        <?php foreach ($tags_list as $tag) {
+    echo '<option value="' , $tag , '">';
+} ?>
+                                    </datalist>
+
                                 </form>
 
-                                <form role="form" method="POST" enctype="multipart/form-data" action="<?= $baseUrl ?>/upload/project">
+                                <form role="form" class="main_form" method="POST" enctype="multipart/form-data" action="<?= $baseUrl ?>/upload/project">
 
                                     <input type="text" name="projectname" placeholder="Project Name *" required>
                                     <textarea name="projectdesc" placeholder="Short Description"></textarea>
                                     <input type="url" name="projecturl" placeholder="Project Url *" required>
+                                    
+                                    <input type="hidden" name="projectorder" value="<?= count($project_list); ?>">
 
                                     <div class="container_filter">
 
@@ -84,7 +94,7 @@ $pageDesc = 'Manage projects and tags like a boss';
                                         <h3>Block Size</h3>
                                         <div class="container_select">
                                             <select name="projectsize">
-                                                <option selected>Select Size Block (Normal) *</option>
+                                                <option value="normal" selected>Select Size Block (Normal) *</option>
                                                 <option value="h2">Double Height</option>
                                                 <option value="w2">Double Width</option>
                                                 <option value="w2 h2">Double Width/Height</option>
@@ -98,6 +108,7 @@ $pageDesc = 'Manage projects and tags like a boss';
                                             <span>Upload image *</span>
                                             <input type="file" name="newfile" accept="image/*" required>
                                         </label>
+                                        <img class="placeholder_image" src="#">
                                     </div>
 
                                     <input type="submit" name="submit" value="Upload Project"> 

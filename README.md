@@ -1,6 +1,6 @@
 # rippleLoad
 ## TODO:
-• edit stored project (get and post route + image on upload for different dimension)
+• 
 ## Setup:
 Install Dependencies:
 ```shell
