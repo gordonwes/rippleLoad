@@ -22,7 +22,10 @@ module.exports = function (grunt) {
                 dest: 'js/build/production.js'
             },
             admin: {
-                src: 'js/admin.js',
+                src: [
+                    'node_modules/draggabilly/dist/draggabilly.pkgd.min.js',
+                    'js/admin.js'
+                ],
                 dest: 'js/build/admin.js'
             },
             analytics: {

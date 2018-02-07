@@ -102,15 +102,23 @@ domReady(function () {
 
         if (listedProject) {
 
-            var triggerEditProject = listedProject.querySelector('.edit_project');
+            var parentListedProject = document.querySelector('.container_drag'),
+                triggerEditProject = parentListedProject.querySelectorAll('.edit_project');
 
-            function editProject(e) {
+            function editProject(e, elem) {
                 e.preventDefault();
-                var timestampProject = encodeURI(triggerEditProject.parentElement.querySelector('[name="timestamp_project"]').value);
+                var parent = elem.parentElement,
+                    timestampProject = encodeURI(parent.querySelector('[name="timestamp_project"]').value),
+                    activeEditProject = parent.parentElement.querySelector('.active_project');
 
-                console.log(timestampProject);
+                if (activeEditProject) {
+                    activeEditProject.classList.remove('active_project');
+                }
 
-                var request = new XMLHttpRequest();
+                parent.classList.add('active_project');
+                parentListedProject.classList.add('active_list');
+
+                /*                var request = new XMLHttpRequest();
 
                 request.addEventListener("error", function() {
                     console.log('error edit project');
@@ -128,13 +136,53 @@ domReady(function () {
 
                 request.open('GET', baseUrl + '/edit/project/' + timestampProject, true);
 
-                request.send();
+                request.send();*/
 
             }
 
-            triggerEditProject.addEventListener('click', function(e) {
-                editProject(e);
+            forEach(triggerEditProject, function (index, elem) {
+                elem.addEventListener('click', function(e) {
+                    editProject(e, this);
+                });
             });
+
+            var draggableProjects = document.querySelectorAll('.list_projects .single_prj'),
+                draggableProjectsLenght = draggableProjects.length,
+                heightContainerBlockDrag = document.querySelector('.list_projects .container_drag').offsetHeight,
+                heightBlockDrag = draggableProjects[0].offsetHeight + 5,
+                draggies = [];
+
+            for ( var i=0, len = draggableProjects.length; i < len; i++ ) {
+                var draggableProject = draggableProjects[i];
+                var draggie = new Draggabilly(draggableProject, {
+                    axis: 'y',
+                    containment: '.container_drag'
+                });
+                draggie.on('pointerDown', function(event, pointer) {
+                    parentListedProject.classList.add('drag_active');
+                });
+                draggie.on('pointerUp', function(event, pointer) {
+                    parentListedProject.classList.remove('drag_active');
+                });
+                draggie.on('dragMove', function(event, pointer, moveVector) {
+
+                    var movDiff = moveVector.y,
+                        blockPassed = ~~(movDiff / heightBlockDrag),
+                        preElem = draggableProjects[draggableProjectsLenght - i + blockPassed];
+
+                    if (movDiff > 0 && blockPassed >= 1) {
+                        console.log('va sotto di ' + blockPassed);
+                        preElem.appendChild(draggableProject);
+                        draggableProject.parentNode.removeChild(draggableProject);
+                    } else if(movDiff < 0 && blockPassed <= -1) {
+                        console.log('va sopra di ' + blockPassed);
+                        preElem.appendChild(draggableProject);
+                        draggableProject.parentNode.removeChild(draggableProject);
+                    }
+
+                });
+                draggies.push(draggie);
+            }
 
         }
 

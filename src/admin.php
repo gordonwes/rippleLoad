@@ -32,18 +32,22 @@ $pageDesc = 'Manage projects and tags like a boss';
 
                                 <h3>Projects List</h3>
 
-                                <?php $i = 0;
-                                foreach ($project_list as $prj) {
+                                <div class="container_drag">
 
-                                    echo '<div class="single_prj"><form role="form" method="POST" enctype="multipart/form-data" action="' , $baseUrl , '/delete/project"><input type="num" value="' , $prj[0] , '" name="timestamp_project" required><input type="submit" name="submit" value=""></form><div class="edit_project"></div><span>( ' , $i , ' )</span> ' , $prj[1] , '</div>';
+                                    <?php $i = 0;
+                                    foreach ($project_list as $prj) {
 
-                                    $i++;
+                                        echo '<div class="single_prj"><form role="form" method="POST" enctype="multipart/form-data" action="' , $baseUrl , '/delete/project"><input type="num" value="' , $prj[0] , '" name="timestamp_project" required><input type="submit" name="submit" value=""></form><div class="edit_project"></div><span>( ' , $i , ' )</span> ' , $prj[1] , '</div>';
 
-                                }
+                                        $i++;
 
-                                if (count($project_list) == 0) {
-                                    echo '<p class="empty_list">No projects yet!</p>';
-                                } ?>
+                                    }
+
+                                    if (count($project_list) == 0) {
+                                        echo '<p class="empty_list">No projects yet!</p>';
+                                    } ?>
+
+                                </div>
 
                             </div>
 
