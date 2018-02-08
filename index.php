@@ -168,29 +168,23 @@ $container['projectMediaBlock'] = function ($c) {
 
     $num_project = 0;
 
-    $mediaQuery = '<style>@media screen and (max-width:500px) {';
+    $mediaQuery = '<style>';
+    $mediaQuerySmall = '@media screen and (max-width:500px) {';
+    $mediaQueryLarge = '@media screen and (min-width:501px) {';
 
     foreach ($main_query_init as $cover) {
 
         $num_project++;
 
-        $mediaQuery .= '#project-' . $num_project . '>.container_img { background-image:url(' . $cover['cover'] . '); }';
-        
-    }
-    
-    $num_project = 0;
-    
-    $mediaQuery .= '}@media screen and (min-width:501px) {';
-    
-    foreach ($main_query_init as $cover) {
+        $mediaQuerySmall .= '#project-' . $num_project . '>.container_img { background-image:url(' . $cover['cover'] . '); }';
+        $mediaQueryLarge .= '#project-' . $num_project . '>.container_img { background-image:url(' . $cover['cover'] . '); }';
 
-        $num_project++;
-
-        $mediaQuery .= '#project-' . $num_project . '>.container_img { background-image:url(' . $cover['cover'] . '); }';
-        
     }
-    
-    $mediaQuery .= '}</style>';
+
+    $mediaQuerySmall .= '}';
+    $mediaQueryLarge .= '}';
+    $mediaQuery .= $mediaQuerySmall . $mediaQueryLarge;
+    $mediaQuery .= '</style>';
 
     return $mediaQuery;
 
@@ -462,17 +456,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
             $uploadFileType = $newfile->getClientMediaType();
             $uploadFileSize = $newfile->getSize() / 1024;
 
-            if ($uploadFileSize < $this->get('settings')['cover']['max_weight'] * 1000) {
-
-                if ($projectSize == 'normal') {
-                    $fullPath = "images/upload/$uploadFileName";
-                } else if ($projectSize == 'w2') {
-                    $fullPath = "images/upload/big/w2/$uploadFileName";
-                } else if ($projectSize == 'h2') {
-                    $fullPath = "images/upload/big/h2/$uploadFileName";
-                } else {
-                    $fullPath = "images/upload/big/w2h2/$uploadFileName";
-                }
+            function resizeImg($fullPath, $newfile, $uploadFileType, $projectSize, $normalMaxWidth, $normalMaxHeight, $quality, $big) {
 
                 $path = __DIR__ . '/' . $fullPath;
 
@@ -482,21 +466,20 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
                     list($width, $height) = getimagesize($path);
 
-                    $normalMaxWidth = $this->get('settings')['cover']['max_width'];
-                    $normalMaxHeight = $this->get('settings')['cover']['max_height'];
-
-                    if ($projectSize == 'normal') {
-                        $maxWidth = $normalMaxWidth;
-                        $maxHeight = $normalMaxHeight;
-                    } else if ($projectSize == 'w2') {
-                        $maxWidth = $normalMaxWidth * 2;
-                        $maxHeight = $normalMaxHeight;
-                    } else if ($projectSize == 'h2') {
-                        $maxWidth = $normalMaxWidth;
-                        $maxHeight = $normalMaxHeight * 2;
+                    if ($big == true) {
+                        if ($projectSize == 'w2') {
+                            $maxWidth = $normalMaxWidth * 2;
+                            $maxHeight = $normalMaxHeight;
+                        } else if ($projectSize == 'h2') {
+                            $maxWidth = $normalMaxWidth;
+                            $maxHeight = $normalMaxHeight * 2;
+                        } else {
+                            $maxWidth = $normalMaxWidth * 2;
+                            $maxHeight = $normalMaxHeight * 2;
+                        }
                     } else {
-                        $maxWidth = $normalMaxWidth * 2;
-                        $maxHeight = $normalMaxHeight * 2;
+                        $maxWidth = $normalMaxWidth;
+                        $maxHeight = $normalMaxHeight;
                     }
 
                     switch($uploadFileType){
@@ -504,14 +487,11 @@ $app->post('/upload/project', function ($request, $response, $args) {
                         case 'image/png':
                             $image_create = "imagecreatefrompng";
                             $image = "imagepng";
-                            $quality = ($this->get('settings')['cover']['optimization'] - 100) / 11.111111;
-                            $quality = round(abs($quality));
                             break;
 
                         case 'image/jpeg':
                             $image_create = "imagecreatefromjpeg";
                             $image = "imagejpeg";
-                            $quality = $this->get('settings')['cover']['optimization'];
                             break;
 
                         default:
@@ -522,7 +502,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
                     $newImage = imagecreatetruecolor($maxWidth, $maxHeight);
                     $src_img = $image_create($path);
 
-                    if ($uploadFileType === 'image/png' || $uploadFileType === 'image/gif') {
+                    if ($uploadFileType === 'image/png') {
                         imagealphablending($newImage, false);
                         imagesavealpha($newImage, true);
                         $transparent = imagecolorallocatealpha($newImage, 255, 255, 255, 127);
@@ -540,7 +520,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
                         imagecopyresampled($newImage, $src_img, 0, 0, $w_point, 0, $maxWidth, $maxHeight, $newWidth, $height);
                     }
 
-                    if ($uploadFileType == 'image/jpeg') {
+                    if ($uploadFileType === 'image/jpeg') {
                         imageinterlace($newImage, true);
                     }
 
@@ -550,6 +530,48 @@ $app->post('/upload/project', function ($request, $response, $args) {
                     if($src_img)imagedestroy($src_img);
 
                 }
+
+            }
+
+            if ($uploadFileSize < $this->get('settings')['cover']['max_weight'] * 1000) {
+
+                $normalMaxWidth = $this->get('settings')['cover']['max_width'];
+                $normalMaxHeight = $this->get('settings')['cover']['max_height'];
+                $fullPath = "images/upload/$uploadFileName";
+                $big = array('w2', 'h2', 'w2 h2');
+                $isBig = in_array($projectSize, $big);
+
+                switch($uploadFileType){
+                    case 'image/png':
+                        $quality = ($this->get('settings')['cover']['optimization'] - 100) / 11.111111;
+                        $quality = round(abs($quality));
+                        break;
+                    case 'image/jpeg':
+                        $quality = $this->get('settings')['cover']['optimization'];
+                        break;
+                    default:
+                        return false;
+                        break;
+                }
+
+                if ($isBig) {
+
+                    if ($projectSize == 'w2') {
+                        $newPath = "images/upload/big/w2/$uploadFileName";
+                    } else if ($projectSize == 'h2') {
+                        $newPath = "images/upload/big/h2/$uploadFileName";
+                    } else {
+                        $newPath = "images/upload/big/w2h2/$uploadFileName";
+                    }
+
+                    //TODO
+                    //copy($fullPath, $newPath);
+
+                    //resizeImg($newPath, $newfileBig, $uploadFileType, $projectSize, $normalMaxWidth, $normalMaxHeight, $quality, true);
+
+                }
+
+                resizeImg($fullPath, $newfile, $uploadFileType, $projectSize, $normalMaxWidth, $normalMaxHeight, $quality, false);
 
             } else {
 
@@ -567,7 +589,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
             $add_value->execute(array(
                 "orderid" => $projectOrder,
-                "cover" => $fullPath,
+                "cover" => $isBig ? $newPath : $fullPath,
                 "title" => $projectName,
                 "description" => $projectDescription,
                 "url" => $projectUrl,
