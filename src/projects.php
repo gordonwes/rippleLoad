@@ -13,6 +13,8 @@ $pageDesc = 'A collection of all my projects, carefully crafted';
 
         <?php include_once 'fragments/head.php'; ?>
 
+        <?= $media_block; ?>
+
     </head>  
 
     <body>
@@ -30,8 +32,8 @@ $pageDesc = 'A collection of all my projects, carefully crafted';
                                     <button class="button is_checked link" data-filter="*">all</button><span></span>
 
                                     <?php foreach ($project_tags as $tag) {
-                                        echo '<button class="link" data-filter="' , $tag, '">' , $tag, '</button><span></span>';
-                                    } ?>
+    echo '<button class="link" data-filter="' , $tag , '">' , $tag , '</button><span></span>';
+} ?>
 
                                 </div>
 
@@ -45,8 +47,8 @@ $pageDesc = 'A collection of all my projects, carefully crafted';
                             <div class="container_projects clear">
 
                                 <?php if (count($project_block) == 0) {
-                                    echo '<p class="empty_list">No projects yet!</p>';
-                                }
+    echo '<p class="empty_list">No projects yet!</p>';
+}
 
                                 foreach ($project_block as $project) {
                                     echo $project;

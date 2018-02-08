@@ -7,7 +7,14 @@ css/*
 js/build/*
 app/*
 images/upload/*
+images/upload/big/*
+images/upload/big/w2/*
+images/upload/big/h2/*
+images/upload/big/w2h2/*
 !images/upload/.gitkeep 
 !images/upload/big/.gitkeep
+!images/upload/big/w2/.gitkeep
+!images/upload/big/h2/.gitkeep
+!images/upload/big/w2h2/.gitkeep
 development/*
 !development/.gitkeep

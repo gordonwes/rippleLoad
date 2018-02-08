@@ -23,9 +23,7 @@ $app = new Slim\App([
         ],
         'cover' => [
             'max_width' => 450,
-            'max_height' => 450,
-            'max_width_x2' => 900,
-            'max_height_x2' => 900,
+            'max_height' => 300,
             'max_weight' => 4,
             'optimization' => 95
         ]
@@ -109,10 +107,12 @@ $container['projectBlock'] = function ($c) {
     $conn = null;
 
     $block_project = array();
+    $num_project = 0;
 
     foreach ($content_fetch as $project) {
 
-        $cover = $project['cover'];
+        $num_project++;
+
         $title = $project['title'];
         $desc = $project['description'];
         $url = $project['url'];
@@ -120,8 +120,8 @@ $container['projectBlock'] = function ($c) {
         $size = $project['size'];
         $ref_tags = json_decode($tags);
 
-        $projectsBlock = '<article class="project ' . $size . '" itemscope itemtype="http://schema.org/WebSite">
-                                <div class="container_img" style="background-image:url(' . $cover . ');"></div>
+        $projectsBlock = '<article class="project ' . $size . '" id="project-' . $num_project . '" itemscope itemtype="http://schema.org/WebSite">
+                                <div class="container_img"></div>
                                 <div class="container_txt">
                                 <h2 itemprop="name">' . $title . '</h2>';
         if (isset($desc) && !empty($desc)) {
@@ -153,6 +153,46 @@ $container['projectBlock'] = function ($c) {
     }
 
     return $block_project;
+
+};
+
+$container['projectMediaBlock'] = function ($c) {
+
+    $conn = $c->db;
+
+    $main_query = $conn->query("SELECT cover FROM projects ORDER BY orderid ASC");
+
+    $main_query_init = $main_query->fetchAll();
+
+    $conn = null;
+
+    $num_project = 0;
+
+    $mediaQuery = '<style>@media screen and (max-width:500px) {';
+
+    foreach ($main_query_init as $cover) {
+
+        $num_project++;
+
+        $mediaQuery .= '#project-' . $num_project . '>.container_img { background-image:url(' . $cover['cover'] . '); }';
+        
+    }
+    
+    $num_project = 0;
+    
+    $mediaQuery .= '}@media screen and (min-width:501px) {';
+    
+    foreach ($main_query_init as $cover) {
+
+        $num_project++;
+
+        $mediaQuery .= '#project-' . $num_project . '>.container_img { background-image:url(' . $cover['cover'] . '); }';
+        
+    }
+    
+    $mediaQuery .= '}</style>';
+
+    return $mediaQuery;
 
 };
 
@@ -219,7 +259,8 @@ $app->get('/', function ($request, $response, $args) {
 $app->get('/projects', function ($request, $response, $args) {
     $response = $this->renderer->render($response, 'projects.php', array(
         'project_tags' => $this->get("tagsBlock"),
-        'project_block' => $this->get("projectBlock")
+        'project_block' => $this->get("projectBlock"),
+        'media_block' => $this->get("projectMediaBlock"),
     ));
     return $response;
 })->setName('projects');
@@ -424,10 +465,16 @@ $app->post('/upload/project', function ($request, $response, $args) {
             if ($uploadFileSize < $this->get('settings')['cover']['max_weight'] * 1000) {
 
                 if ($projectSize == 'normal') {
-                    $path = __DIR__ . "/images/upload/$uploadFileName";
+                    $fullPath = "images/upload/$uploadFileName";
+                } else if ($projectSize == 'w2') {
+                    $fullPath = "images/upload/big/w2/$uploadFileName";
+                } else if ($projectSize == 'h2') {
+                    $fullPath = "images/upload/big/h2/$uploadFileName";
                 } else {
-                    $path = __DIR__ . "/images/upload/big/$uploadFileName";
+                    $fullPath = "images/upload/big/w2h2/$uploadFileName";
                 }
+
+                $path = __DIR__ . '/' . $fullPath;
 
                 $newfile->moveTo($path);
 
@@ -435,41 +482,45 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
                     list($width, $height) = getimagesize($path);
 
-                    if ($uploadFileType === 'image/jpeg') {
-                        $im = imagecreatefromjpeg($path);
-                        header('Content-Type: image/jpeg');
-                    } elseif ($uploadFileType === 'image/png') {
-                        $im = imagecreatefrompng($path);
-                        header('Content-Type: image/png');
-                    } else {
-                        return false;
-                    }
+                    $normalMaxWidth = $this->get('settings')['cover']['max_width'];
+                    $normalMaxHeight = $this->get('settings')['cover']['max_height'];
 
                     if ($projectSize == 'normal') {
-                        $maxWidth = $this->get('settings')['cover']['max_width'];
-                        $maxHeight = $this->get('settings')['cover']['max_height'];
+                        $maxWidth = $normalMaxWidth;
+                        $maxHeight = $normalMaxHeight;
+                    } else if ($projectSize == 'w2') {
+                        $maxWidth = $normalMaxWidth * 2;
+                        $maxHeight = $normalMaxHeight;
+                    } else if ($projectSize == 'h2') {
+                        $maxWidth = $normalMaxWidth;
+                        $maxHeight = $normalMaxHeight * 2;
                     } else {
-                        $maxWidth = $this->get('settings')['cover']['max_width_x2'];
-                        $maxHeight = $this->get('settings')['cover']['max_height_x2'];
+                        $maxWidth = $normalMaxWidth * 2;
+                        $maxHeight = $normalMaxHeight * 2;
                     }
 
-                    $jpgQuality = $this->get('settings')['cover']['optimization'];
-                    $pngQuality = ($jpgQuality - 100) / 11.111111;
-                    $pngQuality = round(abs($pngQuality));
+                    switch($uploadFileType){
 
-                    // Calculate ratio of desired maximum sizes and original sizes.
-                    $widthRatio = $maxWidth / $width;
-                    $heightRatio = $maxHeight / $height;
+                        case 'image/png':
+                            $image_create = "imagecreatefrompng";
+                            $image = "imagepng";
+                            $quality = ($this->get('settings')['cover']['optimization'] - 100) / 11.111111;
+                            $quality = round(abs($quality));
+                            break;
 
-                    // Ratio used for calculating new image dimensions.
-                    $ratio = min($widthRatio, $heightRatio);
+                        case 'image/jpeg':
+                            $image_create = "imagecreatefromjpeg";
+                            $image = "imagejpeg";
+                            $quality = $this->get('settings')['cover']['optimization'];
+                            break;
 
-                    // Calculate new image dimensions.
-                    $newWidth  = (int)$width  * $ratio;
-                    $newHeight = (int)$height * $ratio;
+                        default:
+                            return false;
+                            break;
+                    }
 
-                    // Create final image with new dimensions.
-                    $newImage = imagecreatetruecolor($newWidth, $newHeight);
+                    $newImage = imagecreatetruecolor($maxWidth, $maxHeight);
+                    $src_img = $image_create($path);
 
                     if ($uploadFileType === 'image/png' || $uploadFileType === 'image/gif') {
                         imagealphablending($newImage, false);
@@ -478,26 +529,27 @@ $app->post('/upload/project', function ($request, $response, $args) {
                         imagefilledrectangle($newImage, 0, 0, $newWidth, $newHeight, $transparent);
                     }
 
-                    imagecopyresampled($newImage, $im, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+                    $newWidth = $height * $maxWidth / $maxHeight;
+                    $newHeight = $width * $maxHeight / $maxWidth;
 
-                    if ($uploadFileType === 'image/jpeg') {
-                        imageinterlace($newImage, true);
-                        imagejpeg($newImage, $path, $jpgQuality);
-                    } elseif ($uploadFileType === 'image/png') {
-                        imagepng($newImage, $path, $pngQuality);
-                    } elseif ($uploadFileType === 'image/gif') {
-                        imagegif($newImage, $path);
+                    if ($newWidth > $width){
+                        $h_point = (($height - $newHeight) / 2);
+                        imagecopyresampled($newImage, $src_img, 0, 0, 0, $h_point, $maxWidth, $maxHeight, $width, $newHeight);
                     } else {
-                        return false;
+                        $w_point = (($width - $newWidth) / 2);
+                        imagecopyresampled($newImage, $src_img, 0, 0, $w_point, 0, $maxWidth, $maxHeight, $newWidth, $height);
                     }
 
-                    // Free up the memory.
-                    imagedestroy($im);
-                    imagedestroy($newImage);
+                    if ($uploadFileType == 'image/jpeg') {
+                        imageinterlace($newImage, true);
+                    }
+
+                    $image($newImage, $path, $quality);
+
+                    if($newImage)imagedestroy($newImage);
+                    if($src_img)imagedestroy($src_img);
 
                 }
-
-                $coverName = $uploadFileName;
 
             } else {
 
@@ -515,7 +567,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
             $add_value->execute(array(
                 "orderid" => $projectOrder,
-                "cover" => "images/upload/" . $coverName,
+                "cover" => $fullPath,
                 "title" => $projectName,
                 "description" => $projectDescription,
                 "url" => $projectUrl,
@@ -555,7 +607,7 @@ $app->post('/edit/project/{timestamp}', function ($request, $response, $args) {
     } else {
         $path = "images/upload/big/$projectCoverName";
     }
-    
+
     if (!empty($file['newfile'])) {
         $newfile = $file['newfile'];
         $newfile->moveTo($path);
