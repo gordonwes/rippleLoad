@@ -161,14 +161,13 @@ $container['projectMediaBlock'] = function ($c) {
     $conn = $c->db;
 
     $main_query = $conn->query("SELECT cover FROM projects ORDER BY orderid ASC");
-
     $main_query_init = $main_query->fetchAll();
 
     $conn = null;
 
     $num_project = 0;
 
-    $mediaQuery = '<style>';
+    $mediaQuery = '';
     $mediaQuerySmall = '@media screen and (max-width:500px) {';
     $mediaQueryLarge = '@media screen and (min-width:501px) {';
 
@@ -176,15 +175,21 @@ $container['projectMediaBlock'] = function ($c) {
 
         $num_project++;
 
-        $mediaQuerySmall .= '#project-' . $num_project . '>.container_img { background-image:url(' . $cover['cover'] . '); }';
-        $mediaQueryLarge .= '#project-' . $num_project . '>.container_img { background-image:url(' . $cover['cover'] . '); }';
+        $urlCover = json_decode($cover['cover']);
+
+        $mediaQuerySmall .= '#project-' . $num_project . '>.container_img { background-image:url(' . $urlCover->small . '); }';
+
+        if ($urlCover->big) {
+            $mediaQueryLarge .= '#project-' . $num_project . '>.container_img { background-image:url(' . $urlCover->big . '); }';
+        } else {
+            $mediaQueryLarge .= '#project-' . $num_project . '>.container_img { background-image:url(' . $urlCover->small . '); }';
+        }
 
     }
 
     $mediaQuerySmall .= '}';
     $mediaQueryLarge .= '}';
     $mediaQuery .= $mediaQuerySmall . $mediaQueryLarge;
-    $mediaQuery .= '</style>';
 
     return $mediaQuery;
 
@@ -246,7 +251,9 @@ $container['renderer'] = function ($c) {
 
 // Define named route
 $app->get('/', function ($request, $response, $args) {
-    $response = $this->renderer->render($response, 'about-me.php', $args);
+    $response = $this->renderer->render($response, 'about-me.php', array(
+        'media_block' => $this->get("projectMediaBlock")
+    ));
     return $response;
 })->setName('about-me');
 
@@ -295,7 +302,8 @@ $app->get('/admin', function ($request, $response, $args) {
         $response = $this->renderer->render($response, 'admin.php', array(
             'project_list' => $this->get("projectList"),
             'tags_list' => $this->get("tagsBlock"),
-            'visited_user_list' => $this->get("visitedUser")
+            'visited_user_list' => $this->get("visitedUser"),
+            'media_block' => $this->get("projectMediaBlock")
         ));
         return $response;
     } else {
@@ -309,7 +317,8 @@ $app->get('/dev', function ($request, $response, $args) {
         $this->get("timeIdle");
 
         $response = $this->renderer->render($response, 'dev.php', array(
-            'dev_projects' => $this->get("devProjects")
+            'dev_projects' => $this->get("devProjects"),
+            'media_block' => $this->get("projectMediaBlock")
         ));
         return $response;
     } else {
@@ -452,123 +461,94 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
         if ($newfile->getError() === UPLOAD_ERR_OK) {
 
-            $uploadFileName = $newfile->getClientFilename();
             $uploadFileType = $newfile->getClientMediaType();
             $uploadFileSize = $newfile->getSize() / 1024;
 
-            function resizeImg($fullPath, $newfile, $uploadFileType, $projectSize, $normalMaxWidth, $normalMaxHeight, $quality, $big) {
-
-                $path = __DIR__ . '/' . $fullPath;
-
-                $newfile->moveTo($path);
-
-                if ($uploadFileType !== 'image/gif') {
-
-                    list($width, $height) = getimagesize($path);
-
-                    if ($big == true) {
-                        if ($projectSize == 'w2') {
-                            $maxWidth = $normalMaxWidth * 2;
-                            $maxHeight = $normalMaxHeight;
-                        } else if ($projectSize == 'h2') {
-                            $maxWidth = $normalMaxWidth;
-                            $maxHeight = $normalMaxHeight * 2;
-                        } else {
-                            $maxWidth = $normalMaxWidth * 2;
-                            $maxHeight = $normalMaxHeight * 2;
-                        }
-                    } else {
-                        $maxWidth = $normalMaxWidth;
-                        $maxHeight = $normalMaxHeight;
-                    }
-
-                    switch($uploadFileType){
-
-                        case 'image/png':
-                            $image_create = "imagecreatefrompng";
-                            $image = "imagepng";
-                            break;
-
-                        case 'image/jpeg':
-                            $image_create = "imagecreatefromjpeg";
-                            $image = "imagejpeg";
-                            break;
-
-                        default:
-                            return false;
-                            break;
-                    }
-
-                    $newImage = imagecreatetruecolor($maxWidth, $maxHeight);
-                    $src_img = $image_create($path);
-
-                    if ($uploadFileType === 'image/png') {
-                        imagealphablending($newImage, false);
-                        imagesavealpha($newImage, true);
-                        $transparent = imagecolorallocatealpha($newImage, 255, 255, 255, 127);
-                        imagefilledrectangle($newImage, 0, 0, $newWidth, $newHeight, $transparent);
-                    }
-
-                    $newWidth = $height * $maxWidth / $maxHeight;
-                    $newHeight = $width * $maxHeight / $maxWidth;
-
-                    if ($newWidth > $width){
-                        $h_point = (($height - $newHeight) / 2);
-                        imagecopyresampled($newImage, $src_img, 0, 0, 0, $h_point, $maxWidth, $maxHeight, $width, $newHeight);
-                    } else {
-                        $w_point = (($width - $newWidth) / 2);
-                        imagecopyresampled($newImage, $src_img, 0, 0, $w_point, 0, $maxWidth, $maxHeight, $newWidth, $height);
-                    }
-
-                    if ($uploadFileType === 'image/jpeg') {
-                        imageinterlace($newImage, true);
-                    }
-
-                    $image($newImage, $path, $quality);
-
-                    if($newImage)imagedestroy($newImage);
-                    if($src_img)imagedestroy($src_img);
-
-                }
-
-            }
-
             if ($uploadFileSize < $this->get('settings')['cover']['max_weight'] * 1000) {
 
-                $normalMaxWidth = $this->get('settings')['cover']['max_width'];
-                $normalMaxHeight = $this->get('settings')['cover']['max_height'];
-                $fullPath = "images/upload/$uploadFileName";
-                $big = array('w2', 'h2', 'w2 h2');
-                $isBig = in_array($projectSize, $big);
+                $baseQuality = $this->get('settings')['cover']['optimization'];
 
                 switch($uploadFileType){
                     case 'image/png':
-                        $quality = ($this->get('settings')['cover']['optimization'] - 100) / 11.111111;
+                        $quality = ($baseQuality - 100) / 11.111111;
                         $quality = round(abs($quality));
+                        $etension = '.png';
                         break;
                     case 'image/jpeg':
-                        $quality = $this->get('settings')['cover']['optimization'];
+                        $quality = $baseQuality;
+                        $etension = '.jpg';
                         break;
                     default:
                         return false;
                         break;
                 }
 
+                $basePath = "images/upload/$projectName" . $etension;
+                $basePathWebp = "images/upload/$projectName" . ".webp";
+                $fullPath = __DIR__ . '/' . $basePath;
+                $newFullPath = __DIR__ . '/' . $basePathWebp;
+                $newfile->moveTo($fullPath);
+
+                $projectPath['small'] = $basePath;
+
+                $normalMaxWidth = $this->get('settings')['cover']['max_width'];
+                $normalMaxHeight = $this->get('settings')['cover']['max_height'];
+                $big = array('w2', 'h2', 'w2 h2');
+                $isBig = in_array($projectSize, $big);
+                $image = new \Gumlet\ImageResize($fullPath);
+
+                //$isWEbP = strpos($_SERVER['HTTP_ACCEPT'], 'image/webp' ) !== false;
+                $webpEnabled = false;
+
                 if ($isBig) {
 
                     if ($projectSize == 'w2') {
-                        $newPath = "images/upload/big/w2/$uploadFileName";
+                        $newBasePath = "images/upload/big/w2/$projectName" . '-w2' . $etension;
+                        $newBasePathWebp = "images/upload/big/w2/$projectName" . "-w2.webp";
+                        $maxWidth = $normalMaxWidth * 2;
+                        $maxHeight = $normalMaxHeight;
                     } else if ($projectSize == 'h2') {
-                        $newPath = "images/upload/big/h2/$uploadFileName";
+                        $newBasePath = "images/upload/big/h2/$projectName" . '-h2' . $etension;
+                        $newBasePathWebp = "images/upload/big/h2/$projectName" . "-h2.webp";
+                        $maxWidth = $normalMaxWidth;
+                        $maxHeight = $normalMaxHeight * 2;
                     } else {
-                        $newPath = "images/upload/big/w2h2/$uploadFileName";
+                        $newBasePath = "images/upload/big/w2h2/$projectName" . '-w2h2' . $etension;
+                        $newBasePathWebp = "images/upload/big/w2h2/$projectName" . "-w2h2.webp";
+                        $maxWidth = $normalMaxWidth * 2;
+                        $maxHeight = $normalMaxHeight * 2;
                     }
 
-                   // resizeImg($newPath, $newPath, $uploadFileType, $projectSize, $normalMaxWidth, $normalMaxHeight, $quality, true);
+                    $newPath = __DIR__ . '/' . $newBasePath;
+                    $newPathWebp =  __DIR__ . '/' . $newBasePathWebp;
+
+                    $projectPath += ["big" => $newBasePath];
+
+                    $image
+                        ->crop($maxWidth, $maxHeight)
+                        ->save($newPath, null, $quality)
+                        ;
+
+                    if ($webpEnabled) {
+                        $image
+                            ->crop($maxWidth, $maxHeight)
+                            ->save($newPathWebp, IMAGETYPE_WEBP, $quality)
+                            ;
+                    }
 
                 }
 
-                resizeImg($fullPath, $newfile, $uploadFileType, $projectSize, $normalMaxWidth, $normalMaxHeight, $quality, false);
+                $image
+                    ->crop($normalMaxWidth, $normalMaxHeight)
+                    ->save($fullPath, null, $quality)
+                    ;
+
+                if ($webpEnabled) {
+                    $image
+                        ->crop($normalMaxWidth, $normalMaxHeight)
+                        ->save($newFullPath, IMAGETYPE_WEBP, $quality)
+                        ;
+                }
 
             } else {
 
@@ -586,7 +566,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
             $add_value->execute(array(
                 "orderid" => $projectOrder,
-                "cover" => $isBig ? $newPath : $fullPath,
+                "cover" => json_encode($projectPath),
                 "title" => $projectName,
                 "description" => $projectDescription,
                 "url" => $projectUrl,
@@ -616,23 +596,23 @@ $app->post('/edit/project/{timestamp}', function ($request, $response, $args) {
     $projectDescription = $request->getParam('projectdesc');
     $projectSize = $request->getParam('projectsize');
     $projectOrder = $request->getParam('projectorder');
-    $projectCover = $request->getUploadedFiles();
+    //$projectCover = $request->getUploadedFiles();
     $new_tags = json_encode($projectTags);
 
-    $projectCoverName = $projectCover['newfile']->getClientFilename();
+    //$projectCoverName = $projectCover['newfile']->getClientFilename();
 
-    if ($projectSize == 'normal') {
+    /*    if ($projectSize == 'normal') {
         $path = "images/upload/$projectCoverName";
     } else {
         $path = "images/upload/big/$projectCoverName";
-    }
+    }*/
 
-    if (!empty($file['newfile'])) {
+    /*   if (!empty($file['newfile'])) {
         $newfile = $file['newfile'];
         $newfile->moveTo($path);
-    }
+    }*/
 
-    $update_value = "UPDATE projects SET orderid='$projectOrder', cover='$path', title='$projectName', description='$projectDescription', url='$projectUrl', tags='$new_tags', size='$projectSize' WHERE timestamp='$actual_timestamp'";
+    $update_value = "UPDATE projects SET orderid='$projectOrder', title='$projectName', description='$projectDescription', url='$projectUrl', tags='$new_tags', size='$projectSize' WHERE timestamp='$actual_timestamp'";
     $update_value_init = $conn->prepare($update_value);
     $update_value_init->execute();
 

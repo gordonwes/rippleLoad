@@ -13,8 +13,6 @@ $pageDesc = 'A collection of all my projects, carefully crafted';
 
         <?php include_once 'fragments/head.php'; ?>
 
-        <?= $media_block; ?>
-
     </head>  
 
     <body>

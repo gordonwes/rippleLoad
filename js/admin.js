@@ -208,7 +208,9 @@ domReady(function () {
                 });
 
                 inputFile.removeAttribute('required');
-                showImageInput(inputFile, cover);
+
+                ultimateCover = JSON.parse(cover);
+                showImageInput(inputFile, ultimateCover['small']);
 
                 updateTrigger.value = 'UPDATE PROJECT';
 
@@ -264,6 +266,8 @@ domReady(function () {
             function sendNewOrderProjects(e) {
                 e.preventDefault();
                 triggerChangeOrder.style.display = 'none';
+                var updatedProjectOrder;
+
                 forEach(parentListedProject.children, function (index, elem) {
 
                     var timestampProject = elem.querySelector('[name="timestamp_project"]').value;
@@ -289,11 +293,15 @@ domReady(function () {
                     requestOrder.setRequestHeader("Content-type", 'application/json');
                     requestOrder.send(JSON.stringify(updatedValueProject));
 
+                    updatedProjectOrder = index; 
+
                 });
 
-                setTimeout(function() {
-                    location.reload();
-                }, 100);
+                if (updatedProjectOrder + 1 == parentListedProject.children.length) {
+                    setTimeout(function() {
+                        location.reload();                        
+                    }, 100);
+                };
 
             }
 

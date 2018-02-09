@@ -77,6 +77,10 @@
         background: linear-gradient(to left, <?= $mainColor ?> 55%, rgba(255,255,255,0) 100%);
     }
 
+    <?php if (isset($media_block)) {
+    echo $media_block;
+} ?>
+
 </style>
 
 <script type="application/ld+json">
