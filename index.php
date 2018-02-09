@@ -457,6 +457,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
     if (!empty($projectCover['newfile'])) {
 
+        ini_set('memory_limit', '256M');
         $newfile = $projectCover['newfile'];
 
         if ($newfile->getError() === UPLOAD_ERR_OK) {
