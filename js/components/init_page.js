@@ -96,83 +96,10 @@ function initPages(page) {
             }
         }
 
-        function initMontain() {
-
-            var mountainCanvas = document.getElementById('canvas'),
-                mountainWidth = 400,
-                mountainHeight = 200,
-                mountainColors = ['#05668d', '#028090', '#00a896', '#02c39a'],
-                SHIFT_RATIO = 0.05;
-
-            paper.install(window);
-
-            function drawMontain() {
-                var nb = Math.floor(Math.random() * 3 + 4);
-                var _alts = [];
-                for (i = 0; i < nb; i++) {
-                    _alts.push(Math.random() * mountainHeight * 0.75 + mountainHeight * 0.25);
-                }
-                _alts.sort(function(a, b) {
-                    return a > b;
-                });
-                var altitudes = [];
-                for (i = 0; i < nb; i += 2) {
-                    altitudes.push(_alts[i]);
-                }
-                for (i = nb - 1; i >= 0; i-=2) {
-                    altitudes.push(_alts[i]);
-                }
-                var mountains = [];
-                var gap = mountainWidth / (nb + 3);
-                for (i = 0; i < nb; i++) {
-                    var path = new Path();
-                    var aX = (i + 1 - Math.random() / 2) * gap;
-                    var aY = mountainHeight;
-                    var bX = (i + 2) * gap;
-                    var bY = mountainHeight - altitudes[i];
-                    var cX = (i + 3 - Math.random() / 2) * gap;
-                    var cY = mountainHeight;
-                    path.fillColor = mountainColors[Math.floor(Math.random() * mountainColors.length)];;
-                    path.opacity = 0.4;
-                    path.add(new Point(aX, aY));
-                    if (Math.random() > 0.5) {
-                        var sX = Math.random() * (bX - aX) / 2 + aX;
-                        var sY = (bY - aY) * (sX - aX) / (bX - aX) + aY;
-                        var shiftX = Math.random() * altitudes[i] * SHIFT_RATIO;
-                        var shiftY = Math.random() * altitudes[i] * SHIFT_RATIO;
-                        path.add(new Point(sX - shiftX, sY + shiftY));
-                        path.add(new Point(sX, sY));
-                    }
-                    path.add(new Point(bX, bY));
-                    if (Math.random() > 0.5) {
-                        var sX = Math.random() * (cX - bX) / 2 + bX;
-                        var sY = (cY - bY) * (sX - bX) / (cX - bX) + bY;
-                        var shiftX = Math.random() * altitudes[i] * SHIFT_RATIO;
-                        var shiftY = Math.random() * altitudes[i] * SHIFT_RATIO;
-                        path.add(new Point(sX - shiftX, sY + shiftY));
-                        path.add(new Point(sX, sY));
-                    }
-                    path.add(new Point(cX, cY));
-                    mountains.push(path);
-                }
-                view.onFrame = function(event) {};
-            }
-
-            canvas.width = mountainWidth;
-            canvas.height = mountainHeight;
-            paper.setup(mountainCanvas);
-            drawMontain();
-
-        }
-
-
-
-
         function initAbout() {
             setInitialMessage();
             initMovingHand();
             fadeInAbout();
-            //initMontain();
             moreButton.addEventListener('click', function(e) {
                 showMoreContent(e);
             });

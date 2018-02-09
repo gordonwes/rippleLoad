@@ -259,13 +259,13 @@ domReady(function () {
                 triggerChangeOrder.style.display = 'inline-block';
             }
 
-            listProjects.on('layoutComplete', orderProjects);
             listProjects.on('dragItemPositioned', orderProjects);
 
             function sendNewOrderProjects(e) {
                 e.preventDefault();
                 triggerChangeOrder.style.display = 'none';
                 forEach(parentListedProject.children, function (index, elem) {
+
                     var timestampProject = elem.querySelector('[name="timestamp_project"]').value;
 
                     var requestOrder = new XMLHttpRequest();
@@ -288,8 +288,13 @@ domReady(function () {
                     requestOrder.open('POST', baseUrl + '/update/project', true);
                     requestOrder.setRequestHeader("Content-type", 'application/json');
                     requestOrder.send(JSON.stringify(updatedValueProject));
+
                 });
-                location.reload();
+
+                setTimeout(function() {
+                    location.reload();
+                }, 100);
+
             }
 
             triggerChangeOrder.addEventListener('click', function(e) {

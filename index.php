@@ -564,10 +564,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
                         $newPath = "images/upload/big/w2h2/$uploadFileName";
                     }
 
-                    //TODO
-                    //copy($fullPath, $newPath);
-
-                    //resizeImg($newPath, $newfileBig, $uploadFileType, $projectSize, $normalMaxWidth, $normalMaxHeight, $quality, true);
+                   // resizeImg($newPath, $newPath, $uploadFileType, $projectSize, $normalMaxWidth, $normalMaxHeight, $quality, true);
 
                 }
 
