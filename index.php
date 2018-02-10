@@ -177,12 +177,12 @@ $container['projectMediaBlock'] = function ($c) {
 
         $urlCover = json_decode($cover['cover']);
 
-        $mediaQuerySmall .= '#project-' . $num_project . '>.container_img { background-image:url(' . $urlCover->small . '); }';
+        $mediaQuerySmall .= '#project-' . $num_project . '>.container_img { background-image:url("' . $urlCover->small . '"); }';
 
-        if ($urlCover->big) {
-            $mediaQueryLarge .= '#project-' . $num_project . '>.container_img { background-image:url(' . $urlCover->big . '); }';
+        if (isset($urlCover->big)) {
+            $mediaQueryLarge .= '#project-' . $num_project . '>.container_img { background-image:url("' . $urlCover->big . '"); }';
         } else {
-            $mediaQueryLarge .= '#project-' . $num_project . '>.container_img { background-image:url(' . $urlCover->small . '); }';
+            $mediaQueryLarge .= '#project-' . $num_project . '>.container_img { background-image:url("' . $urlCover->small . '"); }';
         }
 
     }
@@ -448,7 +448,8 @@ $app->post('/upload/project', function ($request, $response, $args) {
     $conn = $this->get("db");
 
     $projectOrder = $request->getParam('projectorder');
-    $projectName = $request->getParam('projectname');
+    $projectNameUn = $request->getParam('projectname');
+    $projectName = preg_replace('/\s+/', '', $projectNameUn);
     $projectUrl = $request->getParam('projecturl');
     $projectTags = $request->getParam('projecttags');
     $projectDescription = $request->getParam('projectdesc');

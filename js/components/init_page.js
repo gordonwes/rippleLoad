@@ -159,9 +159,10 @@ function initPages(page) {
             function setAnimationElem() {
 
                 var projectTop = elem.getBoundingClientRect().top,
-                    heightProject = elem.offsetHeight;
+                    heightProject = elem.offsetHeight,
+                    frationShow = 0.2;
 
-                if (projectTop - docHeight < -(heightProject * 0.33) && hiddenProject) {
+                if (projectTop - docHeight < -(heightProject * frationShow) && hiddenProject) {
                     var animProject = anime({
                         targets: elem,
                         opacity: {
