@@ -159,10 +159,9 @@ function initPages(page) {
             function setAnimationElem() {
 
                 var projectTop = elem.getBoundingClientRect().top,
-                    heightProject = elem.offsetHeight,
-                    frationShow = 0.2;
+                    tiggerShowPrj = -30;
 
-                if (projectTop - docHeight < -(heightProject * frationShow) && hiddenProject) {
+                if (projectTop - docHeight < tiggerShowPrj && hiddenProject) {
                     var animProject = anime({
                         targets: elem,
                         opacity: {
@@ -170,16 +169,18 @@ function initPages(page) {
                             duration: 350,
                             easing: 'easeInOutQuad'
                         },
-                        translateY: { 
+                        translateY: {
                             value: ['1.5rem', '0'],
                             duration: 500,
                             easing: 'easeInOutQuad'
                         },
                         begin: function(anim) {
                             hiddenProject = false;
+                        },
+                        complete: function() {
+                            page.removeEventListener('scroll', requestTickProject);
                         }
                     });
-
                 }
 
                 tickProject = false;
@@ -193,7 +194,13 @@ function initPages(page) {
                 }
             }
 
-            setAnimationElem();
+            if (docWidth > 500) {
+                istancePackery.on('layoutComplete', function(laidOutItems) {
+                    setAnimationElem();
+                });
+            } else {
+                setAnimationElem();
+            }
             page.addEventListener('scroll', requestTickProject);
 
         }

@@ -2,7 +2,7 @@ var colorChange = document.getElementById("color_change"),
     ctx = colorChange.getContext("2d"),
     currentColor, nextColor, indexColor, fillAnimation;
 
-var minCoverDuration = 750;
+var minCoverDuration = 650;
 
 var colorPicker = (function() {
 
@@ -57,7 +57,7 @@ function handleEvent(e) {
         targets: pageFill,
         r: targetR,
         duration: animDuration,
-        easing: "easeOutQuart",
+        easing: "easeInOutCirc",
         begin: function(){
             animate.play();
             rippleRunning = true;

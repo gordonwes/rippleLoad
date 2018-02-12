@@ -7,7 +7,7 @@ function initBarba() {
 
     var exitDuration = 150,
         introDuration = 400,
-        delayIntro = 200,
+        delayIntro = 250,
         easing = 'easeInOutQuad';
 
     var MovePage = Barba.BaseTransition.extend({
