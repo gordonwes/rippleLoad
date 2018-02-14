@@ -102,7 +102,7 @@ function initPages(page) {
             fadeInAbout();
             moreButton.addEventListener('click', function(e) {
                 showMoreContent(e);
-            });
+            }, false);
         }
 
         initAbout();
@@ -129,6 +129,7 @@ function initPages(page) {
                 });
 
                 istancePackery.layout();
+                //rippleHover(elems);
             }
 
             loadCover(elems);
@@ -201,7 +202,74 @@ function initPages(page) {
             } else {
                 setAnimationElem();
             }
-            page.addEventListener('scroll', requestTickProject);
+            
+            page.addEventListener('scroll', requestTickProject, false);
+
+        }
+
+        function rippleHover(elems) {
+
+            forEach(elems, function (index, elem) {
+
+                var parentRipple = elem.querySelector('.description');
+
+                if (parentRipple) {
+
+                    var ripple = parentRipple.querySelector('.ripple-hover'),
+                        maxSize = parseInt(Math.sqrt(Math.pow(parentRipple.offsetHeight, 2) + Math.pow(parentRipple.offsetWidth, 2))),
+                        mouseEnter = false;
+
+                    elem.addEventListener('mouseenter', function(e) {
+                        
+                        console.log(elem.getBoundingClientRect().left)
+                        
+                        
+                        if (!mouseEnter) {
+                            var parentOffset = elem.getBoundingClientRect(),
+                                relX = e.pageX - parentOffset.left - maxSize,
+                                relY = e.pageY - ((parentOffset.top + window.scrollY) - maxSize);
+                            ripple.style.top = -relY + 'px';
+                            ripple.style.left = -relX + 'px';
+                            ripple.style.width = maxSize * 2 + 'px';
+                            ripple.style.height = maxSize * 2 + 'px';
+
+                            var rippleProjectIn = anime({
+                                targets: ripple,
+                                scale: ['0', '1'],
+                                duration: 600,
+                                easing: 'easeInOutQuad',
+                                begin: function() {
+                                    mouseEnter = true;
+                                }
+                            });
+
+                        }
+                    }, false);
+
+                    elem.addEventListener('mouseleave', function(e) {
+                        if (mouseEnter) {
+                            var parentOffset = elem.getBoundingClientRect(),
+                                relX = e.pageX - parentOffset.left - (maxSize / 2),
+                                relY = e.pageY - ((parentOffset.top + window.scrollY) - (maxSize / 2));
+                            ripple.style.top = -relY + 'px';
+                            ripple.style.left = -relX + 'px';
+
+                            var rippleProjectOut = anime({
+                                targets: ripple,
+                                scale: ['1', '0'],
+                                duration: 400,
+                                easing: 'easeInOutQuad',
+                                begin: function() {
+                                    mouseEnter = false;
+                                }
+                            });
+
+                        }
+                    }, false);
+
+                }
+
+            });
 
         }
 
@@ -229,7 +297,7 @@ function initPages(page) {
                         sortProjects(filterValue);
                     }
 
-                });
+                }, false);
 
             });
 
@@ -387,8 +455,8 @@ function initPages(page) {
             }
 
             setMoreFilterInit();
-            window.addEventListener('resize', setMoreFilterInit);
-            containerScrollFilter.addEventListener('scroll', setMoreFilterInit);
+            window.addEventListener('resize', setMoreFilterInit, false);
+            containerScrollFilter.addEventListener('scroll', setMoreFilterInit, false);
 
             function triggerFixedFilter() {
 
@@ -437,7 +505,7 @@ function initPages(page) {
             }
 
             triggerFixedFilter();
-            page.addEventListener('scroll', requestTickFixedFilter);
+            page.addEventListener('scroll', requestTickFixedFilter, false);
 
         }
 

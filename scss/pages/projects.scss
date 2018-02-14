@@ -209,6 +209,14 @@
                             opacity: 0;
                             visibility: hidden;
                             transition: opacity 0.3s, visibility 0s 0.3s;
+                                .ripple-hover{
+                                    position: absolute;
+                                    height: 0;
+                                    width: 0;
+                                    background-color: #999;
+                                    border-radius: 100%;
+                                    
+                                 }
                         }
                         .project_tag{
                             margin-top: 1rem;

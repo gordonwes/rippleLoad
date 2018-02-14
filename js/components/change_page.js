@@ -66,7 +66,7 @@ function initBarba() {
             forEach(document.querySelectorAll('a.project_link, header ul a'), function (index, elem) {
                 elem.addEventListener('click', function(e) {
                     e.preventDefault();
-                });
+                }, false);
             });
             return false;
         }

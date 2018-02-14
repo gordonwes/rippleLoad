@@ -95,7 +95,7 @@ function setMenuVoice(triggerEvent) {
         if (elem.getAttribute('href') == window.location.href && !elem.classList.contains('no-barba')) {
             elem.addEventListener('click', function(e) {
                 e.preventDefault();
-            });
+            }, false);
         }
     });
 
@@ -110,6 +110,7 @@ function loadAnalytics() {
     var analyticsScript = document.createElement("script");
     analyticsScript.src = baseUrl + '/js/build/analytics' + (isDev ? '.js' : '.min.js');
     document.body.appendChild(analyticsScript);
+    window.removeEventListener("load", loadAnalytics, false);
 }
 
 ////// scroll to top //////////////
