@@ -119,15 +119,9 @@ $container['projectBlock'] = function ($c) {
         $tags = $project['tags'];
         $size = $project['size'];
         $ref_tags = json_decode($tags);
-        
-        if (strlen($desc) > 0) {
-            $img_class = ' with_desc';
-        } else {
-            $img_class = '';
-        }
 
         $projectsBlock = '<article class="project ' . $size . '" id="project-' . $num_project . '" itemscope itemtype="http://schema.org/WebSite">
-                                <div class="container_img' . $img_class . '"></div>
+                                <div class="container_img"></div>
                                 <div class="container_txt">
                                 <h2 itemprop="name">' . $title . '</h2>';
         if (isset($desc) && !empty($desc)) {

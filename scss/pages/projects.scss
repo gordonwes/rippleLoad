@@ -136,10 +136,10 @@
                     }
                     &.show_it{
                         transform: none;
-                        transition: transform 0.4s ease-in-out;
+                        transition: transform 0.6s cubic-bezier(0.55, 0.085, 0, 0.99) !important;
                     }
                     &.hide_it{
-                        transition: transform 0.3s ease-in-out;
+                        transition: transform 0.4s cubic-bezier(0.55, 0.085, 0, 0.99);
                     }
                 }
             }
@@ -177,7 +177,7 @@
                     background-size: cover;
                     background-repeat: no-repeat;
                     background-position: center;
-                    transition: transform 0.3s, filter 0s;
+                    transition: transform 0.3s;
                     transform: none;
                 }
                 .container_txt{
@@ -282,10 +282,7 @@
             &:hover{
                 .container_img{
                     transform: scale3d(1.06,1.06,1.06);
-                    transition: transform 0.4s ease-in-out, filter 0.3s 0.2s;
-                    &.with_desc{
-                        filter: blur(3px);
-                    }
+                    transition: transform 0.4s ease-in-out;
                 }
                 .container_txt{
                     transition: transform 0.4s ease-in-out;

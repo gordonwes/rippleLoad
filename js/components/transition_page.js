@@ -30,7 +30,7 @@ function calcPageFillRadius(x, y) {
     var l = Math.max(x - 0, docWidth - x);
     var h = Math.max(y - 0, docHeight - y);
 
-    return Math.sqrt(Math.pow(l, 2) + Math.pow(h, 2));
+    return Math.sqrt(Math.pow(l, 2) + Math.pow(h, 2)) + 10;
 
 }
 
@@ -61,11 +61,6 @@ function handleEvent(e) {
         begin: function(){
             animate.play();
             rippleRunning = true;
-        },
-        run: function(){
-            if (animate.paused) {
-                animate.restart();
-            }
         },
         complete: function(){
             firstColor = pageFill.fill;
@@ -106,6 +101,7 @@ var animate = anime({
     update: function(anim) {
 
         ctx.fillStyle = firstColor;
+
         ctx.fillRect(0, 0, docWidth, docHeight);
 
         if (fillAnimation != null) {

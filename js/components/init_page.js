@@ -129,7 +129,6 @@ function initPages(page) {
                 });
 
                 istancePackery.layout();
-                //rippleHover(elems);
             }
 
             loadCover(elems);
@@ -151,7 +150,8 @@ function initPages(page) {
         function showProjectOnScroll(elem) {
 
             var hiddenProject = true,
-                tickProject = false;
+                tickProject = false,
+                tiggerShowPrj = -30;
 
             if (docWidth > 500) {
                 istancePackery.layout();
@@ -159,8 +159,7 @@ function initPages(page) {
 
             function setAnimationElem() {
 
-                var projectTop = elem.getBoundingClientRect().top,
-                    tiggerShowPrj = -30;
+                var projectTop = elem.getBoundingClientRect().top;
 
                 if (projectTop - docHeight < tiggerShowPrj && hiddenProject) {
                     var animProject = anime({
@@ -175,11 +174,11 @@ function initPages(page) {
                             duration: 500,
                             easing: 'easeInOutQuad'
                         },
-                        begin: function(anim) {
+                        begin: function() {
                             hiddenProject = false;
                         },
                         complete: function() {
-                            page.removeEventListener('scroll', requestTickProject);
+                            page.removeEventListener('scroll', requestTickProject, false);
                         }
                     });
                 }
@@ -202,74 +201,8 @@ function initPages(page) {
             } else {
                 setAnimationElem();
             }
-            
+
             page.addEventListener('scroll', requestTickProject, false);
-
-        }
-
-        function rippleHover(elems) {
-
-            forEach(elems, function (index, elem) {
-
-                var parentRipple = elem.querySelector('.description');
-
-                if (parentRipple) {
-
-                    var ripple = parentRipple.querySelector('.ripple-hover'),
-                        maxSize = parseInt(Math.sqrt(Math.pow(parentRipple.offsetHeight, 2) + Math.pow(parentRipple.offsetWidth, 2))),
-                        mouseEnter = false;
-
-                    elem.addEventListener('mouseenter', function(e) {
-                        
-                        console.log(elem.getBoundingClientRect().left)
-                        
-                        
-                        if (!mouseEnter) {
-                            var parentOffset = elem.getBoundingClientRect(),
-                                relX = e.pageX - parentOffset.left - maxSize,
-                                relY = e.pageY - ((parentOffset.top + window.scrollY) - maxSize);
-                            ripple.style.top = -relY + 'px';
-                            ripple.style.left = -relX + 'px';
-                            ripple.style.width = maxSize * 2 + 'px';
-                            ripple.style.height = maxSize * 2 + 'px';
-
-                            var rippleProjectIn = anime({
-                                targets: ripple,
-                                scale: ['0', '1'],
-                                duration: 600,
-                                easing: 'easeInOutQuad',
-                                begin: function() {
-                                    mouseEnter = true;
-                                }
-                            });
-
-                        }
-                    }, false);
-
-                    elem.addEventListener('mouseleave', function(e) {
-                        if (mouseEnter) {
-                            var parentOffset = elem.getBoundingClientRect(),
-                                relX = e.pageX - parentOffset.left - (maxSize / 2),
-                                relY = e.pageY - ((parentOffset.top + window.scrollY) - (maxSize / 2));
-                            ripple.style.top = -relY + 'px';
-                            ripple.style.left = -relX + 'px';
-
-                            var rippleProjectOut = anime({
-                                targets: ripple,
-                                scale: ['1', '0'],
-                                duration: 400,
-                                easing: 'easeInOutQuad',
-                                begin: function() {
-                                    mouseEnter = false;
-                                }
-                            });
-
-                        }
-                    }, false);
-
-                }
-
-            });
 
         }
 
@@ -283,18 +216,33 @@ function initPages(page) {
 
                     var filterValue = elem.getAttribute('data-filter');
 
-                    if (!elem.classList.contains('is_checked')) {
-                        var parentElem = elem.parentElement.parentElement,
-                            parentFixed = parentElem.classList.contains('fixed');
+                    function setActiveFilter(elem, parentElem, filterValue) {
                         parentElem.querySelector('.is_checked').classList.remove('is_checked');
                         elem.classList.add('is_checked');
-                        if (parentFixed) {
-                            goTop('.barba-container', 600);
-                        }
-                        if (!parentFixed && page.scrollTop > 5) {
-                            goTop('.barba-container', 80);
-                        }
                         sortProjects(filterValue);
+                    }
+
+                    if (!elem.classList.contains('is_checked')) {
+
+                        var parentElem = elem.parentElement.parentElement,
+                            parentFixed = parentElem.classList.contains('fixed');
+
+                        if (parentFixed) {
+                            goTop('.barba-container', 400);
+                            setTimeout(function() {
+                                setActiveFilter(elem, parentElem, filterValue);
+                            }, 400);
+                        } else {
+                            if (page.scrollTop > 5) {
+                                goTop('.barba-container', 100);
+                                setTimeout(function() {
+                                    setActiveFilter(elem, parentElem, filterValue);
+                                }, 100);
+                            } else {
+                                setActiveFilter(elem, parentElem, filterValue);
+                            }
+                        }
+
                     }
 
                 }, false);
