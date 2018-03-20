@@ -32,7 +32,7 @@ function initPages(page) {
                 scalarY: 20,
                 invertX: false,
                 invertY: false
-            });   
+            });
         }
 
         function fadeInAbout() {
@@ -60,11 +60,11 @@ function initPages(page) {
                         translateY: ['1.5rem', '0'],
                         duration: 400,
                         easing: 'easeInOutQuad',
-                        begin: function() {
+                        begin: function () {
                             moreContent.style.display = 'block';
                             runningMore = true;
                         },
-                        complete: function() {
+                        complete: function () {
                             moreOpen = true;
                             runningMore = false;
                         }
@@ -83,15 +83,15 @@ function initPages(page) {
                         translateY: ['0', '1.5rem'],
                         duration: 300,
                         easing: 'easeInOutQuad',
-                        begin: function() {
+                        begin: function () {
                             runningMore = true;
                         },
-                        complete: function() {
+                        complete: function () {
                             moreOpen = false;
                             moreContent.style.display = 'none';
                             runningMore = false;
                         }
-                    });                 
+                    });
                 }
             }
         }
@@ -100,7 +100,7 @@ function initPages(page) {
             setInitialMessage();
             initMovingHand();
             fadeInAbout();
-            moreButton.addEventListener('click', function(e) {
+            moreButton.addEventListener('click', function (e) {
                 showMoreContent(e);
             }, false);
         }
@@ -131,27 +131,39 @@ function initPages(page) {
                 istancePackery.layout();
             }
 
-            loadCover(elems);
+            forEach(elems, function (index, elem) {
+                showProjectOnScroll(elem, index);
+            });
+
             initFilter();
             detectVisibilityGoTop(backTop);
 
         }
 
-        function loadCover(cover) {
+        function detectCoverLoad(elem, index) {
 
-            var imgLoad = imagesLoaded(cover, {background: '.container_img'});
+            var imgLoad = imagesLoaded(elem, {
+                background: '.container_img'
+            });
 
-            imgLoad.on('progress', function(instance, image) {
-                showProjectOnScroll(image.element.parentElement);
+            imgLoad.on('always', function (instance, image) {
+                elem.classList.add('bkg_loaded');
+                sessionStorage.setItem('img_loaded_' + index, 'true');
             });
 
         }
 
-        function showProjectOnScroll(elem) {
+        function showProjectOnScroll(elem, index) {
 
             var hiddenProject = true,
                 tickProject = false,
-                tiggerShowPrj = -30;
+                tiggerShowPrj = -30,
+                imgLoaded = sessionStorage.getItem('img_loaded_' + index);
+
+            if (imgLoaded) {
+                elem.classList.add('istant_load');
+                elem.classList.add('bkg_loaded');
+            }
 
             if (docWidth > 500) {
                 istancePackery.layout();
@@ -174,10 +186,14 @@ function initPages(page) {
                             duration: 500,
                             easing: 'easeInOutQuad'
                         },
-                        begin: function() {
+                        begin: function () {
+                            elem.classList.add('in_viewport');
                             hiddenProject = false;
                         },
-                        complete: function() {
+                        complete: function () {
+                            if (!imgLoaded) {
+                                detectCoverLoad(elem, index);
+                            }
                             page.removeEventListener('scroll', requestTickProject, false);
                         }
                     });
@@ -194,14 +210,7 @@ function initPages(page) {
                 }
             }
 
-            if (docWidth > 500) {
-                istancePackery.on('layoutComplete', function(laidOutItems) {
-                    setAnimationElem();
-                });
-            } else {
-                setAnimationElem();
-            }
-
+            setAnimationElem();
             page.addEventListener('scroll', requestTickProject, false);
 
         }
@@ -212,7 +221,7 @@ function initPages(page) {
 
                 setCountFilter(elem);
 
-                elem.addEventListener('click', function(e) {
+                elem.addEventListener('click', function (e) {
 
                     var filterValue = elem.getAttribute('data-filter');
 
@@ -229,13 +238,13 @@ function initPages(page) {
 
                         if (parentFixed) {
                             goTop('.barba-container', 400);
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 setActiveFilter(elem, parentElem, filterValue);
                             }, 400);
                         } else {
                             if (page.scrollTop > 5) {
                                 goTop('.barba-container', 100);
-                                setTimeout(function() {
+                                setTimeout(function () {
                                     setActiveFilter(elem, parentElem, filterValue);
                                 }, 100);
                             } else {
@@ -275,10 +284,10 @@ function initPages(page) {
                 opacity: ['1', '0'],
                 duration: 200,
                 easing: 'easeInOutQuad',
-                begin: function() {
+                begin: function () {
                     hideEndList();
                 },
-                complete: function() {
+                complete: function () {
                     initFiltering();
                 }
             });
@@ -302,8 +311,8 @@ function initPages(page) {
 
                 });
 
-                setTimeout(function() {
-                    projectsContainer.style.opacity = '1';    
+                setTimeout(function () {
+                    projectsContainer.style.opacity = '1';
                     showEndList();
                 }, 30);
 
@@ -344,7 +353,7 @@ function initPages(page) {
                 if (elemTop > docHeight) {
                     elem.style.visibility = 'visible';
                 } else {
-                    elem.style.visibility = 'hidden'; 
+                    elem.style.visibility = 'hidden';
                 }
 
             }
@@ -415,8 +424,8 @@ function initPages(page) {
 
                     elem.classList.add('fixed');
 
-                    setTimeout(function() {
-                        elem.classList.add('hide_it'); 
+                    setTimeout(function () {
+                        elem.classList.add('hide_it');
                     }, 20);
 
                     container.style.paddingTop = heightNavFilter + 'px';
@@ -457,7 +466,7 @@ function initPages(page) {
 
         }
 
-        setTimeout(function() {
+        setTimeout(function () {
             initProjects(projects);
             if (isMobile) {
                 filtersMobile(filter);

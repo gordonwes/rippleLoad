@@ -62,6 +62,11 @@ function handleEvent(e) {
             animate.play();
             rippleRunning = true;
         },
+        /*run: function(){
+            if (animate.paused) { 
+                animate.restart(); 
+            } 
+        },*/ 
         complete: function(){
             firstColor = pageFill.fill;
             animate.pause();

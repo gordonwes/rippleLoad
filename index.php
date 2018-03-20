@@ -22,6 +22,8 @@ $app = new Slim\App([
             'time' => 600
         ],
         'cover' => [
+            'thumb_width' => 70,
+            'thumb_height' => 46,
             'max_width' => 450,
             'max_height' => 300,
             'max_weight' => 4,
@@ -118,10 +120,20 @@ $container['projectBlock'] = function ($c) {
         $url = $project['url'];
         $tags = $project['tags'];
         $size = $project['size'];
+        $cover = json_decode($project['cover']);
+        $thumbBig = $cover->thumbBig;
         $ref_tags = json_decode($tags);
+        
+        if (isset($thumbBig)) {
+            $thumb = $thumbBig;
+        } else {
+            $thumb = $cover->thumb;
+        }
 
         $projectsBlock = '<article class="project ' . $size . '" id="project-' . $num_project . '" itemscope itemtype="http://schema.org/WebSite">
-                                <div class="container_img"></div>
+                                <div class="container_img">
+                                    <span style="background-image:url(' . $thumb . ');"></span>
+                                </div>
                                 <div class="container_txt">
                                 <h2 itemprop="name">' . $title . '</h2>';
         if (isset($desc) && !empty($desc)) {
@@ -177,12 +189,12 @@ $container['projectMediaBlock'] = function ($c) {
 
         $urlCover = json_decode($cover['cover']);
 
-        $mediaQuerySmall .= '#project-' . $num_project . '>.container_img { background-image:url("' . $urlCover->small . '"); }';
+        $mediaQuerySmall .= '#project-' . $num_project . '.in_viewport>.container_img { background-image:url("' . $urlCover->small . '"); }';
 
         if (isset($urlCover->big)) {
-            $mediaQueryLarge .= '#project-' . $num_project . '>.container_img { background-image:url("' . $urlCover->big . '"); }';
+            $mediaQueryLarge .= '#project-' . $num_project . '.in_viewport>.container_img { background-image:url("' . $urlCover->big . '"); }';
         } else {
-            $mediaQueryLarge .= '#project-' . $num_project . '>.container_img { background-image:url("' . $urlCover->small . '"); }';
+            $mediaQueryLarge .= '#project-' . $num_project . '.in_viewport>.container_img { background-image:url("' . $urlCover->small . '"); }';
         }
 
     }
@@ -484,73 +496,81 @@ $app->post('/upload/project', function ($request, $response, $args) {
                         return false;
                         break;
                 }
+                
+                $thumbQuality = $quality / 3;
 
                 $basePath = "images/upload/$projectName" . $etension;
-                $basePathWebp = "images/upload/$projectName" . ".webp";
                 $fullPath = __DIR__ . '/' . $basePath;
-                $newFullPath = __DIR__ . '/' . $basePathWebp;
                 $newfile->moveTo($fullPath);
 
                 $projectPath['small'] = $basePath;
+                
+                $baseThumbPath = "images/upload/thumb/$projectName" . '-thumb' . $etension;
+                $fullThumbPath = __DIR__ . '/' . $baseThumbPath;
+                $projectPath += ["thumb" => $baseThumbPath];
 
+                $thumbWidth = $this->get('settings')['cover']['thumb_width'];
+                $thumbHeight = $this->get('settings')['cover']['thumb_height'];
                 $normalMaxWidth = $this->get('settings')['cover']['max_width'];
                 $normalMaxHeight = $this->get('settings')['cover']['max_height'];
                 $big = array('w2', 'h2', 'w2 h2');
                 $isBig = in_array($projectSize, $big);
                 $image = new \Gumlet\ImageResize($fullPath);
 
-                //$isWEbP = strpos($_SERVER['HTTP_ACCEPT'], 'image/webp' ) !== false;
-                $webpEnabled = false;
-
                 if ($isBig) {
 
                     if ($projectSize == 'w2') {
                         $newBasePath = "images/upload/big/w2/$projectName" . '-w2' . $etension;
-                        $newBasePathWebp = "images/upload/big/w2/$projectName" . "-w2.webp";
                         $maxWidth = $normalMaxWidth * 2;
                         $maxHeight = $normalMaxHeight;
+                        
+                        $newBasePathThumb = "images/upload/thumb/big/w2/$projectName" . '-thumb-w2' . $etension;
+                        $maxWidthThumb = $thumbWidth * 2;
+                        $maxHeightThumb = $thumbHeight;
                     } else if ($projectSize == 'h2') {
                         $newBasePath = "images/upload/big/h2/$projectName" . '-h2' . $etension;
-                        $newBasePathWebp = "images/upload/big/h2/$projectName" . "-h2.webp";
                         $maxWidth = $normalMaxWidth;
                         $maxHeight = $normalMaxHeight * 2;
+                        
+                        $newBasePathThumb = "images/upload/thumb/big/h2/$projectName" . '-thumb-h2' . $etension;
+                        $maxWidthThumb = $thumbWidth;
+                        $maxHeightThumb = $thumbHeight * 2;
                     } else {
                         $newBasePath = "images/upload/big/w2h2/$projectName" . '-w2h2' . $etension;
-                        $newBasePathWebp = "images/upload/big/w2h2/$projectName" . "-w2h2.webp";
                         $maxWidth = $normalMaxWidth * 2;
                         $maxHeight = $normalMaxHeight * 2;
+                        
+                        $newBasePathThumb = "images/upload/thumb/big/w2h2/$projectName" . '-thumb-w2h2' . $etension;
+                        $maxWidthThumb = $thumbWidth * 2;
+                        $maxHeightThumb = $thumbHeight * 2;
                     }
 
+                    $newPathThumb = __DIR__ . '/' . $newBasePathThumb;
                     $newPath = __DIR__ . '/' . $newBasePath;
-                    $newPathWebp =  __DIR__ . '/' . $newBasePathWebp;
 
+                    $projectPath += ["thumbBig" => $newBasePathThumb];
                     $projectPath += ["big" => $newBasePath];
 
+                    $image
+                        ->crop($maxWidthThumb, $maxHeightThumb)
+                        ->save($newPathThumb, null, $thumbQuality)
+                        ;
                     $image
                         ->crop($maxWidth, $maxHeight)
                         ->save($newPath, null, $quality)
                         ;
 
-                    if ($webpEnabled) {
-                        $image
-                            ->crop($maxWidth, $maxHeight)
-                            ->save($newPathWebp, IMAGETYPE_WEBP, $quality)
-                            ;
-                    }
-
                 }
+                
+                $image
+                    ->crop($thumbWidth, $thumbHeight)
+                    ->save($fullThumbPath, null, $thumbQuality)
+                    ;
 
                 $image
                     ->crop($normalMaxWidth, $normalMaxHeight)
                     ->save($fullPath, null, $quality)
                     ;
-
-                if ($webpEnabled) {
-                    $image
-                        ->crop($normalMaxWidth, $normalMaxHeight)
-                        ->save($newFullPath, IMAGETYPE_WEBP, $quality)
-                        ;
-                }
 
             } else {
 
