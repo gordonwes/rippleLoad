@@ -4,7 +4,7 @@ var colorChange = document.getElementById("color_change"),
 
 var minCoverDuration = 650;
 
-var colorPicker = (function() {
+var colorPicker = (function () {
 
     forEach(colors, function (index, elem) {
         if (elem === firstColor) {
@@ -13,9 +13,10 @@ var colorPicker = (function() {
     });
 
     function next() {
-        indexColor = indexColor++ < colors.length-1 ? indexColor : 0;
+        indexColor = indexColor++ < colors.length - 1 ? indexColor : 0;
         return colors[indexColor];
     }
+
     function current() {
         return colors[indexColor]
     }
@@ -44,7 +45,7 @@ function handleEvent(e) {
     currentColor = colorPicker.current();
     nextColor = colorPicker.next();
     var targetR = calcPageFillRadius(e.pageX, e.pageY);
-    var animDuration = Math.max(targetR / 2 , minCoverDuration);
+    var animDuration = Math.max(targetR / 2, minCoverDuration);
 
     var pageFill = new Circle({
         x: e.pageX,
@@ -58,16 +59,11 @@ function handleEvent(e) {
         r: targetR,
         duration: animDuration,
         easing: "easeInOutCirc",
-        begin: function(){
+        begin: function () {
             animate.play();
             rippleRunning = true;
         },
-        /*run: function(){
-            if (animate.paused) { 
-                animate.restart(); 
-            } 
-        },*/ 
-        complete: function(){
+        complete: function () {
             firstColor = pageFill.fill;
             animate.pause();
             rippleRunning = false;
@@ -76,20 +72,20 @@ function handleEvent(e) {
 
 }
 
-function extend(a, b){
-    for(var key in b) {
-        if(b.hasOwnProperty(key)) {
+function extend(a, b) {
+    for (var key in b) {
+        if (b.hasOwnProperty(key)) {
             a[key] = b[key];
         }
     }
     return a;
 }
 
-var Circle = function(opts) {
+var Circle = function (opts) {
     extend(this, opts);
 }
 
-Circle.prototype.draw = function() {
+Circle.prototype.draw = function () {
     ctx.globalAlpha = this.opacity || 1;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
@@ -103,14 +99,14 @@ Circle.prototype.draw = function() {
 
 var animate = anime({
     duration: Infinity,
-    update: function(anim) {
+    update: function (anim) {
 
         ctx.fillStyle = firstColor;
 
         ctx.fillRect(0, 0, docWidth, docHeight);
 
         if (fillAnimation != null) {
-            fillAnimation.animatables.forEach(function(animatable) {
+            fillAnimation.animatables.forEach(function (animatable) {
                 animatable.target.draw();
             });
         }
@@ -121,7 +117,7 @@ var animate = anime({
 function resizeCanvas() {
 
     animate.restart();
-    setTimeout(function() {
+    setTimeout(function () {
         animate.pause();
     }, 50);
 

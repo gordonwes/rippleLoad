@@ -179,7 +179,7 @@
                         background-size: cover;
                         background-repeat: no-repeat;
                         background-position: center;
-                        transition: transform 0.3s;
+                        transition: transform 2s;
                         transform: none;
                         overflow: hidden;
                         span {
@@ -305,7 +305,7 @@
                     &:hover {
                         .container_img {
                             transform: scale3d(1.06, 1.06, 1.06);
-                            transition: transform 0.4s ease-in-out;
+                            transition: transform 1s ease-in-out;
                         }
                         .container_txt {
                             transition: transform 0.4s ease-in-out;
