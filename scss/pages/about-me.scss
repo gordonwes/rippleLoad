@@ -4,48 +4,54 @@
 
 .barba-container[data-namespace="about-me"] {
     opacity: 0;
-    .container_intro{
+    .container_intro {
         margin: 3rem 0;
         max-width: 90rem;
-        h1{
+        h1 {
             line-height: 1.4;
-            span:not(.move_it){
-                color: rgba(255,255,255,0.55);
+            span:not(.move_it) {
+                color: rgba(255, 255, 255, 0.55);
             }
-            span, a {
+            span,
+            a {
                 line-height: inherit;
             }
-            .move_it{
+            .move_it {
                 display: inline-block;
                 vertical-align: text-top;
-                img{
+                img {
                     width: 5rem;
                 }
             }
         }
-        p{
+        p {
             font-size: 3rem;
             margin-top: 2rem;
-            a{
+            a {
                 padding-bottom: 0.4rem;
-                &.more{
+                &.more {
                     margin-top: 1rem;
                     display: inline-block;
                 }
             }
-            span{
+            span {
                 font-style: italic;
-                &.more_content{
+                &.more_content {
                     opacity: 0;
                     display: none;
+                    > span {
+                        color: rgba(255, 255, 255, 0.55);
+                        display: block;
+                        margin-top: 1.5rem;
+                    }
                 }
             }
         }
-        &.detail_active{
-            p{
-                a{
-                    &.more{
-                        color: rgba(255,255,255,0.55) !important;
+        &.detail_active {
+            p {
+                a {
+                    &.more {
+                        color: rgba(255, 255, 255, 0.55) !important;
                     }
                 }
             }

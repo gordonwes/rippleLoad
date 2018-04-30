@@ -150,7 +150,7 @@ function initPages(page) {
                 elem.classList.add('bkg_loaded');
                 sessionStorage.setItem('img_loaded_' + index, 'true');
             });
-
+            
         }
 
         function showProjectOnScroll(elem, index) {
@@ -380,8 +380,6 @@ function initPages(page) {
                 moreScrollDx.style.backgroundImage = 'linear-gradient(to left, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
                 moreScrollSx.style.backgroundImage = '-webkit-linear-gradient(right, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
                 moreScrollDx.style.backgroundImage = '-webkit-linear-gradient(left, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
-                moreScrollSx.style.backgroundImage = '-moz-linear-gradient(to right, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
-                moreScrollDx.style.backgroundImage = '-moz-linear-gradient(to left, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
             }
 
             function setMoreFilterInit() {

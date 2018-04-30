@@ -61,6 +61,17 @@ $pageDesc = 'Web developer based in Treviso, Italy';
                                     Ability to create responsive sites, mobile-oriented, with progressive enhancement and accessible from all platforms.
                                     I give a lot of importance to performance and compatibility of technologies in the several cross-browser environments.
                                     I have the ability to use correct heading, alt attributes, meta-tag and Schema markup for a good SEO optimization.
+                                    <span>
+                                    Follow me on 
+                                    <?php $socialCount = 0;
+                                    foreach ($socialLink as $socialName => $socialUrl) { $socialCount++; ?>
+                                        <a class="link hover" href="<?= $socialUrl; ?>" rel="noopener" target="_blank"><?= $socialName; ?></a><?php if (count($socialLink) !== $socialCount) {
+                                            echo ', ';
+                                        } else {
+                                            echo '.';
+                                        }
+                                    } ?>
+                                    </span>
                                 </span>
 
                             </p>

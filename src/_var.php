@@ -24,5 +24,8 @@ for ($i=0; $i<strlen($email); $i++){
 }
 $workplaceName = 'ATK+LAB';
 $workplaceUrl = 'http://atklab.com';
+$socialLink = array(
+    "Linkedin" => "https://it.linkedin.com/in/alberto-gorgonio-04988757"
+);
 $telephoneDetect = 'no';
 $isDev = 'true';
