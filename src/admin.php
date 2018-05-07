@@ -119,7 +119,7 @@ $pageDesc = 'Manage projects and tags like a boss';
                                 <p class="file_big">Img too big! <?= $img_too_big ?>MB's the limit ;)</p>
                                 <?php }  ?>
 
-                            </div> 
+                            </div>
 
                             <?php if (count($visited_user_list) !== 0) { $index_visitor = 0; ?>
                             <div class="list_visited_user">
