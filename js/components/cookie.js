@@ -22,7 +22,16 @@ function setCookie() {
 
     if (!Cookies.get(nameCookie)) {
         infCookie.style.display = "block";
-        buttCookie.addEventListener('click', removeCookieBanner, false);
+        var slideInCookie = anime({
+            targets: infCookie,
+            translateY: ['100%', '0%'],
+            duration: 400,
+            delay: 200,
+            easing: 'easeInOutQuad',
+            begin: function() {
+                buttCookie.addEventListener('click', removeCookieBanner, false);
+            }
+        });
     }
 
 }
