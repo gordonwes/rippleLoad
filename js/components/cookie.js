@@ -7,7 +7,6 @@ function setCookie() {
     var removeCookieBanner = function(e) {
         e.preventDefault();
         Cookies.set(nameCookie, '1', {expires: 9999});
-        infCookie.classList.add('ciao');
         var slideOutCookie = anime({
             targets: infCookie,
             translateY: '100%',
@@ -25,8 +24,8 @@ function setCookie() {
         var slideInCookie = anime({
             targets: infCookie,
             translateY: ['100%', '0%'],
-            duration: 400,
-            delay: 200,
+            duration: 600,
+            delay: 600,
             easing: 'easeInOutQuad',
             begin: function() {
                 buttCookie.addEventListener('click', removeCookieBanner, false);

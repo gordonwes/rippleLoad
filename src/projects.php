@@ -41,7 +41,7 @@ $pageDesc = 'A collection of all my projects, carefully crafted';
                                 </div>
 
                             </div>
-
+                            
                             <div class="container_projects clear">
 
                                 <?php if (count($project_block) == 0) {

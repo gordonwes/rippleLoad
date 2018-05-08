@@ -150,7 +150,7 @@ function initPages(page) {
                 elem.classList.add('bkg_loaded');
                 sessionStorage.setItem('img_loaded_' + index, 'true');
             });
-            
+
         }
 
         function showProjectOnScroll(elem, index) {

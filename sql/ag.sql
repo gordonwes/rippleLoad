@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Creato il: Mag 08, 2018 alle 09:45
+-- Creato il: Mag 08, 2018 alle 16:48
 -- Versione del server: 5.6.38
--- Versione PHP: 7.1.12
+-- Versione PHP: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -53,7 +53,7 @@ CREATE TABLE `ip` (
 CREATE TABLE `projects` (
   `id` int(11) UNSIGNED NOT NULL,
   `orderid` int(11) DEFAULT NULL,
-  `cover` varchar(255) DEFAULT NULL,
+  `cover` varchar(500) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
   `tags` varchar(255) DEFAULT NULL,
@@ -140,19 +140,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT per la tabella `ip`
 --
 ALTER TABLE `ip`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT per la tabella `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT per la tabella `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT per la tabella `visitors`

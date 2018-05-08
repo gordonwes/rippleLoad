@@ -27,7 +27,9 @@ $app = new Slim\App([
             'max_width' => 450,
             'max_height' => 300,
             'max_weight' => 4,
-            'optimization' => 95
+            'optimization' => 90,
+            'retina_opt_factor' => 0.7,
+            'retina_multi' => 2
         ]
     ]
 ]);
@@ -186,15 +188,16 @@ $container['projectMediaBlock'] = function ($c) {
     foreach ($main_query_init as $cover) {
 
         $num_project++;
-
+        
         $urlCover = json_decode($cover['cover']);
+        $block = '#project-' . $num_project . '.in_viewport>.container_img';
 
-        $mediaQuerySmall .= '#project-' . $num_project . '.in_viewport>.container_img { background-image:url("' . $urlCover->small . '"); }';
+        $mediaQuerySmall .= $block . '{ background-image:url("' . $urlCover->small . '"); } @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {' . $block . ' { background-image:url("' . $urlCover->smallRetina . '"); }}';
 
         if (isset($urlCover->big)) {
-            $mediaQueryLarge .= '#project-' . $num_project . '.in_viewport>.container_img { background-image:url("' . $urlCover->big . '"); }';
+            $mediaQueryLarge .= $block . '{ background-image:url("' . $urlCover->big . '"); } @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {' . $block . ' { background-image:url("' . $urlCover->bigRetina . '"); }}';
         } else {
-            $mediaQueryLarge .= '#project-' . $num_project . '.in_viewport>.container_img { background-image:url("' . $urlCover->small . '"); }';
+            $mediaQueryLarge .= $block . '{ background-image:url("' . $urlCover->small . '"); } @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {' . $block . ' { background-image:url("' . $urlCover->smallRetina . '"); }}';
         }
 
     }
@@ -481,15 +484,19 @@ $app->post('/upload/project', function ($request, $response, $args) {
             if ($uploadFileSize < $this->get('settings')['cover']['max_weight'] * 1000) {
 
                 $baseQuality = $this->get('settings')['cover']['optimization'];
+                $retinaQualityFactor = $this->get('settings')['cover']['retina_opt_factor'];
+                $retinaMultiplier = $this->get('settings')['cover']['retina_multi'];
 
                 switch($uploadFileType){
                     case 'image/png':
                         $quality = ($baseQuality - 100) / 11.111111;
                         $quality = round(abs($quality));
+                        $qualityRetina = round(abs($quality / $retinaQualityFactor));
                         $etension = '.png';
                         break;
                     case 'image/jpeg':
                         $quality = $baseQuality;
+                        $qualityRetina = $quality * $retinaQualityFactor;
                         $etension = '.jpg';
                         break;
                     default:
@@ -504,6 +511,11 @@ $app->post('/upload/project', function ($request, $response, $args) {
                 $newfile->moveTo($fullPath);
 
                 $projectPath['small'] = $basePath;
+                
+                $basePathRetina = "images/upload/$projectName" . '-x2' . $etension;
+                $fullPathRetina = __DIR__ . '/' . $basePathRetina;
+                
+                $projectPath += ["smallRetina" => $basePathRetina];
                 
                 $baseThumbPath = "images/upload/thumb/$projectName" . '-thumb' . $etension;
                 $fullThumbPath = __DIR__ . '/' . $baseThumbPath;
@@ -521,6 +533,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
                     if ($projectSize == 'w2') {
                         $newBasePath = "images/upload/big/w2/$projectName" . '-w2' . $etension;
+                        $newBasePathRetina = "images/upload/big/w2/$projectName" . '-w2-x2' . $etension;
                         $maxWidth = $normalMaxWidth * 2;
                         $maxHeight = $normalMaxHeight;
                         
@@ -529,6 +542,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
                         $maxHeightThumb = $thumbHeight;
                     } else if ($projectSize == 'h2') {
                         $newBasePath = "images/upload/big/h2/$projectName" . '-h2' . $etension;
+                        $newBasePathRetina = "images/upload/big/h2/$projectName" . '-h2-x2' . $etension;
                         $maxWidth = $normalMaxWidth;
                         $maxHeight = $normalMaxHeight * 2;
                         
@@ -537,6 +551,7 @@ $app->post('/upload/project', function ($request, $response, $args) {
                         $maxHeightThumb = $thumbHeight * 2;
                     } else {
                         $newBasePath = "images/upload/big/w2h2/$projectName" . '-w2h2' . $etension;
+                        $newBasePathRetina = "images/upload/big/w2h2/$projectName" . '-w2h2-x2' . $etension;
                         $maxWidth = $normalMaxWidth * 2;
                         $maxHeight = $normalMaxHeight * 2;
                         
@@ -547,9 +562,11 @@ $app->post('/upload/project', function ($request, $response, $args) {
 
                     $newPathThumb = __DIR__ . '/' . $newBasePathThumb;
                     $newPath = __DIR__ . '/' . $newBasePath;
+                    $newPathRetina = __DIR__ . '/' . $newBasePathRetina;
 
                     $projectPath += ["thumbBig" => $newBasePathThumb];
                     $projectPath += ["big" => $newBasePath];
+                    $projectPath += ["bigRetina" => $newBasePathRetina];
 
                     $image
                         ->crop($maxWidthThumb, $maxHeightThumb)
@@ -558,6 +575,14 @@ $app->post('/upload/project', function ($request, $response, $args) {
                     $image
                         ->crop($maxWidth, $maxHeight)
                         ->save($newPath, null, $quality)
+                        ;
+
+                    $maxWidthRetina = $maxWidth * $retinaMultiplier;
+                    $maxHeightRetina = $maxHeight * $retinaMultiplier;
+                    
+                    $image
+                        ->crop($maxWidthRetina, $maxHeightRetina)
+                        ->save($newPathRetina, null, $qualityRetina)
                         ;
 
                 }
@@ -570,6 +595,14 @@ $app->post('/upload/project', function ($request, $response, $args) {
                 $image
                     ->crop($normalMaxWidth, $normalMaxHeight)
                     ->save($fullPath, null, $quality)
+                    ;
+                
+                $normalMaxWidthRetina = $normalMaxWidth * $retinaMultiplier;
+                $normalMaxHeightRetina = $normalMaxHeight * $retinaMultiplier;
+                
+                $image
+                    ->crop($normalMaxWidthRetina, $normalMaxHeightRetina)
+                    ->save($fullPathRetina, null, $qualityRetina)
                     ;
 
             } else {
