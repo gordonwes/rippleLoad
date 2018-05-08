@@ -28,7 +28,7 @@ $app = new Slim\App([
             'max_height' => 300,
             'max_weight' => 4,
             'optimization' => 90,
-            'retina_opt_factor' => 0.7,
+            'retina_opt_factor' => 0.8,
             'retina_multi' => 2
         ]
     ]

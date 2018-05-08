@@ -170,7 +170,6 @@ domReady(function () {
                             updateFormProject(orderProject, titleUpdateProject, descUpdateProject, urlUpdateProject, tagsUpdateProject, sizeUpdateProject, coverUpdateProject, timestampProject);
                         }
                     }
-
                     request.open('GET', baseUrl + '/get/project/' + timestampProject, true);
                     request.responseType = 'json';
                     request.send();
