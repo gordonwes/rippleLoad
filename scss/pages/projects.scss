@@ -43,7 +43,7 @@
                         cursor: pointer;
                         outline: none;
                         font-family: $font;
-                        &:selection {
+                        &::selection {
                             color: #fff;
                             background: transparent;
                         }
@@ -179,7 +179,7 @@
                         background-size: cover;
                         background-repeat: no-repeat;
                         background-position: center;
-                        transition: transform 2s;
+                        transition: transform 0.6s cubic-bezier(0.21, 1, 0.84, 1.01);
                         transform: none;
                         overflow: hidden;
                         span {
@@ -232,6 +232,11 @@
                             opacity: 0;
                             visibility: hidden;
                             transition: opacity 0.3s, visibility 0s 0.3s;
+                            p{
+                                &::selection {
+                                    background: rgba(0,0,0,0.15);
+                                }
+                            }
                         }
                         .project_tag {
                             margin-top: 1rem;
@@ -305,12 +310,10 @@
                     }
                     &:hover {
                         .container_img {
-                            transform: scale3d(1.06, 1.06, 1.06);
-                            transition: transform 1s ease-in-out;
+                            transform: scale3d(1.03, 1.03, 1.03);
+                            transition: transform 1s cubic-bezier(0.21, 1, 0.84, 1.01);
                         }
                         .container_txt {
-                            transition: transform 0.4s ease-in-out;
-                            transform: none;
                             h2 {
                                 text-overflow: inherit;
                                 white-space: normal;

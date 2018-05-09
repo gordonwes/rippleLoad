@@ -30,13 +30,7 @@ $pageDesc = 'Web developer based in Treviso, Italy';
 
                             <h1>
 
-                                <?php 
-                                if ($locale !== 'it') {
-                                    echo '<span>Ciao! </span>';
-                                } else {
-                                    echo '<span class="initial_hi">Ciao! </span>';
-                                }
-                                ?>
+                                <span <?php if ($locale == 'it') { ?>class="initial_hi"<?php } ?>>Ciao! </span>
                                 <span class="move_it">
                                     <img src="<?= $baseUrl ?>/images/icons/waving-hand.png" data-depth="0.50" alt="Hi Folks!" aria-hidden="true">
                                 </span>

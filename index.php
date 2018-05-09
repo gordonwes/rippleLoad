@@ -467,7 +467,8 @@ $app->post('/upload/project', function ($request, $response, $args) {
     $projectName = preg_replace('/\s+/', '', $projectNameUn);
     $projectUrl = $request->getParam('projecturl');
     $projectTags = $request->getParam('projecttags');
-    $projectDescription = $request->getParam('projectdesc');
+    $projectDescriptionUn = $request->getParam('projectdesc');
+    $projectDescription = nl2br($projectDescriptionUn);
     $projectSize = $request->getParam('projectsize');
     $projectCover = $request->getUploadedFiles();
 
