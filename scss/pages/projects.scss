@@ -231,6 +231,7 @@
                             border-bottom: 1px solid #dadada;
                             opacity: 0;
                             visibility: hidden;
+                            overflow: auto;
                             transition: opacity 0.3s, visibility 0s 0.3s;
                             p{
                                 &::selection {
