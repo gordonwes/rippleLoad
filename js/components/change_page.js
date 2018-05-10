@@ -92,7 +92,7 @@ function initBarba() {
 
             document.documentElement.style.setProperty('--bkg', nextColor);
             document.querySelector('[name="theme-color"]').setAttribute('content', nextColor);
-
+        
         }
 
     });

@@ -102,7 +102,6 @@ var animate = anime({
     update: function (anim) {
 
         ctx.fillStyle = firstColor;
-
         ctx.fillRect(0, 0, docWidth, docHeight);
 
         if (fillAnimation != null) {

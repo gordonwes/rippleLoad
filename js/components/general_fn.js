@@ -73,18 +73,6 @@ var forEach = function (array, callback, scope) {
     }
 };
 
-////// match word ////////////////
-
-function wordInString(s, word) {
-    return new RegExp('\\b' + word + '\\b', 'i').test(s);
-}
-
-////// capitalize first letter //////////////
-
-function capitalizeFirst(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
 ////// set active menu voice //////////////
 
 function setMenuVoice(triggerEvent) {
@@ -132,7 +120,10 @@ window.addEventListener('popstate', function (e) {
         var linkNow = document.querySelector('[href="' + window.location.href + '"]');
         if (linkNow) {
             setMenuVoice(linkNow);
-            document.documentElement.style.setProperty('--bkg', nextColor);
+            document.documentElement.style.setProperty('--bkg', currentColor);
+            document.querySelector('[name="theme-color"]').setAttribute('content', currentColor);
+            ctx.fillStyle = currentColor;
+            ctx.fill();
         }
     }
 });
