@@ -1,6 +1,6 @@
 # rippleLoad
 ## TODO:
-• change fx project cover -- too bug
+• ripple to project is laggind behiond -- fix it
 ## Setup:
 Install Dependencies:
 ```shell

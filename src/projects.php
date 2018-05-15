@@ -15,7 +15,7 @@ $pageDesc = 'A collection of all my projects, carefully crafted';
 
     </head>  
 
-    <body>
+    <body class="is_loading">
 
         <?php include_once 'fragments/header.php'; ?>
 

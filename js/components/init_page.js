@@ -42,7 +42,12 @@ function initPages(page) {
                     opacity: ['0', '1'],
                     delay: 200,
                     duration: 400,
-                    easing: 'easeInOutQuad'
+                    easing: 'easeInOutQuad',
+                    begin: function() {
+                        if (firstLoad) {
+                            body.classList.remove('is_loading');
+                        }
+                    }
                 });
                 introCalled = true;
             }
@@ -120,6 +125,10 @@ function initPages(page) {
             istancePackery;
 
         function initProjects(elems) {
+
+            if (firstLoad) {
+                body.classList.remove('is_loading');
+            }
 
             if (docWidth > 500) {
                 istancePackery = new Packery(projectsContainer, {
@@ -474,7 +483,7 @@ function initPages(page) {
     }
 
     if ((actualPage === 'about-me' || actualPage === 'projects') && !analyticsInit) {
-        window.addEventListener("load", loadAnalytics, false);
+        window.addEventListener('load', loadAnalytics, false);
     }
 
 }

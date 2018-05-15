@@ -12,6 +12,32 @@ body{
     -webkit-overflow-scrolling: touch;
     font-family: $font;
     color: #fff;
+    &:after{
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 9;
+        width: 3rem;
+        height: 3rem;
+        margin-top: -1.5rem;
+        margin-left: -1.5rem;
+        border-radius: 100%;
+        border: 2px solid rgba(255,255,255,0.5);
+        border-top-color: transparent;
+        animation: spinner .6s linear infinite;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: visibility 0s 0.1s, opacity 0.1s ease-in-out;
+    }
+    &.is_loading{
+        &:after{
+            opacity: 1;
+            visibility: visible;
+            transition: visibility 0s, opacity 0.4s ease-in-out;
+        }
+    }
 }
 
 body, html, main{
@@ -232,6 +258,15 @@ textarea{
     #color_change{
         background-color: var(--bkg);
     }
+    body{
+        &.is_loading{
+            &:after{
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+        }
+    }
     .barba-container[data-namespace="projects"]{
         .wrapper{
             .container_fn_project{
@@ -264,4 +299,8 @@ textarea{
         }
     }
 
+}
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
 }
