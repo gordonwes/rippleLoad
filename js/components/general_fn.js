@@ -2,7 +2,7 @@ var domReady = function (callback) {
     document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
 };
 
-var body = document.body, docHeight, docWidth, html, fontSize, font, introCalled = false, rippleRunning = false, firstLoad = true, analyticsInit = false;
+var docEl = document.documentElement, html = document.getElementsByTagName("html")[0], body = document.body, docHeight, docWidth, fontSize, font, introCalled = false, rippleRunning = false, firstLoad = true, analyticsInit = false;
 
 /////// prevent scroll on touch  //////////////////
 
@@ -51,11 +51,10 @@ function restoreTM() {
 //// general measure //////
 
 function calcSizeViewport() {
-    docHeight = document.documentElement.clientHeight;
-    docWidth = document.documentElement.clientWidth;
-    html = document.getElementsByTagName("html")[0],
-        fontSize = window.getComputedStyle(html),
-        font = parseInt(fontSize.getPropertyValue('font-size'));
+    docHeight = docEl.clientHeight;
+    docWidth = docEl.clientWidth;
+    fontSize = window.getComputedStyle(html),
+    font = parseInt(fontSize.getPropertyValue('font-size'));
 }
 
 calcSizeViewport();
@@ -120,7 +119,7 @@ window.addEventListener('popstate', function (e) {
         var linkNow = document.querySelector('[href="' + window.location.href + '"]');
         if (linkNow) {
             setMenuVoice(linkNow);
-            document.documentElement.style.setProperty('--bkg', currentColor);
+            docEl.style.setProperty('--bkg', currentColor);
             document.querySelector('[name="theme-color"]').setAttribute('content', currentColor);
             ctx.fillStyle = currentColor;
             ctx.fill();

@@ -97,8 +97,12 @@ function initBarba() {
                 setMenuVoice(HTMLElement);
             }
 
-            document.documentElement.style.setProperty('--bkg', nextColor);
+            docEl.style.setProperty('--bkg', nextColor);
             document.querySelector('[name="theme-color"]').setAttribute('content', nextColor);
+
+            if (isMobile && "vibrate" in navigator) {
+                navigator.vibrate(10);
+            }
 
         }
 

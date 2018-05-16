@@ -32,7 +32,7 @@ $pageDesc = 'Web developer based in Treviso, Italy';
 
                                 <span <?php if ($locale == 'it') { ?>class="initial_hi"<?php } ?>>Ciao! </span>
                                 <span class="move_it">
-                                    <img src="<?= $baseUrl ?>/images/icons/waving-hand.png" data-depth="0.50" alt="Hi Folks!" aria-hidden="true">
+                                    <img src="<?= $baseUrl ?>/images/icons/waving-hand.png" srcset="<?= $baseUrl ?>/images/icons/waving-hand.png 1x, <?= $baseUrl ?>/images/icons/waving-hand-2x.png 2x" data-depth="0.50" alt="Hi Folks!" aria-hidden="true">
                                 </span>
                                 <br class="last_separator">
                                 <span>I'm </span><?= $author; ?><span>,&nbsp;

@@ -1,6 +1,6 @@
 # rippleLoad
 ## TODO:
-• xxx
+• verificare detect analytics su samsung s8 chrome
 ## Setup:
 Install Dependencies:
 ```shell

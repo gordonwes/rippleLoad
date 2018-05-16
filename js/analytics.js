@@ -2,7 +2,7 @@
 //@@@@@@@@@@@@@@@@@@@@@    ANALYTICS    @@@@@@@@@@@@@@@@@@@@@@@@//
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@//
 
-var htmlStyle = document.documentElement.style,
+var htmlStyle = docEl.style,
     isWebkit = 'WebkitAppearance' in htmlStyle,
     isChromium = !!window.chrome,
     isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream,

@@ -3,3 +3,7 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^. index.php [QSA,L]
+
+<filesMatch ".(ico|pdf|flv|jpg|svg|jpeg|png|gif|js|css|swf)$">
+Header set Cache-Control "max-age=31536000, public"
+</filesMatch>

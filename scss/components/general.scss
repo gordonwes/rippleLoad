@@ -38,7 +38,7 @@ body{
             transition: visibility 0s, opacity 0.4s ease-in-out;
         }
     }
-    &:after{
+    &:before{
         display: none;
         content: '';
         position: fixed;
