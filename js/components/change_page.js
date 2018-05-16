@@ -24,6 +24,10 @@ function initBarba() {
                 opacity: ['1', '0'],
                 duration: exitDuration,
                 easing: easing,
+                begin: function() {
+                    firstLoad = false;
+                    body.classList.add('is_loading');
+                },
                 complete: function() {
                     deferred.resolve();
                 }
@@ -41,7 +45,10 @@ function initBarba() {
                 opacity: ['0', '1'],
                 delay: delayIntro,
                 duration: introDuration,
-                easing: easing
+                easing: easing,
+                begin: function() {
+                    body.classList.remove('is_loading');
+                }
             });
         }
 
@@ -92,7 +99,7 @@ function initBarba() {
 
             document.documentElement.style.setProperty('--bkg', nextColor);
             document.querySelector('[name="theme-color"]').setAttribute('content', nextColor);
-        
+
         }
 
     });

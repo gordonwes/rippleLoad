@@ -15,7 +15,7 @@ $pageDesc = 'Web developer based in Treviso, Italy';
 
     </head>
 
-    <body>
+    <body class="is_loading">
 
         <?php include_once 'fragments/header.php'; ?>
 
@@ -75,7 +75,7 @@ $pageDesc = 'Web developer based in Treviso, Italy';
                     </div>
 
                 </section>
-
+                
             </div>
         </main>
 

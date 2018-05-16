@@ -42,7 +42,12 @@ function initPages(page) {
                     opacity: ['0', '1'],
                     delay: 200,
                     duration: 400,
-                    easing: 'easeInOutQuad'
+                    easing: 'easeInOutQuad',
+                    begin: function() {
+                        if (firstLoad) {
+                            body.classList.remove('is_loading');
+                        }
+                    }
                 });
                 introCalled = true;
             }
@@ -117,9 +122,14 @@ function initPages(page) {
             filter = page.querySelector('.filters'),
             filters = page.querySelectorAll('.filters button'),
             backTop = page.querySelector('.end_list a'),
+            changedFilterProject = false,
             istancePackery;
 
         function initProjects(elems) {
+
+            if (firstLoad) {
+                body.classList.remove('is_loading');
+            }
 
             if (docWidth > 500) {
                 istancePackery = new Packery(projectsContainer, {
@@ -136,7 +146,10 @@ function initPages(page) {
             });
 
             initFilter();
-            detectVisibilityGoTop(backTop);
+
+            setTimeout(function() {
+                detectVisibilityGoTop(backTop);
+            }, !changedFilterProject ? 200 : 0);
 
         }
 
@@ -210,7 +223,9 @@ function initPages(page) {
                 }
             }
 
-            setAnimationElem();
+            setTimeout(function() {
+                setAnimationElem();
+            }, !changedFilterProject ? 500 : 0);
             page.addEventListener('scroll', requestTickProject, false);
 
         }
@@ -251,6 +266,8 @@ function initPages(page) {
                                 setActiveFilter(elem, parentElem, filterValue);
                             }
                         }
+
+                        changedFilterProject = true;
 
                     }
 
@@ -378,8 +395,8 @@ function initPages(page) {
                 elem.style.backgroundColor = nextColor;
                 moreScrollSx.style.backgroundImage = 'linear-gradient(to right, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
                 moreScrollDx.style.backgroundImage = 'linear-gradient(to left, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
-                moreScrollSx.style.backgroundImage = '-webkit-linear-gradient(right, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
-                moreScrollDx.style.backgroundImage = '-webkit-linear-gradient(left, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
+                moreScrollSx.style.backgroundImage = '-webkit-linear-gradient(to right, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
+                moreScrollDx.style.backgroundImage = '-webkit-linear-gradient(to left, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
             }
 
             function setMoreFilterInit() {
@@ -464,17 +481,15 @@ function initPages(page) {
 
         }
 
-        setTimeout(function () {
-            initProjects(projects);
-            if (isMobile) {
-                filtersMobile(filter);
-            }
-        }, 300);
+        initProjects(projects);
+        if (isMobile) {
+            filtersMobile(filter);
+        }
 
     }
 
     if ((actualPage === 'about-me' || actualPage === 'projects') && !analyticsInit) {
-        window.addEventListener("load", loadAnalytics, false);
+        window.addEventListener('load', loadAnalytics, false);
     }
 
 }

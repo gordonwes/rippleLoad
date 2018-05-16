@@ -1,6 +1,6 @@
 # rippleLoad
 ## TODO:
-• change fx project cover -- too bug
+• xxx
 ## Setup:
 Install Dependencies:
 ```shell

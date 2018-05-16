@@ -14,7 +14,7 @@
         <?php } ?>
 
     </nav>
-
+    
 </header>
 
 <canvas id="color_change"></canvas>

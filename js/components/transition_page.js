@@ -86,7 +86,7 @@ var Circle = function (opts) {
 }
 
 Circle.prototype.draw = function () {
-    ctx.globalAlpha = this.opacity || 1;
+    //ctx.globalAlpha = 1;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
     if (this.fill) {
@@ -94,11 +94,11 @@ Circle.prototype.draw = function () {
         ctx.fill();
     }
     ctx.closePath();
-    ctx.globalAlpha = 1;
 }
 
 var animate = anime({
     duration: Infinity,
+    autoplay: false,
     update: function (anim) {
 
         ctx.fillStyle = firstColor;
@@ -106,7 +106,7 @@ var animate = anime({
 
         if (fillAnimation != null) {
             fillAnimation.animatables.forEach(function (animatable) {
-                animatable.target.draw();
+                animatable.target.draw();                
             });
         }
 

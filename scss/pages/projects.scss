@@ -169,195 +169,196 @@
                         .container_txt {
                             .description {
                                 height: calc(#{$height_project_x2} - 100%);
-                                top: calc(-#{$height_project_x2} + 100%);
-                            }
-                        }
+                            top: calc(-#{$height_project_x2} + 100%);
+                                }
                     }
-                    .container_img {
-                        width: 100%;
-                        height: $height_project;
+                }
+                .container_img {
+                    width: 100%;
+                    height: $height_project;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    transition: transform 0.6s cubic-bezier(0.21, 1, 0.84, 1.01);
+                    transform: none;
+                    overflow: hidden;
+                    span {
+                        position: absolute;
+                        top: -0.75rem;
+                        left: -0.75rem;
+                        width: 105%;
+                        height: 105%;
+                        width: calc(100% + 1.5rem);
+                        height: calc(100% + 1.5rem);
+                        transition: visibility 0.4s 0s, opacity 0.4s;
+                        transition-delay: 0.1s;
+                        filter: blur(6px);
                         background-size: cover;
                         background-repeat: no-repeat;
                         background-position: center;
-                        transition: transform 0.6s cubic-bezier(0.21, 1, 0.84, 1.01);
-                        transform: none;
-                        overflow: hidden;
-                        span {
-                            position: absolute;
-                            top: -0.75rem;
-                            left: -0.75rem;
-                            width: 105%;
-                            height: 105%;
-                            width: calc(100% + 1.5rem);
-                            height: calc(100% + 1.5rem);
-                            transition: visibility 0.4s 0s, opacity 0.4s;
-                            transition-delay: 0.1s;
-                            filter: blur(6px);
-                            background-size: cover;
-                            background-repeat: no-repeat;
-                            background-position: center;
-                            pointer-events: none;
-                            z-index: 1;
-                        }
-                    }
-                    .container_txt {
-                        position: absolute;
-                        bottom: 0;
-                        left: 0;
-                        padding: 1.5rem;
-                        background-color: #fff;
-                        width: 100%;
-                        z-index: 3;
-                        h2,
-                        p,
-                        a {
-                            color: $gray !important;
-                        }
-                        p,
-                        a {
-                            font-size: 1.6rem;
-                        }
-                        .description {
-                            background-color: rgba(255, 255, 2555, 0.95);
-                            height: $height_project;
-                            height: calc(#{$height_project} - 100%);
-                            padding: 1.5rem;
-                            width: 100%;
-                            position: absolute;
-                            top: -216%;
-                            top: calc(-#{$height_project} + 100%);
-                            left: 0;
-                            z-index: -1;
-                            border-bottom: 1px solid #dadada;
-                            opacity: 0;
-                            visibility: hidden;
-                            overflow: auto;
-                            transition: opacity 0.3s, visibility 0s 0.3s;
-                            p{
-                                &::selection {
-                                    background: rgba(0,0,0,0.15);
-                                }
-                            }
-                        }
-                        .project_tag {
-                            margin-top: 1rem;
-                            span {
-                                cursor: default;
-                                font-size: 1.3rem;
-                                position: relative;
-                                text-transform: capitalize;
-                                color: var(--bkg);
-                            }
-                        }
-                        h2 {
-                            max-width: 70%;
-                            max-width: calc(100% - 11rem);
-                            text-overflow: ellipsis;
-                            overflow: hidden;
-                            white-space: nowrap;
-                        }
-                        a {
-                            display: inline-block;
-                            padding-right: 2rem;
-                            position: absolute;
-                            top: 1.8rem;
-                            right: 1.5rem;
-                            &:before,
-                            &:after {
-                                position: absolute;
-                                right: 0.3rem;
-                            }
-                            &:before {
-                                content: '';
-                                background-image: url(../images/icons/link_dark.svg);
-                                background-size: contain;
-                                background-repeat: no-repeat;
-                                background-position: center;
-                                height: 1.1rem;
-                                width: 1.1rem;
-                                top: 0.7rem;
-                                opacity: 1;
-                                visibility: visible;
-                                transition: transform 0.2s, opacity 0.2s, visibility 0.2s 0s;
-                            }
-                            &:after {
-                                content: '>';
-                                top: 0rem;
-                                color: var(--bkg) !important;
-                                transform: translate3d(0, -0.5rem, 0);
-                                opacity: 0;
-                                visibility: hidden;
-                                transition: transform 0.2s, opacity 0.2s, visibility 0s 0.2s;
-                                line-height: 1.4;
-                            }
-                            &:hover {
-                                &:before {
-                                    transform: translate3d(0, -0.5rem, 0);
-                                    opacity: 0;
-                                    visibility: hidden;
-                                    transition: transform 0.2s, opacity 0.2s, visibility 0s 0.2s;
-                                }
-                                &:after {
-                                    transform: none;
-                                    opacity: 1;
-                                    visibility: visible;
-                                    transition: transform 0.2s, opacity 0.2s, visibility 0.2s 0s;
-                                }
-                            }
-                        }
-                    }
-                    &.is_hidden {
-                        display: none;
-                    }
-                    &:hover {
-                        .container_img {
-                            transform: scale3d(1.03, 1.03, 1.03);
-                            transition: transform 1s cubic-bezier(0.21, 1, 0.84, 1.01);
-                        }
-                        .container_txt {
-                            h2 {
-                                text-overflow: inherit;
-                                white-space: normal;
-                            }
-                            .description {
-                                opacity: 1;
-                                visibility: visible;
-                                transition: opacity 0.4s, visibility 0s 0s;
-                            }
-                        }
-                    }
-                    &.bkg_loaded {
-                        .container_img {
-                            span {
-                                opacity: 0;
-                                visibility: hidden;
-                            }
-                        }
-                    }
-                    &.istant_load {
-                        .container_img {
-                            span {
-                                transition: none !important;
-                            }
-                        }
+                        pointer-events: none;
+                        z-index: 1;
                     }
                 }
-                p.empty_list {
-                    padding: 0 1.5rem;
+                .container_txt {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    padding: 1.5rem;
+                    background-color: #fff;
+                    width: 100%;
+                    z-index: 3;
+                    h2,
+                    p,
+                    a {
+                        color: $gray !important;
+                    }
+                    p,
+                    a {
+                        font-size: 1.6rem;
+                    }
+                    .description {
+                        background-color: rgba(255, 255, 2555, 0.95);
+                        height: $height_project;
+                        height: calc(#{$height_project} - 100%);
+                    padding: 1.5rem;
+                    width: 100%;
+                    position: absolute;
+                    top: -216%;
+                    top: calc(-#{$height_project} + 100%);
+                        left: 0;
+                        z-index: -1;
+                        border-bottom: 1px solid #dadada;
+                        opacity: 0;
+                        visibility: hidden;
+                        overflow: auto;
+                        transition: opacity 0.3s, visibility 0s 0.3s;
+                        p{
+                            &::selection {
+                            background: rgba(0,0,0,0.15);
+                            }
                 }
             }
-            .end_list {
-                padding: 3rem 1.5rem;
-                p,
-                a {
-                    color: #fff;
-                    font-size: 1.4rem;
+            .project_tag {
+                margin-top: 1rem;
+                span {
+                    cursor: default;
+                    font-size: 1.3rem;
+                    position: relative;
+                    text-transform: capitalize;
+                    color: var(--bkg);
+                    transition: color 0.2s 0s;
                 }
-                a {
-                    font-weight: 500;
+            }
+            h2 {
+                max-width: 70%;
+                max-width: calc(100% - 11rem);
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            a {
+                display: inline-block;
+                padding-right: 2rem;
+                position: absolute;
+                top: 1.8rem;
+                right: 1.5rem;
+                &:before,
+                &:after {
+                    position: absolute;
+                    right: 0.3rem;
+                }
+                &:before {
+                    content: '';
+                    background-image: url(../images/icons/link_dark.svg);
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    height: 1.1rem;
+                    width: 1.1rem;
+                    top: 0.7rem;
+                    opacity: 1;
+                    visibility: visible;
+                    transition: transform 0.2s, opacity 0.2s, visibility 0.2s 0s;
+                }
+                &:after {
+                    content: '>';
+                    top: 0rem;
+                    color: var(--bkg) !important;
+                    transform: translate3d(0, -0.5rem, 0);
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: transform 0.2s, opacity 0.2s, visibility 0s 0.2s;
+                    line-height: 1.4;
+                }
+                &:hover {
+                    &:before {
+                        transform: translate3d(0, -0.5rem, 0);
+                        opacity: 0;
+                        visibility: hidden;
+                        transition: transform 0.2s, opacity 0.2s, visibility 0s 0.2s;
+                    }
+                    &:after {
+                        transform: none;
+                        opacity: 1;
+                        visibility: visible;
+                        transition: transform 0.2s, opacity 0.2s, visibility 0.2s 0s;
+                    }
+                }
+            }
+        }
+        &.is_hidden {
+            display: none;
+        }
+        &:hover {
+            .container_img {
+                transform: scale3d(1.03, 1.03, 1.03);
+                transition: transform 1s cubic-bezier(0.21, 1, 0.84, 1.01);
+            }
+            .container_txt {
+                h2 {
+                    text-overflow: inherit;
+                    white-space: normal;
+                }
+                .description {
+                    opacity: 1;
+                    visibility: visible;
+                    transition: opacity 0.4s, visibility 0s 0s;
+                }
+            }
+        }
+        &.bkg_loaded {
+            .container_img {
+                span {
+                    opacity: 0;
                     visibility: hidden;
                 }
             }
         }
+        &.istant_load {
+            .container_img {
+                span {
+                    transition: none !important;
+                }
+            }
+        }
     }
+    p.empty_list {
+        padding: 0 1.5rem;
+    }
+}
+.end_list {
+    padding: 3rem 1.5rem;
+    p,
+    a {
+        color: #fff;
+        font-size: 1.4rem;
+    }
+    a {
+        font-weight: 500;
+        visibility: hidden;
+    }
+}
+}
+}
 }
