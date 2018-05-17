@@ -15,13 +15,16 @@
 </div>
 
 <script>
-    var nameCookie = '<?= str_replace(' ', '_', strtolower($siteName)) ?>_cookie';
-    var isDev = <?= $isDev ?>;
-    var colors = <?= json_encode($colorsBkg) ?>;
-    var firstColor = '<?= $mainColor ?>';
-    var baseUrl = '<?= $baseUrl ?>';
-    console.info('%cMade with ❤️ by ' + '%c<?= $author; ?>' + ' %c@<?= date("Y"); ?>', 'font-weight: bold; color: #999;','font-weight: bold; color: <?= $mainColor ?>;', 'color: #999;');
-    console.info('✍️ <?= $email; ?>');
+    var nameCookie = '<?= str_replace(' ', '_', strtolower($siteName)) ?>_cookie',
+        isDev = <?= $isDev ?>,
+        colors = <?= json_encode($colorsBkg) ?>,
+        firstColor = '<?= $mainColor ?>',
+        adminColor = '<?= $adminColor ?>',
+        baseUrl = '<?= $baseUrl ?>';
+    
+    console.info('%cMade with ❤️ by ' + '%c<?= $author ?>' + ' %c@<?= date("Y") ?>', 'font-weight: bold; color: #999;','font-weight: bold; color: <?= $mainColor ?>;', 'color: #999;');
+    console.info('✍️ <?= $email ?>');
+    
     paceOptions = {
         restartOnRequestAfter: false
     }

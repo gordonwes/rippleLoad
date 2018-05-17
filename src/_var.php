@@ -5,6 +5,12 @@ $baseUrl = 'http://localhost:8888/rippleLoad';
 //$baseUrl = 'http://workspacestage.altervista.org';
 
 $siteName = 'Alberto Gorgonio';
+
+function hexToRGB($hex, $alpha) {
+    list($r, $g, $b) = sscanf($hex, "#%02x%02x%02x");
+    return $mainColorAlpha = 'rgba(' . $r . ',' . $g . ',' . $b . ',' . $alpha . ')';
+}
+
 $colorsBkg = array(
     "#4A89DC", 
     "#DA4453",
@@ -14,6 +20,8 @@ $colorsBkg = array(
 );
 
 $mainColor = $colorsBkg[array_rand($colorsBkg, 1)];
+$mainColorAlpha = hexToRGB($mainColor, 0);
+$adminColor = '#5d5d5d';
 
 $locale = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 $author = 'Alberto Gorgonio';

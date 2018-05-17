@@ -393,8 +393,9 @@ function initPages(page) {
 
             if (nextColor !== 'undefined') {
                 elem.style.backgroundColor = nextColor;
-                moreScrollSx.style.backgroundImage = 'linear-gradient(to right, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
-                moreScrollDx.style.backgroundImage = 'linear-gradient(to left, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
+                var nextColorAlpha = hexToRgb(nextColor);
+                moreScrollSx.style.backgroundImage = 'linear-gradient(to right, ' + nextColor + ' 55%, rgba(' + nextColorAlpha + ', 0) 100%)';
+                moreScrollDx.style.backgroundImage = 'linear-gradient(to left, ' + nextColor + ' 55%, rgba(' + nextColorAlpha + ', 0) 100%)';
             }
 
             function setMoreFilterInit() {
@@ -402,8 +403,7 @@ function initPages(page) {
                 if (containerScrollFilter.scrollWidth > docWidth - (1.5 * font)) {
 
                     containerMoreScroll.classList.add('active');
-                    //containerMoreScroll.style.left = elem.scrollLeft + 'px';
-
+                    
                     var isFixedMenu = page.scrollTop > heightNavFilter;
                     var varFixed = isFixedMenu ? '0' : (3 * font);
 

@@ -71,15 +71,15 @@
         background-color: <?= $mainColor ?>;
     }
     .container_more_scroll .scroll_sx{
-        background: linear-gradient(to right, <?= $mainColor ?> 55%, rgba(255,255,255,0) 100%);
+        background: linear-gradient(to right, <?= $mainColor ?> 55%, <?= $mainColorAlpha; ?> 100%);
     }
     .container_more_scroll .scroll_dx{
-        background: linear-gradient(to left, <?= $mainColor ?> 55%, rgba(255,255,255,0) 100%);
+        background: linear-gradient(to left, <?= $mainColor ?> 55%, <?= $mainColorAlpha; ?> 100%);
     }
 
     <?php if (isset($media_block)) {
     echo $media_block;
-} ?>
+    } ?>
 
 </style>
 

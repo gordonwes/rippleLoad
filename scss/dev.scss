@@ -5,6 +5,7 @@
 @import 'var';
 
 .barba-container[data-namespace="dev"]{
+    background-color: $admin_color;
     ul{
         padding-top: 3rem;
         li{

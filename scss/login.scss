@@ -5,6 +5,7 @@
 @import 'var';
 
 .barba-container[data-namespace="login"]{
+    background-color: $admin_color;
     section{
         display: table;
         width: 100%;

@@ -64,12 +64,14 @@
                     }
                 }
                 .container_more_scroll {
-                    display: none;
+                    visibility: hidden;
+                    opacity: 0;
                     width: 100%;
                     position: absolute;
                     top: 0;
                     left: 0;
                     height: 0;
+                    transition: visibility 0s, opacity 0.6s 0.6s;
                     .scroll_sx,
                     .scroll_dx {
                         width: 4rem;
@@ -109,7 +111,8 @@
                         }
                     }
                     &.active {
-                        display: block;
+                        visibility: visible;
+                        opacity: 1;
                     }
                     &:before,
                     &:after {

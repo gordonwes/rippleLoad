@@ -581,13 +581,21 @@ $app->post('/upload/project', function ($request, $response, $args) {
                     $maxWidthRetina = $maxWidth * $retinaMultiplier;
                     $maxHeightRetina = $maxHeight * $retinaMultiplier;
                     
-                    $image
-                        ->crop($maxWidthRetina, $maxHeightRetina)
-                        ->save($newPathRetina, null, $qualityRetina)
-                        ;
+                    if ($projectSize !== 'h2' && $projectSize !== 'w2') {
+                        $qualityRetinaMod = $qualityRetina * 0.9;
+                        $image
+                            ->crop($maxWidthRetina, $maxHeightRetina)
+                            ->save($newPathRetina, null, $qualityRetinaMod)
+                            ;
+                    } else {
+                        $image
+                            ->crop($maxWidthRetina, $maxHeightRetina)
+                            ->save($newPathRetina, null, $qualityRetina)
+                            ;
+                    }
 
                 }
-                
+                                
                 $image
                     ->crop($thumbWidth, $thumbHeight)
                     ->save($fullThumbPath, null, $thumbQuality)

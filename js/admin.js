@@ -315,4 +315,7 @@ domReady(function () {
 
     fileUpload();
 
+    docEl.style.setProperty('--bkg', adminColor);
+    document.querySelector('[name="theme-color"]').setAttribute('content', adminColor);
+
 });
