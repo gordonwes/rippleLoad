@@ -50,6 +50,8 @@ var deviceType = {
     'lang': userLang
 }
 
+console.log(deviceType);
+
 var analyticsRequest = new XMLHttpRequest();
 
 analyticsRequest.addEventListener("error", function() {

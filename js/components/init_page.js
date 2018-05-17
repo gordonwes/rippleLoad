@@ -225,7 +225,7 @@ function initPages(page) {
 
             setTimeout(function() {
                 setAnimationElem();
-            }, !changedFilterProject ? 500 : 0);
+            }, !changedFilterProject ? 600 : 0);
             page.addEventListener('scroll', requestTickProject, false);
 
         }
@@ -395,8 +395,6 @@ function initPages(page) {
                 elem.style.backgroundColor = nextColor;
                 moreScrollSx.style.backgroundImage = 'linear-gradient(to right, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
                 moreScrollDx.style.backgroundImage = 'linear-gradient(to left, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
-                moreScrollSx.style.backgroundImage = '-webkit-linear-gradient(to right, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
-                moreScrollDx.style.backgroundImage = '-webkit-linear-gradient(to left, ' + nextColor + ' 55%, rgba(255,255,255,0) 100%)';
             }
 
             function setMoreFilterInit() {

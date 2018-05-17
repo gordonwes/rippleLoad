@@ -2,6 +2,7 @@
 ## TODO:
 • verificare detect analytics su samsung s8 chrome
 • safari spinner non va (keyframes?)
+• safari gradient mobile su tag fix
 ## Setup:
 Install Dependencies:
 ```shell

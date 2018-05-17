@@ -20,8 +20,8 @@
     var colors = <?= json_encode($colorsBkg) ?>;
     var firstColor = '<?= $mainColor ?>';
     var baseUrl = '<?= $baseUrl ?>';
-    console.info('%cMade by ' + '%c<?= $author; ?>' + ' %c@<?= date("Y"); ?>', 'font-weight: bold; color: #999;','font-weight: bold; color: <?= $mainColor ?>;', 'color: #999;');
-    console.info('<?= $email; ?>');
+    console.info('%cMade with ❤️ by ' + '%c<?= $author; ?>' + ' %c@<?= date("Y"); ?>', 'font-weight: bold; color: #999;','font-weight: bold; color: <?= $mainColor ?>;', 'color: #999;');
+    console.info('✍️ <?= $email; ?>');
     paceOptions = {
         restartOnRequestAfter: false
     }
