@@ -1,6 +1,7 @@
 # rippleLoad
 ## TODO:
 • verificare detect analytics su samsung s8 chrome
+• safari spinner non va (keyframes?)
 ## Setup:
 Install Dependencies:
 ```shell
