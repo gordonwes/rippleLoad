@@ -25,7 +25,7 @@ function setCookie() {
             targets: infCookie,
             translateY: ['100%', '0%'],
             duration: 600,
-            delay: 600,
+            delay: 1200,
             easing: 'easeInOutQuad',
             begin: function() {
                 buttCookie.addEventListener('click', removeCookieBanner, false);
