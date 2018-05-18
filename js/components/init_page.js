@@ -78,7 +78,7 @@ function initPages(page) {
                     moreButton.textContent = 'MORE +';
                     var pageScrollGap = page.scrollTop > 10;
                     if (pageScrollGap) {
-                        goTop('.barba-container', 600);
+                        goTop(0, 600);
                     }
                     containerIntro.classList.remove('detail_active');
                     var exitMore = anime({
@@ -252,13 +252,13 @@ function initPages(page) {
                             parentFixed = parentElem.classList.contains('fixed');
 
                         if (parentFixed) {
-                            goTop('.barba-container', 400);
+                            goTop(0, 400);
                             setTimeout(function () {
                                 setActiveFilter(elem, parentElem, filterValue);
                             }, 400);
                         } else {
                             if (page.scrollTop > 5) {
-                                goTop('.barba-container', 100);
+                                goTop(0, 100);
                                 setTimeout(function () {
                                     setActiveFilter(elem, parentElem, filterValue);
                                 }, 100);

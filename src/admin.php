@@ -13,6 +13,7 @@ $pageDesc = 'Manage projects and tags like a boss';
 
         <?php include_once 'fragments/head.php'; ?>
 
+        <link href="<?= $baseUrl ?>/css/login<?php if ($isDev !== 'true') echo '.min' ?>.css" rel="stylesheet">
         <link href="<?= $baseUrl ?>/css/admin<?php if ($isDev !== 'true') echo '.min' ?>.css" rel="stylesheet">
 
     </head>
@@ -63,8 +64,8 @@ $pageDesc = 'Manage projects and tags like a boss';
 
                                     <datalist id="tags_suggestion">
                                         <?php foreach ($tags_list as $tag) {
-    echo '<option value="' , $tag , '">';
-} ?>
+                                            echo '<option value="' , $tag , '">';
+                                        } ?>
                                     </datalist>
 
                                 </form>
@@ -82,8 +83,8 @@ $pageDesc = 'Manage projects and tags like a boss';
                                         <h3>Tags</h3>
 
                                         <?php foreach ($tags_list as $tag) {
-    echo '<label><input type="checkbox" name="projecttags[]" value="' , $tag , '"><i></i><span>' , $tag , '</span></label>';
-}
+                                            echo '<label><input type="checkbox" name="projecttags[]" value="' , $tag , '"><i></i><span>' , $tag , '</span></label>';
+                                        }
                                       if (count($tags_list) == 0) {
                                           echo '<p class="empty_list">No tags yet!</p>';
                                       } ?>
@@ -138,7 +139,7 @@ $pageDesc = 'Manage projects and tags like a boss';
                                     </thead>
                                     <tbody>
                                         <?php foreach ($visited_user_list as $visited_user) { 
-    $index_visitor++; ?>
+                                        $index_visitor++; ?>
                                         <tr>
                                             <td><?= $index_visitor; ?></td>
                                             <td><?= $visited_user['device']; ?></td>

@@ -107,10 +107,10 @@ function loadAnalytics() {
 
 ////// scroll to top //////////////
 
-function goTop(elemScroll, duration) {
+function goTop(scrollDistance, duration) {
     anime({
-        targets: document.querySelector(elemScroll),
-        scrollTop: 0,
+        targets: document.querySelector('.barba-container'),
+        scrollTop: scrollDistance,
         duration: duration,
         easing: 'easeInOutQuad'
     });

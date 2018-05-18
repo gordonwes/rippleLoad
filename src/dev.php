@@ -13,6 +13,7 @@ $pageDesc = 'Private server for small stuff';
 
         <?php include_once 'fragments/head.php'; ?>
 
+        <link href="<?= $baseUrl ?>/css/login<?php if ($isDev !== 'true') echo '.min' ?>.css" rel="stylesheet">
         <link href="<?= $baseUrl ?>/css/dev<?php if ($isDev !== 'true') echo '.min' ?>.css" rel="stylesheet">
 
     </head>
