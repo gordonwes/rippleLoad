@@ -281,6 +281,13 @@ $app->get('/projects', function ($request, $response, $args) {
     return $response;
 })->setName('projects');
 
+$app->get('/privacy', function ($request, $response, $args) {
+    $response = $this->renderer->render($response, 'privacy.php', array(
+        'media_block' => $this->get("projectMediaBlock")
+    ));
+    return $response;
+})->setName('privacy');
+
 $app->get('/login', function ($request, $response, $args) {
 
     if (isset($_SESSION["admin"])) {

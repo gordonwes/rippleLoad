@@ -43,11 +43,7 @@ function initPages(page) {
                     delay: 200,
                     duration: 400,
                     easing: 'easeInOutQuad',
-                    begin: function() {
-                        if (firstLoad) {
-                            body.classList.remove('is_loading');
-                        }
-                    }
+                    begin: removeSpinner
                 });
                 introCalled = true;
             }
@@ -78,7 +74,7 @@ function initPages(page) {
                     moreButton.textContent = 'MORE +';
                     var pageScrollGap = page.scrollTop > 10;
                     if (pageScrollGap) {
-                        goTop('.barba-container', 600);
+                        goTop(0, 600);
                     }
                     containerIntro.classList.remove('detail_active');
                     var exitMore = anime({
@@ -127,9 +123,7 @@ function initPages(page) {
 
         function initProjects(elems) {
 
-            if (firstLoad) {
-                body.classList.remove('is_loading');
-            }
+            removeSpinner();
 
             if (docWidth > 500) {
                 istancePackery = new Packery(projectsContainer, {
@@ -252,13 +246,13 @@ function initPages(page) {
                             parentFixed = parentElem.classList.contains('fixed');
 
                         if (parentFixed) {
-                            goTop('.barba-container', 400);
+                            goTop(0, 400);
                             setTimeout(function () {
                                 setActiveFilter(elem, parentElem, filterValue);
                             }, 400);
                         } else {
                             if (page.scrollTop > 5) {
-                                goTop('.barba-container', 100);
+                                goTop(0, 100);
                                 setTimeout(function () {
                                     setActiveFilter(elem, parentElem, filterValue);
                                 }, 100);
@@ -403,7 +397,7 @@ function initPages(page) {
                 if (containerScrollFilter.scrollWidth > docWidth - (1.5 * font)) {
 
                     containerMoreScroll.classList.add('active');
-                    
+
                     var isFixedMenu = page.scrollTop > heightNavFilter;
                     var varFixed = isFixedMenu ? '0' : (3 * font);
 
@@ -486,7 +480,11 @@ function initPages(page) {
 
     }
 
-    if ((actualPage === 'about-me' || actualPage === 'projects') && !analyticsInit) {
+    if (actualPage === 'privacy-policy') {
+        removeSpinner();
+    }
+
+    if (!analyticsInit) {
         window.addEventListener('load', loadAnalytics, false);
     }
 

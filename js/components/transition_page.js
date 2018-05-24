@@ -36,7 +36,7 @@ function calcPageFillRadius(x, y) {
 }
 
 function handleEvent(e) {
-
+    
     if (e.touches) {
         e.preventDefault();
         e = e.touches[0];

@@ -54,7 +54,7 @@ function calcSizeViewport() {
     docHeight = docEl.clientHeight;
     docWidth = docEl.clientWidth;
     fontSize = window.getComputedStyle(html),
-    font = parseInt(fontSize.getPropertyValue('font-size'));
+        font = parseInt(fontSize.getPropertyValue('font-size'));
 }
 
 calcSizeViewport();
@@ -77,6 +77,12 @@ function hexToRgb(hex) {
     return result ? parseInt(result[1], 16) + ',' + parseInt(result[2], 16) + ',' + parseInt(result[3], 16) : null;
 }
 
+function removeSpinner() {
+    if (firstLoad) {
+        body.classList.remove('is_loading');
+    }
+}
+
 ////// set active menu voice //////////////
 
 function setMenuVoice(triggerEvent) {
@@ -91,7 +97,7 @@ function setMenuVoice(triggerEvent) {
         }
     });
 
-    if (triggerEvent && !triggerEvent.classList.contains('is_active')) {
+    if (triggerEvent && !triggerEvent.classList.contains('is_active') && triggerEvent.parentElement.getAttribute('id') !== 'contenitore_bottone_cookie') {
         triggerEvent.classList.add('is_active');
     }
 }
@@ -107,10 +113,10 @@ function loadAnalytics() {
 
 ////// scroll to top //////////////
 
-function goTop(elemScroll, duration) {
+function goTop(scrollDistance, duration) {
     anime({
-        targets: document.querySelector(elemScroll),
-        scrollTop: 0,
+        targets: document.querySelector('.barba-container'),
+        scrollTop: scrollDistance,
         duration: duration,
         easing: 'easeInOutQuad'
     });

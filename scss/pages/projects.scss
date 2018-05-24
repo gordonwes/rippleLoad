@@ -159,7 +159,7 @@
                     position: relative;
                     opacity: 0;
                     background-color: rgba(255, 255, 255, 0.3);
-                    border-radius: 3px;
+                    border-radius: $border_radius;
                     overflow: hidden;
                     box-shadow: 0 0 3px rgba(0,0,0,0.2);
                     &.w2 {
@@ -222,7 +222,8 @@
                         font-size: 1.6rem;
                     }
                     .description {
-                        background-color: rgba(255, 255, 2555, 0.95);
+                        background-color: rgba(255, 255, 255, 0.95);
+                        background: linear-gradient(to top, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.95) 100%);
                         height: $height_project;
                         height: calc(#{$height_project} - 100%);
                     padding: 1.5rem;

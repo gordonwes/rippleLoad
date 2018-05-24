@@ -5,11 +5,7 @@
         </div>
         <div id="contenitore_bottone_cookie"> 
             <a id="ok_cookie" href="#">OK</a>
-            <?php if ($locale !== 'it'){
-    echo '<a href="https://en.wikipedia.org/wiki/HTTP_cookie" target="_blank" rel="noopener">More info</a>';
-} else {
-    echo '<a href="https://it.wikipedia.org/wiki/Cookie" target="_blank" rel="noopener">More info</a>';
-} ?>
+            <a href="<?= $baseUrl ?>/privacy">More info</a>
         </div>
     </div>
 </div>
@@ -23,11 +19,8 @@
         baseUrl = '<?= $baseUrl ?>';
     
     console.info('%cMade with ❤️ by ' + '%c<?= $author ?>' + ' %c@<?= date("Y") ?>', 'font-weight: bold; color: #999;','font-weight: bold; color: <?= $mainColor ?>;', 'color: #999;');
-    
     console.info('🌴🌴🌴🌴🌴🌴🌴🌴🌴🌴🌴🌴🌴🌴');
     console.info('🙌 <?= $email ?> 🕺');
-    
-
     
     paceOptions = {
         restartOnRequestAfter: false
