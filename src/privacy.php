@@ -28,7 +28,9 @@ $pageDesc = 'Privacy policy for Alberto Gorgonio';
 
                         <div class="container_privacy">
 
-                            <p>Privacy</p>
+                            <h1>Privacy</h1>
+                            
+                            <p>Lorem ipsum dolor sit amed</p>
 
                         </div>
 

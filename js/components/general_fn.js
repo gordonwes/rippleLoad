@@ -2,7 +2,7 @@ var domReady = function (callback) {
     document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
 };
 
-var docEl = document.documentElement, html = document.getElementsByTagName("html")[0], body = document.body, docHeight, docWidth, fontSize, font, introCalled = false, rippleRunning = false, firstLoad = true, analyticsInit = false;
+var docEl = document.documentElement, html = document.getElementsByTagName("html")[0], body = document.body, docHeight, docWidth, fontSize, font, tiggerShowPrj = -30, introCalled = false, rippleRunning = false, firstLoad = true, analyticsInit = false;
 
 /////// prevent scroll on touch  //////////////////
 

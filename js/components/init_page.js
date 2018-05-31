@@ -164,7 +164,6 @@ function initPages(page) {
 
             var hiddenProject = true,
                 tickProject = false,
-                tiggerShowPrj = -30,
                 imgLoaded = sessionStorage.getItem('img_loaded_' + index);
 
             if (imgLoaded) {
@@ -195,6 +194,7 @@ function initPages(page) {
                         },
                         begin: function () {
                             elem.classList.add('in_viewport');
+                            elem.style.willChange = 'opacity, transform';
                             hiddenProject = false;
                         },
                         complete: function () {
@@ -202,6 +202,7 @@ function initPages(page) {
                                 detectCoverLoad(elem, index);
                             }
                             page.removeEventListener('scroll', requestTickProject, false);
+                            elem.style.willChange = 'auto';
                         }
                     });
                 }
