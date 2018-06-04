@@ -13,8 +13,8 @@ module.exports = function (grunt) {
                     'node_modules/animejs/anime.min.js',
                     'node_modules/js-cookie/src/js.cookie.js',
                     'node_modules/pace-js/pace.min.js',
-                    'node_modules/imagesloaded/imagesloaded.pkgd.min.js',
                     'node_modules/parallax-js/dist/parallax.min.js',
+                    'node_modules/imagesloaded/imagesloaded.pkgd.min.js',
                     'node_modules/packery/dist/packery.pkgd.min.js',
                     'js/components/*.js',
                     'js/app.js'
@@ -56,7 +56,7 @@ module.exports = function (grunt) {
                 files: {
                     'css/style.css': 'scss/style.scss'
                 }
-            }, 
+            },
             admin: {
                 options: {
                     style: 'compressed',
@@ -138,7 +138,7 @@ module.exports = function (grunt) {
                 options: {
                     removeComments: true,
                     collapseWhitespace: true,
-                    ignoreCustomFragments: [ /<%[\s\S]*?%>/, /<\?[\s\S]*?(\?>|$)/ ],
+                    ignoreCustomFragments: [/<%[\s\S]*?%>/, /<\?[\s\S]*?(\?>|$)/],
                     html5: true
                 },
                 files: [{
@@ -156,7 +156,7 @@ module.exports = function (grunt) {
                 options: {
                     removeComments: true,
                     collapseWhitespace: true,
-                    ignoreCustomFragments: [ /<%[\s\S]*?%>/, /<\?[\s\S]*?(\?>|$)/ ],
+                    ignoreCustomFragments: [/<%[\s\S]*?%>/, /<\?[\s\S]*?(\?>|$)/],
                     html5: true
                 }
             },

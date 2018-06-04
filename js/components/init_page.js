@@ -141,7 +141,7 @@ function initPages(page) {
 
             initFilter();
 
-            setTimeout(function() {
+            setTimeout(function () {
                 detectVisibilityGoTop(backTop);
             }, !changedFilterProject ? 200 : 0);
 
@@ -171,7 +171,7 @@ function initPages(page) {
                 elem.classList.add('bkg_loaded');
             }
 
-            if (docWidth > 500) {
+            if (docWidth > 500 && changedFilterProject) {
                 istancePackery.layout();
             }
 
@@ -218,7 +218,7 @@ function initPages(page) {
                 }
             }
 
-            setTimeout(function() {
+            setTimeout(function () {
                 setAnimationElem();
             }, !changedFilterProject ? 600 : 0);
             page.addEventListener('scroll', requestTickProject, false);
