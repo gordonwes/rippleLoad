@@ -2,7 +2,14 @@ var domReady = function (callback) {
     document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
 };
 
-var docEl = document.documentElement, html = document.getElementsByTagName("html")[0], body = document.body, docHeight, docWidth, fontSize, font, tiggerShowPrj = -30, introCalled = false, rippleRunning = false, firstLoad = true, analyticsInit = false;
+var docEl = document.documentElement,
+    html = document.getElementsByTagName("html")[0],
+    body = document.body,
+    docHeight, docWidth, fontSize, font, tiggerShowPrj = -30,
+    introCalled = false,
+    rippleRunning = false,
+    firstLoad = true,
+    analyticsInit = false;
 
 /////// prevent scroll on touch  //////////////////
 
@@ -26,8 +33,8 @@ function restoreTM() {
     var vendors = ['ms', 'moz', 'webkit', 'o'];
     for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
         window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
-        window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame']
-        || window[vendors[x] + 'CancelRequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] ||
+            window[vendors[x] + 'CancelRequestAnimationFrame'];
     }
 
     if (!window.requestAnimationFrame)
@@ -35,9 +42,9 @@ function restoreTM() {
             var currTime = new Date().getTime();
             var timeToCall = Math.max(0, 16 - (currTime - lastTime));
             var id = window.setTimeout(function () {
-                callback(currTime + timeToCall);
-            },
-                                       timeToCall);
+                    callback(currTime + timeToCall);
+                },
+                timeToCall);
             lastTime = currTime + timeToCall;
             return id;
         };
@@ -58,7 +65,7 @@ function calcSizeViewport() {
 }
 
 calcSizeViewport();
-window.addEventListener('resize', function() {
+window.addEventListener('resize', function () {
     requestAnimationFrame(calcSizeViewport);
 }, false);
 
@@ -91,7 +98,7 @@ function setMenuVoice(triggerEvent) {
             elem.classList.remove('is_active');
         }
         if (elem.getAttribute('href') == window.location.href && !elem.classList.contains('no-barba')) {
-            elem.addEventListener('click', function(e) {
+            elem.addEventListener('click', function (e) {
                 e.preventDefault();
             }, false);
         }

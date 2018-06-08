@@ -162,8 +162,7 @@ function initPages(page) {
 
         function showProjectOnScroll(elem, index) {
 
-            var hiddenProject = true,
-                tickProject = false,
+            var tickProject = false,
                 imgLoaded = sessionStorage.getItem('img_loaded_' + index);
 
             if (imgLoaded) {
@@ -179,7 +178,7 @@ function initPages(page) {
 
                 var projectTop = elem.getBoundingClientRect().top;
 
-                if (projectTop - docHeight < tiggerShowPrj && hiddenProject) {
+                if (projectTop - docHeight < tiggerShowPrj && !elem.classList.contains('in_viewport')) {
                     var animProject = anime({
                         targets: elem,
                         opacity: {
@@ -194,15 +193,12 @@ function initPages(page) {
                         },
                         begin: function () {
                             elem.classList.add('in_viewport');
-                            elem.style.willChange = 'opacity, transform';
-                            hiddenProject = false;
                         },
                         complete: function () {
                             if (!imgLoaded) {
                                 detectCoverLoad(elem, index);
                             }
                             page.removeEventListener('scroll', requestTickProject, false);
-                            elem.style.willChange = 'auto';
                         }
                     });
                 }
@@ -309,6 +305,7 @@ function initPages(page) {
                 forEach(projects, function (index, elem) {
 
                     elem.classList.add('is_hidden');
+                    elem.classList.remove('in_viewport');
                     elem.style.opacity = '0';
 
                     if (filterValue !== '*') {
@@ -319,7 +316,7 @@ function initPages(page) {
                         elem.classList.remove('is_hidden');
                     }
 
-                    showProjectOnScroll(elem);
+                    showProjectOnScroll(elem, index);
 
                 });
 

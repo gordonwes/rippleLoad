@@ -3,9 +3,9 @@
         <div id="contenitore_testo_cookie">
             <p><strong>This site uses cookies.</strong> By continuing to browse the site you are agreeing to their use.</p>
         </div>
-        <div id="contenitore_bottone_cookie"> 
+        <div id="contenitore_bottone_cookie">
             <a id="ok_cookie" href="#">OK</a>
-            <a href="<?= $baseUrl ?>/privacy">More info</a>
+            <a href="<?= $baseUrl ?>/privacy">Learn more</a>
         </div>
     </div>
 </div>
